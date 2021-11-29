@@ -3,5 +3,4 @@ export default {
     icons: '"Material Icons"',
     main: '"Roboto", "Helvetica", "Arial", sans-serif',
   },
-  color: '#cda',
 };
