@@ -12,6 +12,7 @@ export const QUESTIONS = [
     hint: 'De-normalization is the process of optimizing the read performance of a database by adding redundant data or by grouping data. De-normalization is used in OLAP systems',
     id: 1,
     question: 'What is De-normalization?',
+    score: 9,
   },
   {
     tags: [
@@ -22,6 +23,7 @@ export const QUESTIONS = [
     hint: 'De-normalization is the process of optimizing the read performance of a database by adding redundant data or by grouping data. De-normalization is used in OLAP systems',
     id: 2,
     question: 'What are the differences between UNION and UNION ALL?',
+    score: null,
   },
   {
     tags: [
@@ -31,6 +33,37 @@ export const QUESTIONS = [
     level: { id: 1, label: 'Medium' },
     hint: 'De-normalization is the process of optimizing the read performance of a database by adding redundant data or by grouping data. De-normalization is used in OLAP systems',
     id: 3,
+    question: 'How to delete duplicate records in a table?',
+    score: 3,
+  },
+  {
+    tags: [
+      { id: 1, label: 'SQL' },
+      { id: 2, label: 'Databases' },
+    ],
+    level: { id: 1, label: 'Medium' },
+    hint: 'De-normalization is the process of optimizing the read performance of a database by adding redundant data or by grouping data. De-normalization is used in OLAP systems',
+    id: 4,
+    question: 'How to delete duplicate records in a table?',
+  },
+  {
+    tags: [
+      { id: 1, label: 'SQL' },
+      { id: 2, label: 'Databases' },
+    ],
+    level: { id: 1, label: 'Medium' },
+    hint: 'De-normalization is the process of optimizing the read performance of a database by adding redundant data or by grouping data. De-normalization is used in OLAP systems',
+    id: 5,
+    question: 'How to delete duplicate records in a table?',
+  },
+  {
+    tags: [
+      { id: 1, label: 'SQL' },
+      { id: 2, label: 'Databases' },
+    ],
+    level: { id: 1, label: 'Medium' },
+    hint: 'De-normalization is the process of optimizing the read performance of a database by adding redundant data or by grouping data. De-normalization is used in OLAP systems',
+    id: 6,
     question: 'How to delete duplicate records in a table?',
   },
 ];
