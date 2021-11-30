@@ -23,6 +23,16 @@ export default ({ className, questions }) => (
                 Add
               </a>
             </li>
+            <li aria-roledescription="filter">
+              <a href="/" title="Filter questions">
+                Filter
+              </a>
+            </li>
+            <li aria-roledescription="sort">
+              <a href="/" title="Sort questions">
+                Sort
+              </a>
+            </li>
           </ul>
         </nav>
       </article>
@@ -83,6 +93,82 @@ export default ({ className, questions }) => (
             </dl>
           </blockquote>
         </div>
+        <form>
+          <fieldset>
+            <legend>Overall score</legend>
+            <div aria-roledescription="field">
+              <div>
+                <input type="radio" name="score" id="score-0" value="0" />
+                <label htmlFor="score-0">
+                  <abbr title="Off">0</abbr>
+                </label>
+              </div>
+              <div>
+                <input type="radio" name="score" id="score-1" value="1" />
+                <label htmlFor="score-1">
+                  <abbr title="No idea">1</abbr>
+                </label>
+              </div>
+              <div>
+                <input type="radio" name="score" id="score-2" value="2" />
+                <label htmlFor="score-2">
+                  <abbr title="No idea">2</abbr>
+                </label>
+              </div>
+              <div>
+                <input type="radio" name="score" id="score-3" value="3" />
+                <label htmlFor="score-3">
+                  <abbr title="Poor">3</abbr>
+                </label>
+              </div>
+              <div>
+                <input type="radio" name="score" id="score-4" value="4" />
+                <label htmlFor="score-4">
+                  <abbr title="Poor">4</abbr>
+                </label>
+              </div>
+              <div>
+                <input type="radio" name="score" id="score-5" value="5" />
+                <label htmlFor="score-5">
+                  <abbr title="Weak">5</abbr>
+                </label>
+              </div>
+              <div>
+                <input type="radio" name="score" id="score-6" value="6" />
+                <label htmlFor="score-6">
+                  <abbr title="Weak">6</abbr>
+                </label>
+              </div>
+              <div>
+                <input type="radio" name="score" id="score-7" value="7" />
+                <label htmlFor="score-7">
+                  <abbr title="Good">7</abbr>
+                </label>
+              </div>
+              <div>
+                <input type="radio" name="score" id="score-8" value="8" />
+                <label htmlFor="score-8">
+                  <abbr title="Good">8</abbr>
+                </label>
+              </div>
+              <div>
+                <input type="radio" name="score" id="score-9" value="9" />
+                <label htmlFor="score-9">
+                  <abbr title="Great">9</abbr>
+                </label>
+              </div>
+              <div>
+                <input type="radio" name="score" id="score-10" value="10" />
+                <label htmlFor="score-10">
+                  <abbr title="Great">10</abbr>
+                </label>
+              </div>
+            </div>
+            <div aria-roledescription="control">
+              <button type="submit">Submit</button>
+            </div>
+          </fieldset>
+        </form>
         <nav>
           <h3>Actions:</h3>
           <ul>
@@ -137,6 +223,7 @@ export default ({ className, questions }) => (
           </fieldset>
         </form>
         <blockquote>
+          <h3>Comments</h3>
           <div>
             <dl aria-roledescription="message">
               <dt>Message</dt>

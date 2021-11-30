@@ -67,30 +67,66 @@ export default (component) => styled(component)`
               position: absolute;
               right: 1rem;
               top: 1rem;
+              z-index: 1;
 
               h3 {
                 display: none;
               }
 
-              a {
-                align-items: center;
-                background-color: #4c3bcc;
-                border-radius: 0.5rem;
-                color: #eeecfc;
-                display: inline-flex;
-                font-weight: 500;
-                overflow: hidden;
-                padding: 0.5rem 1rem;
-                text-decoration: none;
-                text-transform: uppercase;
+              ul {
+                display: flex;
+              }
 
-                &:before {
-                  content: 'add';
+              li {
+                &:not(:first-of-type) {
+                  margin-left: 1rem;
+                }
+
+                a {
+                  align-items: center;
+                  background-color: #4c3bcc;
+                  border-radius: 0.5rem;
+                  color: #eeecfc;
                   display: inline-flex;
-                  font-family: ${property('theme.typography.icons')};
-                  font-size: 1.25rem;
-                  margin-right: 0.25rem;
-                  text-transform: none;
+                  font-weight: 500;
+                  overflow: hidden;
+                  padding: 0.5rem 1rem;
+                  text-decoration: none;
+                  text-transform: uppercase;
+
+                  &:before {
+                    display: inline-flex;
+                    font-family: ${property('theme.typography.icons')};
+                    font-size: 1.25rem;
+                    text-transform: none;
+                  }
+                }
+
+                &[aria-roledescription='filter'],
+                &[aria-roledescription='sort'] {
+                  a {
+                    font-size: 0;
+                    padding: 0.5rem;
+                  }
+                }
+
+                &[aria-roledescription='add'] {
+                  a:before {
+                    content: 'add';
+                    margin-right: 0.25rem;
+                  }
+                }
+
+                &[aria-roledescription='filter'] {
+                  a:before {
+                    content: 'filter_alt';
+                  }
+                }
+
+                &[aria-roledescription='sort'] {
+                  a:before {
+                    content: 'sort';
+                  }
                 }
               }
             }
@@ -106,7 +142,8 @@ export default (component) => styled(component)`
           grid-template-areas:
             'actions'
             'title'
-            'details';
+            'details'
+            'score';
 
           & > {
             h1 {
@@ -156,6 +193,136 @@ export default (component) => styled(component)`
                     }
                   }
                 }
+              }
+            }
+
+            form {
+              grid-area: score;
+
+              legend,
+              button {
+                display: none;
+              }
+
+              fieldset {
+                & > {
+                  div {
+                    &[aria-roledescription='field'] {
+                      display: flex;
+
+                      &,
+                      div,
+                      abbr {
+                        align-items: center;
+                        display: flex;
+                        justify-content: center;
+                      }
+
+                      div {
+                        padding: 1.875rem 0 0.5rem 0;
+                        flex: 1;
+
+                        &:first-of-type {
+                          abbr {
+                            font-size: 0;
+                            width: 2.75rem;
+
+                            &:before {
+                              content: attr(title);
+                              text-transform: uppercase;
+                            }
+                          }
+                        }
+
+                        &:not(:first-of-type) {
+                          abbr {
+                            width: 1.5rem;
+                          }
+
+                          &:nth-child(even) {
+                            position: relative;
+
+                            abbr:before {
+                              color: rgba(0, 0, 0, 0.25);
+                              content: attr(title);
+                              left: 0;
+                              position: absolute;
+                              text-align: center;
+                              top: 0.5rem;
+                              width: 200%;
+                            }
+                          }
+                        }
+
+                        &:nth-child(1) {
+                          background-color: #eeeeee;
+                        }
+
+                        &:nth-child(2),
+                        &:nth-child(3) {
+                          background-color: #f0a9a0;
+                        }
+
+                        &:nth-child(4),
+                        &:nth-child(5) {
+                          background-color: #f9ba7f;
+                        }
+
+                        &:nth-child(6),
+                        &:nth-child(7) {
+                          background-color: #ffd569;
+                        }
+
+                        &:nth-child(8),
+                        &:nth-child(9) {
+                          background-color: #a3d3b3;
+                        }
+
+                        &:nth-child(10),
+                        &:nth-child(11) {
+                          background-color: #a3d0d3;
+                        }
+                      }
+
+                      input {
+                        position: absolute;
+                        z-index: -1;
+
+                        &:checked + label,
+                        &:focus + label {
+                          abbr {
+                            background-color: #000;
+                            color: #fff;
+                          }
+                        }
+                      }
+
+                      label {
+                        cursor: pointer;
+
+                        abbr {
+                          background: #fff;
+                          box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+                          border-radius: 6.25rem;
+                          height: 1.5rem;
+                          text-decoration: none;
+                          transition: background-color 0.25s ease,
+                            color 0.25s ease;
+
+                          &,
+                          &:before {
+                            font-size: 0.875rem;
+                            font-weight: 500;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+
+              label {
+                cursor: pointer;
               }
             }
 
@@ -326,6 +493,10 @@ export default (component) => styled(component)`
               flex: 1;
               padding: 1rem;
 
+              h3 {
+                display: none;
+              }
+
               & > {
                 div {
                   display: inline-block;
@@ -355,7 +526,7 @@ export default (component) => styled(component)`
 
                       dd {
                         color: #94949a;
-                        font-size: 0.85rem;
+                        font-size: 0.75rem;
                         margin-top: 0.5rem;
                       }
                     }

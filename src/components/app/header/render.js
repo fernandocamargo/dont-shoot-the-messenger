@@ -13,14 +13,14 @@ export default ({ className }) => (
             Dashboard
           </a>
         </li>
-        <li aria-roledescription="call" aria-current="page">
-          <a href="/" title="Call">
-            Call
-          </a>
-        </li>
         <li aria-roledescription="schedule">
           <a href="/" title="Schedule">
             Schedule
+          </a>
+        </li>
+        <li aria-roledescription="call" aria-current="page">
+          <a href="/" title="Call">
+            Call
           </a>
         </li>
         <li aria-roledescription="profile">
