@@ -38,6 +38,8 @@ export default (component) => styled(component)`
               font-weight: 900;
               height: 4rem;
               padding: 0 1rem;
+              position: relative;
+              z-index: 1;
             }
 
             blockquote {
@@ -286,6 +288,7 @@ export default (component) => styled(component)`
               button {
                 background: none;
                 border: 0;
+                cursor: pointer;
                 font-size: 0;
                 padding: 0;
                 position: absolute;
@@ -306,6 +309,7 @@ export default (component) => styled(component)`
                 right: 1rem;
 
                 li[aria-roledescription='attach'] {
+                  cursor: pointer;
                   font-size: 0;
 
                   &:before {
