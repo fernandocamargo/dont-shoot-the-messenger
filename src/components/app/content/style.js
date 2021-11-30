@@ -197,6 +197,7 @@ export default (component) => styled(component)`
             }
 
             form {
+              border-top: solid 1px #a3d0d3;
               grid-area: score;
 
               legend,
@@ -462,6 +463,7 @@ export default (component) => styled(component)`
 
           & > {
             form {
+              border-top: solid 1px #a3d0d3;
               margin-bottom: -0.5rem;
               position: relative;
 
