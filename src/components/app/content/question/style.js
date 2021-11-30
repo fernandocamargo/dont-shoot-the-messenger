@@ -8,6 +8,7 @@ export default (component) => styled(component)`
   position: relative;
   transition: background-color 0.5s ease;
 
+  &[aria-current='page'],
   &:hover {
     background-color: #fdf1bc;
   }
@@ -79,8 +80,6 @@ export default (component) => styled(component)`
       }
 
       &[aria-roledescription='tags'] {
-        margin-top: 0.5rem;
-
         dd {
           a {
             background-color: #2a2171;
@@ -88,12 +87,13 @@ export default (component) => styled(component)`
             color: #fff;
             display: inline-flex;
             font-size: 0.75rem;
+            margin-top: 0.5rem;
             padding: 0.5rem;
             text-decoration: none;
             text-transform: uppercase;
 
-            &:not(:first-of-type) {
-              margin-left: 0.5rem;
+            &:not(:last-of-type) {
+              margin-right: 0.5rem;
             }
           }
 

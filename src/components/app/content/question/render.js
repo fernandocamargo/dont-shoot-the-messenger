@@ -10,14 +10,25 @@ export const renderTag = (tag, index) => (
   </Fragment>
 );
 
-export default ({ className, hint, difficulty, question, tags, ...props }) => {
+export default ({
+  active,
+  className,
+  hint,
+  difficulty,
+  question,
+  tags,
+  ...props
+}) => {
   const score = useMemo(
     () => (isNil(props.score) ? '--' : Number(props.score).toFixed(1)),
     [props.score]
   );
 
   return (
-    <blockquote className={className}>
+    <blockquote
+      {...(active && { 'aria-current': 'page' })}
+      className={className}
+    >
       <dl aria-roledescription="difficulty">
         <dt>Difficulty</dt>
         <dd>

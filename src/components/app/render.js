@@ -20,6 +20,7 @@ export const QUESTIONS = [
       { id: 2, label: 'Databases' },
     ],
     difficulty: { id: 2, label: 'Easy' },
+    active: true,
     hint: 'De-normalization is the process of optimizing the read performance of a database by adding redundant data or by grouping data. De-normalization is used in OLAP systems',
     id: 2,
     question: 'What are the differences between UNION and UNION ALL?',

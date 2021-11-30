@@ -1,8 +1,6 @@
 import property from 'lodash/property';
 import styled from 'styled-components';
 
-import Question from './question';
-
 export default (component) => styled(component)`
   background-color: #fafafb;
   display: flex;
@@ -55,7 +53,7 @@ export default (component) => styled(component)`
 
                 & > {
                   li {
-                    &:nth-child(even) {
+                    &:nth-child(odd) {
                       background-color: #f9f9fe;
                     }
                   }
@@ -130,6 +128,32 @@ export default (component) => styled(component)`
                 position: absolute;
                 right: 0;
                 top: 0;
+
+                & > {
+                  dl {
+                    &[aria-roledescription='hint'] {
+                      & > {
+                        dt {
+                          display: none;
+                        }
+
+                        dd {
+                          & > {
+                            *:not(:first-child) {
+                              margin-top: 2rem;
+                            }
+
+                            p {
+                              color: #080616;
+                              font-size: 0.95rem;
+                              font-weight: 500;
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
 
