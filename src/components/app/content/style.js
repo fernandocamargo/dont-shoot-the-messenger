@@ -1,6 +1,8 @@
 import property from 'lodash/property';
 import styled from 'styled-components';
 
+import Question from './question';
+
 export default (component) => styled(component)`
   background-color: #fafafb;
   display: flex;
@@ -22,6 +24,7 @@ export default (component) => styled(component)`
         position: relative;
 
         &[aria-roledescription='questions'] {
+          background-color: #fff;
           border-right: solid 1px #eeecfc;
           display: flex;
           flex-direction: column;
@@ -49,6 +52,14 @@ export default (component) => styled(component)`
                 overflow-y: scroll;
                 position: absolute;
                 width: 100%;
+
+                & > {
+                  li {
+                    &:nth-child(even) {
+                      background-color: #f9f9fe;
+                    }
+                  }
+                }
               }
             }
 
@@ -100,6 +111,7 @@ export default (component) => styled(component)`
           & > {
             h1 {
               box-shadow: 0 8px 8px -4px #eeecfc;
+              color: #110d2d;
               font-size: 1.25rem;
               font-weight: 700;
               grid-area: title;

@@ -10,7 +10,7 @@ export const renderTag = (tag, index) => (
   </Fragment>
 );
 
-export default ({ className, hint, level, question, tags, ...props }) => {
+export default ({ className, hint, difficulty, question, tags, ...props }) => {
   const score = useMemo(
     () => (isNil(props.score) ? '--' : Number(props.score).toFixed(1)),
     [props.score]
@@ -18,11 +18,11 @@ export default ({ className, hint, level, question, tags, ...props }) => {
 
   return (
     <blockquote className={className}>
-      <dl aria-roledescription="level">
-        <dt>Level</dt>
+      <dl aria-roledescription="difficulty">
+        <dt>Difficulty</dt>
         <dd>
-          <a href="/" title={level.label}>
-            {level.label}
+          <a href="/" title={difficulty.label}>
+            {difficulty.label}
           </a>
         </dd>
       </dl>
@@ -36,7 +36,7 @@ export default ({ className, hint, level, question, tags, ...props }) => {
       </dl>
       <dl aria-roledescription="hint">
         <dt>Hint</dt>
-        <dd>{hint}</dd>
+        <dd>{hint}...</dd>
       </dl>
       <dl aria-roledescription="tags">
         <dt>Tags</dt>

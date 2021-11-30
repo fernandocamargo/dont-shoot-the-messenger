@@ -5,7 +5,6 @@ export default (component) => styled(component)`
   align-items: center;
   background-color: #fff;
   box-shadow: 0 8px 8px -4px #eeecfc;
-
   border-bottom: solid 1px #ebebf1;
   display: flex;
   position: relative;
