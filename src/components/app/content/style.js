@@ -255,27 +255,59 @@ export default (component) => styled(component)`
                         }
 
                         &:nth-child(1) {
-                          background-color: #eeeeee;
+                          background: linear-gradient(
+                            to right,
+                            #eeeeee,
+                            #f0a9a0
+                          );
                         }
 
-                        &:nth-child(2),
-                        &:nth-child(3) {
+                        &:nth-child(2) {
                           background-color: #f0a9a0;
                         }
 
-                        &:nth-child(4),
-                        &:nth-child(5) {
+                        &:nth-child(3) {
+                          background: linear-gradient(
+                            to right,
+                            #f0a9a0,
+                            #f9ba7f
+                          );
+                        }
+
+                        &:nth-child(4) {
                           background-color: #f9ba7f;
                         }
 
-                        &:nth-child(6),
-                        &:nth-child(7) {
+                        &:nth-child(5) {
+                          background: linear-gradient(
+                            to right,
+                            #f9ba7f,
+                            #ffd569
+                          );
+                        }
+
+                        &:nth-child(6) {
                           background-color: #ffd569;
                         }
 
-                        &:nth-child(8),
-                        &:nth-child(9) {
+                        &:nth-child(7) {
+                          background: linear-gradient(
+                            to right,
+                            #ffd569,
+                            #a3d3b3
+                          );
+                        }
+
+                        &:nth-child(8) {
                           background-color: #a3d3b3;
+                        }
+
+                        &:nth-child(9) {
+                          background: linear-gradient(
+                            to right,
+                            #a3d3b3,
+                            #a3d0d3
+                          );
                         }
 
                         &:nth-child(10),
@@ -490,8 +522,11 @@ export default (component) => styled(component)`
             }
 
             blockquote {
+              box-shadow: 0 8px 8px -4px #eeecfc;
               flex: 1;
               padding: 1rem;
+              position: relative;
+              z-index: 1;
 
               h3 {
                 display: none;
