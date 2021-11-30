@@ -1,4 +1,5 @@
 import Question from './question';
+import Stats from './stats';
 
 export const renderQuestion = (question) => (
   <li key={question.id}>
@@ -18,7 +19,7 @@ export default ({ className, questions }) => (
           <h3>Actions:</h3>
           <ul>
             <li aria-roledescription="add">
-              <a href="/" title="Add">
+              <a href="/" title="Add question">
                 Add
               </a>
             </li>
@@ -78,29 +79,6 @@ export default ({ className, questions }) => (
                   pretium quis odio sed congue. Aliquam in porttitor nunc, ac
                   elementum felis. Curabitur eleifend rhoncus massa sed egestas.
                 </p>
-                <p>
-                  Nulla auctor iaculis fermentum. Praesent blandit erat et ipsum
-                  dapibus, non aliquam ex aliquet. Vivamus posuere posuere leo,
-                  in aliquam nunc facilisis in. Nunc accumsan eget massa non
-                  sollicitudin. Aliquam in ante maximus, lobortis odio vitae,
-                  efficitur lorem. Aenean vulputate auctor varius. Pellentesque
-                  et placerat leo. Integer purus sapien, molestie at tincidunt
-                  a, pulvinar quis lacus. Fusce vitae bibendum nibh, sit amet
-                  congue mi. Sed id ornare nulla. Quisque volutpat lorem at
-                  fringilla rutrum. Mauris ut ultricies odio, in condimentum
-                  nulla. Phasellus consequat felis mauris, non pellentesque
-                  augue euismod vel.
-                </p>
-                <p>
-                  Ut tristique quam at est efficitur, sit amet rutrum ipsum
-                  varius. Quisque aliquam elementum ex, vitae interdum massa
-                  malesuada sit amet. Etiam sed risus massa. Vestibulum ante
-                  ipsum primis in faucibus orci luctus et ultrices posuere
-                  cubilia curae; Vestibulum sed sem odio. Maecenas eu nunc non
-                  diam semper viverra. In ac congue dui. Nam in placerat ligula.
-                  Vestibulum velit augue, iaculis et mattis ac, ullamcorper in
-                  tellus. Integer ac lobortis sem. Etiam mattis volutpat tempus.
-                </p>
               </dd>
             </dl>
           </blockquote>
@@ -109,17 +87,17 @@ export default ({ className, questions }) => (
           <h3>Actions:</h3>
           <ul>
             <li aria-roledescription="favorite">
-              <a href="/" title="Favorite">
+              <a href="/" title="Favorite question">
                 Favorite
               </a>
             </li>
             <li aria-roledescription="remove">
-              <a href="/" title="Remove">
+              <a href="/" title="Remove question">
                 Remove
               </a>
             </li>
             <li aria-roledescription="report">
-              <a href="/" title="Report">
+              <a href="/" title="Report question">
                 Report
               </a>
             </li>
@@ -128,8 +106,88 @@ export default ({ className, questions }) => (
       </article>
     </section>
     <section aria-roledescription="secondary">
+      <article aria-roledescription="stats">
+        <h2>Stats</h2>
+        <Stats />
+      </article>
+      <article aria-roledescription="feedback"></article>
+      {/*
       <article aria-roledescription="video"></article>
-      <article aria-roledescription="candidate">huebr</article>
+      <article aria-roledescription="job">
+        <h2>Job description</h2>
+        <dl aria-roledescription="title">
+          <dt>Title</dt>
+          <dd>Revolutionary Apprentice</dd>
+        </dl>
+        <dl aria-roledescription="description">
+          <dt>Description</dt>
+          <dd>We're at an inflection point. It's time to eat the rich.</dd>
+        </dl>
+        <dl aria-roledescription="experience">
+          <dt>Experience</dt>
+          <dd>10-15 years</dd>
+        </dl>
+        <dl aria-roledescription="pool">
+          <dt>Pool</dt>
+          <dd>Anti-capitalist</dd>
+        </dl>
+        <dl aria-roledescription="availability">
+          <dt>Availability</dt>
+          <dd>Forever</dd>
+        </dl>
+        <dl aria-roledescription="salary">
+          <dt>Salary</dt>
+          <dd>€ 6.66</dd>
+        </dl>
+      </article>
+      */}
+      <article aria-roledescription="candidate">
+        <h2>Milad Miri</h2>
+        <dl aria-roledescription="title">
+          <dt>Title</dt>
+          <dd>Go-go boy 😂</dd>
+        </dl>
+        <dl aria-roledescription="location">
+          <dt>Location</dt>
+          <dd>تهران‎ Tehrān, Iran</dd>
+        </dl>
+        <dl aria-roledescription="website">
+          <dt>Website</dt>
+          <dd>
+            <a
+              href="https://www.linkedin.com/in/milad-miri-4b693740/"
+              title="LinkedIn"
+              target="_blank"
+              rel="noreferrer"
+            >
+              linkedin.com/in/milad-miri-4b693740/
+            </a>
+          </dd>
+        </dl>
+        <dl aria-roledescription="email">
+          <dt>E-mail</dt>
+          <dd>
+            <a
+              href="mailto:m.miri@expertlead.de"
+              title="m.miri@expertlead.de"
+              target="_blank"
+              rel="noreferrer"
+            >
+              m.miri@expertlead.de
+            </a>
+          </dd>
+        </dl>
+        <nav>
+          <h3>Actions:</h3>
+          <ul>
+            <li aria-roledescription="download">
+              <a href="/" title="Download resumé">
+                Download resumé
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </article>
     </section>
   </main>
 );
