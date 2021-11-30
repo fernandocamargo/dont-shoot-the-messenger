@@ -238,7 +238,11 @@ export default (component) => styled(component)`
         border-radius: 1rem;
         box-shadow: 0 8px 8px -4px #eeecfc;
         overflow: hidden;
-        padding: 1rem;
+
+        &[aria-roledescription='stats'],
+        &[aria-roledescription='candidate'] {
+          padding: 1rem;
+        }
 
         &[aria-roledescription='stats'] {
           grid-area: stats;
@@ -250,12 +254,112 @@ export default (component) => styled(component)`
           }
         }
 
-        &[aria-roledescription='video'] {
-          grid-area: video;
-        }
-
         &[aria-roledescription='feedback'] {
+          display: flex;
+          flex-direction: column-reverse;
           grid-area: feedback;
+
+          & > {
+            form {
+              margin-bottom: -0.5rem;
+              position: relative;
+
+              legend,
+              label,
+              nav h3 {
+                display: none;
+              }
+
+              textarea {
+                background-color: #eeecfc;
+                border: 0;
+                border-radius: 0 0 1rem 1rem;
+                color: #3b2e9e;
+                font-weight: 700;
+                height: 10vh;
+                outline: 0;
+                padding: 1rem;
+                resize: none;
+                width: calc(100% - 2rem);
+              }
+
+              button {
+                background: none;
+                border: 0;
+                font-size: 0;
+                padding: 0;
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+
+                &:before {
+                  color: #7667e8;
+                  content: 'send';
+                  font-family: ${property('theme.typography.icons')};
+                  font-size: 1.5rem;
+                }
+              }
+
+              nav {
+                bottom: 2rem;
+                position: absolute;
+                right: 1rem;
+
+                li[aria-roledescription='attach'] {
+                  font-size: 0;
+
+                  &:before {
+                    color: #7667e8;
+                    content: 'attach_file';
+                    font-family: ${property('theme.typography.icons')};
+                    font-size: 2rem;
+                  }
+                }
+              }
+            }
+
+            blockquote {
+              flex: 1;
+              padding: 1rem;
+
+              & > {
+                div {
+                  display: inline-block;
+                  position: relative;
+
+                  dl {
+                    dt {
+                      display: none;
+                    }
+
+                    &[aria-roledescription='message'] {
+                      display: flex;
+
+                      dd {
+                        background-color: #5542e3;
+                        border-radius: 0.5rem;
+                        color: #eeecfc;
+                        font-weight: 700;
+                        padding: 0.75rem;
+                      }
+                    }
+
+                    &[aria-roledescription='datetime'] {
+                      position: absolute;
+                      right: 0;
+                      top: 100%;
+
+                      dd {
+                        color: #94949a;
+                        font-size: 0.85rem;
+                        margin-top: 0.5rem;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
 
         &[aria-roledescription='candidate'] {
