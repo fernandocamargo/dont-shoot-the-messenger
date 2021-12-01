@@ -53,14 +53,6 @@ export default (component) => styled(component)`
               blockquote {
                 border-radius: 0 0 1rem 1rem;
               }
-
-              nav {
-                &[aria-roledescription='actions'] {
-                  filter: grayscale(1);
-                  opacity: 0.25;
-                  pointer-events: none;
-                }
-              }
             }
           }
 
@@ -99,14 +91,16 @@ export default (component) => styled(component)`
               }
 
               input {
-                border: 0;
-                border-radius: 1rem;
-                color: #5542e3;
-                font-size: 1.5rem;
-                font-weight: 900;
-                outline: 0;
-                padding: 1rem 4rem 1rem 1rem;
-                width: calc(100% - 5rem);
+                &[type='text'] {
+                  border: 0;
+                  border-radius: 1rem;
+                  color: #5542e3;
+                  font-size: 1.5rem;
+                  font-weight: 900;
+                  outline: 0;
+                  padding: 1rem 4rem 1rem 1rem;
+                  width: calc(100% - 5rem);
+                }
               }
 
               button {
@@ -239,8 +233,23 @@ export default (component) => styled(component)`
                   }
 
                   &[aria-roledescription='filter'] {
+                    position: relative;
+
                     a:before {
                       content: 'filter_alt';
+                    }
+
+                    &:after {
+                      background-color: #eeecfc;
+                      border-radius: 50%;
+                      content: '';
+                      display: block;
+                      height: 2rem;
+                      left: 50%;
+                      position: absolute;
+                      top: calc(100% + 0.25rem);
+                      transform: translateX(-50%);
+                      width: 2rem;
                     }
                   }
 

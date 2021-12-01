@@ -17,7 +17,7 @@ export const renderFilter = (filter) => (
 export default ({ className, filters, questions }) => (
   <main className={className}>
     <section aria-roledescription="primary">
-      <article aria-roledescription="questions" aria-busy="false">
+      <article aria-roledescription="questions" aria-busy="true">
         <h2>Questions</h2>
         <nav aria-roledescription="filters">
           <h3>Filter criteria:</h3>
