@@ -29,7 +29,7 @@ export default (component) => styled(component)`
         a {
           background-color: ${({ difficulty }) => getColorFrom(difficulty)};
           border-radius: 50%;
-          box-shadow: 0 8px 8px -4px #eeecfc;
+          box-shadow: 0 8px 8px -4px rgba(0, 0, 0, 0.25);
           display: block;
           height: 1rem;
           overflow: hidden;
