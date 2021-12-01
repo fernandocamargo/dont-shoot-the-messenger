@@ -1,6 +1,8 @@
 import property from 'lodash/property';
 import styled from 'styled-components';
 
+import Tag from 'components/widgets/tag';
+
 export default (component) => styled(component)`
   background-color: #fafafb;
   display: flex;
@@ -39,7 +41,7 @@ export default (component) => styled(component)`
               height: 4rem;
               padding: 0 1rem;
               position: relative;
-              z-index: 1;
+              z-index: 2;
             }
 
             form {
@@ -82,68 +84,105 @@ export default (component) => styled(component)`
             }
 
             nav {
-              position: absolute;
-              right: 1rem;
-              top: 1rem;
-              z-index: 1;
+              &[aria-roledescription='filters'] {
+                background-color: #eeecfc;
+                border-bottom: solid 1px #ddd9f9;
+                box-shadow: 0 8px 8px -4px #eeecfc;
+                padding: 0.5rem 1rem;
+                position: relative;
+                z-index: 1;
 
-              h3 {
-                display: none;
-              }
-
-              ul {
-                display: flex;
-              }
-
-              li {
-                &:not(:first-of-type) {
-                  margin-left: 1rem;
+                h3 {
+                  color: #3b2e9e;
+                  font-size: 0.85rem;
+                  font-weight: 700;
                 }
 
-                a {
-                  align-items: center;
-                  background-color: #4c3bcc;
-                  border-radius: 0.5rem;
-                  color: #eeecfc;
-                  display: inline-flex;
-                  font-weight: 500;
-                  overflow: hidden;
-                  padding: 0.5rem 1rem;
-                  text-decoration: none;
-                  text-transform: uppercase;
+                li {
+                  display: inline-block;
 
-                  &:before {
-                    display: inline-flex;
-                    font-family: ${property('theme.typography.icons')};
-                    font-size: 1.25rem;
-                    text-transform: none;
+                  margin-top: 0.5rem;
+
+                  &:not(:last-of-type) {
+                    margin-right: 0.5rem;
                   }
                 }
 
-                &[aria-roledescription='filter'],
-                &[aria-roledescription='sort'] {
+                ${Tag} {
+                  background-color: #e1bd1e;
+                  color: #4b3f0a;
+
+                  dfn:before {
+                    background-color: #4b3f0a;
+                    color: #e1bd1e;
+                  }
+                }
+              }
+
+              &[aria-roledescription='actions'] {
+                position: absolute;
+                right: 1rem;
+                top: 1rem;
+                z-index: 1;
+
+                h3 {
+                  display: none;
+                }
+
+                ul {
+                  display: flex;
+                }
+
+                li {
+                  &:not(:first-of-type) {
+                    margin-left: 1rem;
+                  }
+
                   a {
-                    font-size: 0;
-                    padding: 0.5rem;
-                  }
-                }
+                    align-items: center;
+                    background-color: #4c3bcc;
+                    border-radius: 0.5rem;
+                    color: #eeecfc;
+                    display: inline-flex;
+                    font-weight: 500;
+                    overflow: hidden;
+                    padding: 0.5rem 1rem;
+                    text-decoration: none;
+                    text-transform: uppercase;
 
-                &[aria-roledescription='add'] {
-                  a:before {
-                    content: 'add';
-                    margin-right: 0.25rem;
+                    &:before {
+                      display: inline-flex;
+                      font-family: ${property('theme.typography.icons')};
+                      font-size: 1.25rem;
+                      text-transform: none;
+                    }
                   }
-                }
 
-                &[aria-roledescription='filter'] {
-                  a:before {
-                    content: 'filter_alt';
+                  &[aria-roledescription='filter'],
+                  &[aria-roledescription='sort'] {
+                    a {
+                      font-size: 0;
+                      padding: 0.5rem;
+                    }
                   }
-                }
 
-                &[aria-roledescription='sort'] {
-                  a:before {
-                    content: 'sort';
+                  &[aria-roledescription='add'] {
+                    a:before {
+                      content: 'add';
+                      margin-right: 0.25rem;
+                    }
+                  }
+
+                  &[aria-roledescription='filter'] {
+                    a:before {
+                      content: 'filter_alt';
+                    }
+                  }
+
+                  &[aria-roledescription='sort'] {
+                    a:before {
+                      content: 'sort';
+                    }
                   }
                 }
               }
@@ -276,7 +315,7 @@ export default (component) => styled(component)`
                         &:nth-child(1) {
                           background: linear-gradient(
                             to right,
-                            #eeeeee,
+                            #eeeeee 25%,
                             #f0a9a0
                           );
                         }

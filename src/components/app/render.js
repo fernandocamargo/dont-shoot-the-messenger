@@ -1,6 +1,16 @@
 import Content from './content';
 import Header from './header';
 
+export const FILTERS = [
+  {
+    entity: { id: 1, label: 'Dimension' },
+    id: 1,
+    label: 'Front-End',
+  },
+  { entity: { id: 2, label: 'Skill' }, id: 3, label: 'Javascript' },
+  { entity: { id: 3, label: 'Keyword' }, id: 4, label: 'react redux' },
+];
+
 export const QUESTIONS = [
   {
     tags: [
@@ -76,7 +86,7 @@ export const QUESTIONS = [
 export default ({ className }) => (
   <div className={className}>
     <Header />
-    <Content questions={QUESTIONS} />
+    <Content filters={FILTERS} questions={QUESTIONS} />
     <footer></footer>
   </div>
 );

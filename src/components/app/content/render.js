@@ -1,4 +1,4 @@
-import { Question } from 'components/widgets';
+import { Question, Tag } from 'components/widgets';
 
 import Stats from './stats';
 
@@ -8,15 +8,25 @@ export const renderQuestion = (question) => (
   </li>
 );
 
-export default ({ className, questions }) => (
+export const renderFilter = (filter) => (
+  <li key={filter.id}>
+    <Tag {...filter} />
+  </li>
+);
+
+export default ({ className, filters, questions }) => (
   <main className={className}>
     <section aria-roledescription="primary">
       <article aria-roledescription="questions">
         <h2>Questions</h2>
+        <nav aria-roledescription="filters">
+          <h3>Filter criteria:</h3>
+          <ul>{filters.map(renderFilter)}</ul>
+        </nav>
         <blockquote>
           <ol>{questions.map(renderQuestion)}</ol>
         </blockquote>
-        <nav>
+        <nav aria-roledescription="actions">
           <h3>Actions:</h3>
           <ul>
             <li aria-roledescription="add">

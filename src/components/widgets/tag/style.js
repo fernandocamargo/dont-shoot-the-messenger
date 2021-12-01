@@ -6,6 +6,7 @@ export default (component) => styled(component)`
   color: #fff;
   display: inline-flex;
   font-size: 0.75rem;
+  overflow: hidden;
   text-decoration: none;
 
   dfn {
