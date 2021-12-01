@@ -242,7 +242,13 @@ export default ({ className, filters, questions }) => (
             </dl>
             <dl aria-roledescription="datetime">
               <dt>Date & time</dt>
-              <dd>Tuesday, 30/11/2021 - 10:30</dd>
+              <dd>
+                <a href="/" title="Jump to 4:37">
+                  <time datetime="2121-30-11">
+                    Tuesday, 30/11/2021 - 10:30 @ 4:37
+                  </time>
+                </a>
+              </dd>
             </dl>
           </div>
         </blockquote>

@@ -538,9 +538,9 @@ export default (component) => styled(component)`
                 font-weight: 700;
                 height: 10vh;
                 outline: 0;
-                padding: 1rem;
+                padding: 1rem 3rem 1rem 1rem;
                 resize: none;
-                width: calc(100% - 2rem);
+                width: calc(100% - 4rem);
               }
 
               button {
@@ -581,10 +581,12 @@ export default (component) => styled(component)`
             }
 
             blockquote {
+              align-items: flex-end;
               box-shadow: 0 8px 8px -4px #eeecfc;
+              display: flex;
               flex: 1;
+              justify-content: flex-end;
               padding: 1rem;
-              position: relative;
               z-index: 1;
 
               h3 {
@@ -614,14 +616,15 @@ export default (component) => styled(component)`
                     }
 
                     &[aria-roledescription='datetime'] {
-                      position: absolute;
-                      right: 0;
-                      top: 100%;
-
                       dd {
-                        color: #94949a;
-                        font-size: 0.75rem;
                         margin-top: 0.5rem;
+                        text-align: right;
+
+                        a {
+                          color: #94949a;
+                          font-size: 0.75rem;
+                          text-decoration: none;
+                        }
                       }
                     }
                   }
