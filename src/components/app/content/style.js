@@ -208,7 +208,7 @@ export default (component) => styled(component)`
 
                 li {
                   &:not(:first-of-type) {
-                    margin-left: 1rem;
+                    margin-left: 0.5rem;
                   }
 
                   a {
@@ -217,9 +217,10 @@ export default (component) => styled(component)`
                     border-radius: 0.5rem;
                     color: #eeecfc;
                     display: inline-flex;
+                    font-size: 0;
                     font-weight: 500;
                     overflow: hidden;
-                    padding: 0.5rem 1rem;
+                    padding: 0.5rem;
                     text-decoration: none;
                     text-transform: uppercase;
 
@@ -231,18 +232,9 @@ export default (component) => styled(component)`
                     }
                   }
 
-                  &[aria-roledescription='filter'],
-                  &[aria-roledescription='sort'] {
-                    a {
-                      font-size: 0;
-                      padding: 0.5rem;
-                    }
-                  }
-
                   &[aria-roledescription='add'] {
                     a:before {
                       content: 'add';
-                      margin-right: 0.25rem;
                     }
                   }
 
