@@ -4,9 +4,13 @@ import Header from './header';
 export const QUESTIONS = [
   {
     tags: [
-      { id: 1, label: 'Problem Analysis' },
-      { id: 2, label: 'C#' },
-      { id: 3, label: 'NodeJS' },
+      {
+        entity: { id: 1, label: 'Dimension' },
+        id: 1,
+        label: 'Problem Analysis',
+      },
+      { entity: { id: 2, label: 'Skill' }, id: 2, label: 'C#' },
+      { entity: { id: 2, label: 'Skill' }, id: 3, label: 'NodeJS' },
     ],
     difficulty: { id: 1, label: 'Hard' },
     hint: 'De-normalization is the process of optimizing the read performance of a database by adding redundant data or by grouping data. De-normalization is used in OLAP systems',
@@ -16,8 +20,8 @@ export const QUESTIONS = [
   },
   {
     tags: [
-      { id: 1, label: 'SQL' },
-      { id: 2, label: 'Databases' },
+      { entity: { id: 2, label: 'Skill' }, id: 1, label: 'SQL' },
+      { entity: { id: 1, label: 'Dimension' }, id: 2, label: 'Databases' },
     ],
     difficulty: { id: 2, label: 'Easy' },
     active: true,
@@ -28,8 +32,8 @@ export const QUESTIONS = [
   },
   {
     tags: [
-      { id: 1, label: 'SQL' },
-      { id: 2, label: 'Databases' },
+      { entity: { id: 2, label: 'Skill' }, id: 1, label: 'SQL' },
+      { entity: { id: 1, label: 'Dimension' }, id: 2, label: 'Databases' },
     ],
     difficulty: { id: 3, label: 'Medium' },
     hint: 'De-normalization is the process of optimizing the read performance of a database by adding redundant data or by grouping data. De-normalization is used in OLAP systems',
@@ -39,8 +43,8 @@ export const QUESTIONS = [
   },
   {
     tags: [
-      { id: 1, label: 'SQL' },
-      { id: 2, label: 'Databases' },
+      { entity: { id: 2, label: 'Skill' }, id: 1, label: 'SQL' },
+      { entity: { id: 1, label: 'Dimension' }, id: 2, label: 'Databases' },
     ],
     difficulty: { id: 2, label: 'Medium' },
     hint: 'De-normalization is the process of optimizing the read performance of a database by adding redundant data or by grouping data. De-normalization is used in OLAP systems',
@@ -49,8 +53,8 @@ export const QUESTIONS = [
   },
   {
     tags: [
-      { id: 1, label: 'SQL' },
-      { id: 2, label: 'Databases' },
+      { entity: { id: 2, label: 'Skill' }, id: 1, label: 'SQL' },
+      { entity: { id: 1, label: 'Dimension' }, id: 2, label: 'Databases' },
     ],
     difficulty: { id: 1, label: 'Medium' },
     hint: 'De-normalization is the process of optimizing the read performance of a database by adding redundant data or by grouping data. De-normalization is used in OLAP systems',
@@ -59,8 +63,8 @@ export const QUESTIONS = [
   },
   {
     tags: [
-      { id: 1, label: 'SQL' },
-      { id: 2, label: 'Databases' },
+      { entity: { id: 2, label: 'Skill' }, id: 1, label: 'SQL' },
+      { entity: { id: 1, label: 'Dimension' }, id: 2, label: 'Databases' },
     ],
     difficulty: { id: 3, label: 'Medium' },
     hint: 'De-normalization is the process of optimizing the read performance of a database by adding redundant data or by grouping data. De-normalization is used in OLAP systems',

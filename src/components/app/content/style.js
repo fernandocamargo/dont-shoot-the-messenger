@@ -42,6 +42,24 @@ export default (component) => styled(component)`
               z-index: 1;
             }
 
+            form {
+              background-color: #eeecfc;
+
+              button,
+              label,
+              legend {
+                display: none;
+              }
+
+              input {
+                background: none;
+                display: inline-flex;
+                border: 0;
+                outline: 0;
+                padding: 1rem;
+              }
+            }
+
             blockquote {
               flex: 1;
               position: relative;

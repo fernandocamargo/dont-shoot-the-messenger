@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import Tag from 'components/widgets/tag';
+
 export const getColorFrom = ({ id }) =>
   ({ 1: '#52bc77', 2: '#ffb800', 3: '#f21313' }[id]);
 
@@ -82,16 +84,8 @@ export default (component) => styled(component)`
 
       &[aria-roledescription='tags'] {
         dd {
-          a {
-            background-color: #2a2171;
-            border-radius: 0.5rem;
-            color: #fff;
-            display: inline-flex;
-            font-size: 0.75rem;
+          ${Tag} {
             margin-top: 0.5rem;
-            padding: 0.5rem;
-            text-decoration: none;
-            text-transform: uppercase;
 
             &:not(:last-of-type) {
               margin-right: 0.5rem;

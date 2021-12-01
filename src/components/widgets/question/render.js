@@ -1,7 +1,7 @@
 import isNil from 'lodash/isNil';
 import { Fragment, useMemo } from 'react';
 
-import Tag from './tag';
+import { Tag } from 'components/widgets';
 
 export const renderTag = (tag, index) => (
   <Fragment key={tag.id}>
