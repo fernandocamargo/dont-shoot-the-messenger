@@ -46,7 +46,7 @@ export default ({ className, filters, questions }) => (
             </li>
           </ul>
         </nav>
-        <form>
+        <form autoComplete="off">
           <fieldset>
             <legend>Search by keywords:</legend>
             <div aria-roledescription="field">

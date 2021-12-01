@@ -53,6 +53,14 @@ export default (component) => styled(component)`
               blockquote {
                 border-radius: 0 0 1rem 1rem;
               }
+
+              nav {
+                &[aria-roledescription='actions'] {
+                  filter: grayscale(1);
+                  opacity: 0.25;
+                  pointer-events: none;
+                }
+              }
             }
           }
 
@@ -97,8 +105,8 @@ export default (component) => styled(component)`
                 font-size: 1.5rem;
                 font-weight: 900;
                 outline: 0;
-                padding: 1rem;
-                width: calc(100% - 2rem);
+                padding: 1rem 4rem 1rem 1rem;
+                width: calc(100% - 5rem);
               }
 
               button {
