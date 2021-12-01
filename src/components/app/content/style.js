@@ -17,22 +17,51 @@ export default (component) => styled(component)`
       box-shadow: 0 8px 8px -4px #eeecfc;
       display: flex;
       margin: 2rem 1rem 2rem 2rem;
-      overflow: hidden;
 
       article {
         flex: 1;
         position: relative;
 
         &[aria-roledescription='questions'] {
-          background-color: #fff;
           border-right: solid 1px #eeecfc;
           display: flex;
           flex-direction: column;
+          position: relative;
+          z-index: 2;
+
+          &[aria-busy='true'] {
+            &:before {
+              background-color: rgba(42, 33, 113, 0.75);
+              content: '';
+              display: block;
+              height: 100vh;
+              left: 0;
+              position: fixed;
+              top: 0;
+              width: 100vw;
+            }
+
+            & > {
+              h2 {
+                border-radius: 1rem 1rem 0 0;
+              }
+
+              form {
+                display: block;
+              }
+
+              blockquote {
+                border-radius: 0 0 1rem 1rem;
+              }
+            }
+          }
 
           & > {
             h2 {
               align-items: center;
+              background-color: #fff;
               border-bottom: solid 1px #eeecfc;
+              border-radius: 1rem 0 0 0;
               box-shadow: 0 8px 8px -4px #eeecfc;
               color: #221a5a;
               display: flex;
@@ -45,25 +74,57 @@ export default (component) => styled(component)`
             }
 
             form {
-              background-color: #eeecfc;
+              display: none;
+              left: calc(100% + 1rem);
+              top: 0;
+              width: 50vw;
+              z-index: 1;
 
-              button,
+              &,
+              button {
+                position: absolute;
+              }
+
               label,
               legend {
                 display: none;
               }
 
               input {
-                background: none;
-                display: inline-flex;
                 border: 0;
+                border-radius: 1rem;
+                color: #5542e3;
+                font-size: 1.5rem;
+                font-weight: 900;
                 outline: 0;
                 padding: 1rem;
+                width: calc(100% - 2rem);
+              }
+
+              button {
+                background: none;
+                border: 0;
+                cursor: pointer;
+                font-size: 0;
+                padding: 0;
+                position: absolute;
+                top: 0.5rem;
+                transform: scaleX(-1);
+                right: 0.5rem;
+
+                &:before {
+                  color: #7667e8;
+                  content: 'search';
+                  font-family: ${property('theme.typography.icons')};
+                  font-size: 3rem;
+                }
               }
             }
 
             blockquote {
+              border-radius: 0 0 0 1rem;
               flex: 1;
+              overflow: hidden;
               position: relative;
 
               ol {
@@ -75,6 +136,10 @@ export default (component) => styled(component)`
 
                 & > {
                   li {
+                    &:nth-child(even) {
+                      background-color: #fff;
+                    }
+
                     &:nth-child(odd) {
                       background-color: #f9f9fe;
                     }
@@ -123,7 +188,7 @@ export default (component) => styled(component)`
                 position: absolute;
                 right: 1rem;
                 top: 1rem;
-                z-index: 1;
+                z-index: 2;
 
                 h3 {
                   display: none;
@@ -193,6 +258,7 @@ export default (component) => styled(component)`
         &[aria-roledescription='question'] {
           background-color: #fdfdff;
           border-left: solid 1px #eeecfc;
+          border-radius: 0 1rem 1rem 0;
           display: grid;
           grid-auto-rows: minmax(min-content, max-content)
             minmax(min-content, max-content) 1fr;
@@ -254,8 +320,11 @@ export default (component) => styled(component)`
             }
 
             form {
-              border-top: solid 1px #a3d0d3;
+              border-radius: 0 0 1rem 0;
+              border-top: solid 1px #eeecfc;
               grid-area: score;
+              overflow: hidden;
+              width: calc(100% + 1px);
 
               legend,
               button {

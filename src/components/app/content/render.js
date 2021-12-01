@@ -17,7 +17,7 @@ export const renderFilter = (filter) => (
 export default ({ className, filters, questions }) => (
   <main className={className}>
     <section aria-roledescription="primary">
-      <article aria-roledescription="questions">
+      <article aria-roledescription="questions" aria-busy="false">
         <h2>Questions</h2>
         <nav aria-roledescription="filters">
           <h3>Filter criteria:</h3>
@@ -46,6 +46,23 @@ export default ({ className, filters, questions }) => (
             </li>
           </ul>
         </nav>
+        <form>
+          <fieldset>
+            <legend>Search by keywords:</legend>
+            <div aria-roledescription="field">
+              <label htmlFor="keywords">Keywords</label>
+              <input
+                id="keywords"
+                name="keywords"
+                placeholder="Type your keywords..."
+                type="text"
+              />
+            </div>
+            <div aria-roledescription="submit">
+              <button type="submit">Submit</button>
+            </div>
+          </fieldset>
+        </form>
       </article>
       <article aria-roledescription="question">
         <h1>What are the differences between UNION and UNION ALL?</h1>
@@ -244,7 +261,7 @@ export default ({ className, filters, questions }) => (
               <dt>Date & time</dt>
               <dd>
                 <a href="/" title="Jump to 4:37">
-                  <time datetime="2121-30-11">
+                  <time dateTime="2121-30-11">
                     Tuesday, 30/11/2021 - 10:30 @ 4:37
                   </time>
                 </a>
