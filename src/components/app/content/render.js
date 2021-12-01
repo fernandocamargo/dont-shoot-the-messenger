@@ -1,6 +1,13 @@
 import { Question, Tag } from 'components/widgets';
+import { filter, result } from 'lodash';
 
 import Stats from './stats';
+
+export const renderFilter = (filter) => (
+  <li key={filter.id}>
+    <Tag {...filter} />
+  </li>
+);
 
 export const renderQuestion = (question) => (
   <li key={question.id}>
@@ -8,10 +15,18 @@ export const renderQuestion = (question) => (
   </li>
 );
 
-export const renderFilter = (filter) => (
-  <li key={filter.id}>
-    <Tag {...filter} />
-  </li>
+export const renderResult = (question) => (
+  <div key={question.id}>
+    <input
+      id={`result-${question.id}`}
+      name="result"
+      type="radio"
+      value={result.id}
+    />
+    <label htmlFor={`result-${question.id}`}>
+      <Question {...question} />
+    </label>
+  </div>
 );
 
 export default ({ className, filters, questions }) => (
@@ -47,7 +62,7 @@ export default ({ className, filters, questions }) => (
           </ul>
         </nav>
         <form autoComplete="off">
-          <fieldset>
+          <fieldset aria-roledescription="keywords">
             <legend>Search by keywords:</legend>
             <div aria-roledescription="field">
               <label htmlFor="keywords">Keywords</label>
@@ -58,10 +73,18 @@ export default ({ className, filters, questions }) => (
                 type="text"
               />
             </div>
-            <div aria-roledescription="submit">
-              <button type="submit">Submit</button>
+          </fieldset>
+          <fieldset aria-roledescription="results">
+            <legend>
+              Results related to "<strong>your keywords</strong>":
+            </legend>
+            <div aria-roledescription="field">
+              {questions.map(renderResult)}
             </div>
           </fieldset>
+          <div aria-roledescription="submit">
+            <button type="submit">Submit</button>
+          </div>
         </form>
       </article>
       <article aria-roledescription="question">
