@@ -75,8 +75,10 @@ export default (component) => styled(component)`
             }
 
             form {
+              border-radius: 1rem;
               display: none;
               left: calc(100% + 1rem);
+              overflow: hidden;
               top: 0;
               width: 35vw;
               z-index: 1;
@@ -95,7 +97,6 @@ export default (component) => styled(component)`
 
                 &[aria-roledescription='results'] {
                   background-color: #fff;
-                  border-radius: 0 0 1rem 1rem;
                   max-height: 50vh;
                   overflow-y: scroll;
 
@@ -147,7 +148,6 @@ export default (component) => styled(component)`
                 &[type='text'] {
                   background-color: #eeecfc;
                   border: 0;
-                  border-radius: 1rem 1rem 0 0;
                   box-shadow: 0 8px 8px -4px rgba(0, 0, 0, 0.25);
                   color: #5542e3;
                   font-size: 1.5rem;
