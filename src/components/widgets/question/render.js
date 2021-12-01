@@ -1,34 +1,22 @@
 import isNil from 'lodash/isNil';
-import { Fragment, useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { Tag } from 'components/widgets';
 
 export const renderTag = (tag, index) => (
-  <Fragment key={tag.id}>
-    {!!index && <span>, </span>}
+  <li key={tag.id}>
     <Tag {...tag} />
-  </Fragment>
+  </li>
 );
 
-export default ({
-  active,
-  className,
-  hint,
-  difficulty,
-  question,
-  tags,
-  ...props
-}) => {
+export default ({ className, hint, difficulty, question, tags, ...props }) => {
   const score = useMemo(
     () => (isNil(props.score) ? '--' : Number(props.score).toFixed(1)),
     [props.score]
   );
 
   return (
-    <blockquote
-      {...(active && { 'aria-current': 'page' })}
-      className={className}
-    >
+    <blockquote className={className}>
       <dl aria-roledescription="difficulty">
         <dt>Difficulty</dt>
         <dd>
@@ -51,7 +39,9 @@ export default ({
       </dl>
       <dl aria-roledescription="tags">
         <dt>Tags</dt>
-        <dd>{tags.map(renderTag)}</dd>
+        <dd>
+          <ul>{tags.map(renderTag)}</ul>
+        </dd>
       </dl>
     </blockquote>
   );

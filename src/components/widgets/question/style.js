@@ -1,16 +1,13 @@
 import styled from 'styled-components';
 
-import Tag from 'components/widgets/tag';
-
 export const getColorFrom = ({ id }) =>
   ({ 1: '#52bc77', 2: '#ffb800', 3: '#f21313' }[id]);
 
 export default (component) => styled(component)`
   padding: 1rem 5rem 1rem 1rem;
   position: relative;
-  transition: background-color 0.5s ease;
+  transition: background-color 0.25s ease;
 
-  &[aria-current='page'],
   &:hover {
     background-color: #fdf1bc;
   }
@@ -84,16 +81,13 @@ export default (component) => styled(component)`
 
       &[aria-roledescription='tags'] {
         dd {
-          ${Tag} {
+          li {
+            display: inline-flex;
             margin-top: 0.5rem;
 
             &:not(:last-of-type) {
               margin-right: 0.5rem;
             }
-          }
-
-          span {
-            display: none;
           }
         }
       }
