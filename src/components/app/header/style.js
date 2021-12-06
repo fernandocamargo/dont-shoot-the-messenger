@@ -51,25 +51,25 @@ export default (component) => styled(component)`
               padding-bottom: 1rem;
               position: relative;
 
-              &[aria-current='page'] a,
-              a:hover {
-                color: #5542e3;
-
-                &:after {
-                  height: 3px;
-                }
-              }
-
-              &[aria-current='page'] a {
-                pointer-events: none;
-              }
-
               a {
                 align-items: center;
                 color: #94949a;
                 display: flex;
                 text-decoration: none;
                 transition: color 0.1s linear;
+
+                &[aria-current='page'],
+                a:hover {
+                  color: #5542e3;
+
+                  &:after {
+                    height: 3px;
+                  }
+                }
+
+                &[aria-current='page'] {
+                  pointer-events: none;
+                }
 
                 &:before {
                   display: inline-flex;

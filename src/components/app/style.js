@@ -6,4 +6,12 @@ export default (component) => styled(component)`
   flex-direction: column;
   height: calc(100vh - 2rem);
   overflow: hidden;
+  position: relative;
+
+  main {
+    background-color: #fafafb;
+    display: flex;
+    padding-bottom: 2rem;
+    flex: 1;
+  }
 `;

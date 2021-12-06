@@ -1,42 +1,47 @@
+import { Link, NavLink } from 'react-router-dom';
+
 export default ({ className }) => (
   <header className={className}>
     <h2>
-      <a href="/" title="expertlead">
+      <Link to="/" title="expertlead">
         expertlead
-      </a>
+      </Link>
     </h2>
     <nav>
       <h3>Navigate through:</h3>
       <ul>
         <li aria-roledescription="dashboard">
-          <a href="/" title="Dashboard">
+          <NavLink to="/" title="Dashboard">
             Dashboard
-          </a>
+          </NavLink>
         </li>
         <li aria-roledescription="schedule">
-          <a href="/" title="Schedule">
+          <NavLink to="/interviews" title="Schedule">
             Schedule
-          </a>
+          </NavLink>
         </li>
         <li aria-roledescription="call" aria-current="page">
-          <a href="/" title="Call">
+          <NavLink
+            to="/interview/df9a5408-6cd7-4c2e-9d37-141c916a3911"
+            title="Call"
+          >
             Call
-          </a>
+          </NavLink>
         </li>
         <li aria-roledescription="profile">
           <dl>
             <dt>
-              <a href="/" title="Profile">
+              <Link to="/" title="Profile">
                 Profile
-              </a>
+              </Link>
             </dt>
             <dd>
               <dl>
                 <dt>Full name</dt>
                 <dd>
-                  <a href="/" title="Fernando Camargo Del Buono">
+                  <Link to="/" title="Fernando Camargo Del Buono">
                     Fernando Camargo Del Buono
-                  </a>
+                  </Link>
                 </dd>
               </dl>
             </dd>

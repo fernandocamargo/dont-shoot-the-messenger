@@ -16,10 +16,9 @@ export const renderQuestion = (question) => (
   </li>
 );
 
-export const renderResult = (question, index) => (
+export const renderResult = (question) => (
   <div key={question.id}>
     <input
-      checked={!index}
       id={`result-${question.id}`}
       name="result"
       type="radio"
