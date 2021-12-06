@@ -7,7 +7,9 @@ import { useAuthentication } from 'hooks';
 export const intercept = property('data');
 
 export default () => {
-  const { accessToken } = useAuthentication();
+  const {
+    profile: { accessToken },
+  } = useAuthentication();
   const client = useMemo(() => {
     const instance = create({
       headers: {
