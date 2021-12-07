@@ -15,7 +15,10 @@ export default ({ className }) => (
         <Routes>
           <Route path="/login" element={<Login />} exact />
           <Route path="/" element={<Passport route={Dashboard} />} exact />
-          <Route path="/interview/*" element={<Passport route={Interview} />} />
+          <Route
+            path="/interview/:id/*"
+            element={<Passport route={Interview} />}
+          />
           <Route
             path="/interviews/*"
             element={<Passport route={Interviews} />}

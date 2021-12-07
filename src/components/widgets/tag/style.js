@@ -1,11 +1,20 @@
 import styled from 'styled-components';
 
+export const getBackgroundColor = ({ details: { id } }) =>
+  ({
+    DifficultyEasy: '#41965f',
+    DifficultyMedium: '#cc9300',
+    DifficultyHard: '#c10f0f',
+  }[id] || '#2a2171');
+
+export const getColor = ({ details: { id } }) => ({}[id] || '#fff');
+
 export default (component) => styled(component)`
-  background-color: #2a2171;
+  background-color: ${getBackgroundColor};
   border-radius: 0.25rem;
-  color: #fff;
+  color: ${getColor};
   display: inline-flex;
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   overflow: hidden;
   text-decoration: none;
 

@@ -450,7 +450,7 @@ export default (component) => styled(component)`
                         &:nth-child(1) {
                           background: linear-gradient(
                             to right,
-                            #eeeeee 25%,
+                            #eeeeee 75%,
                             #f0a9a0
                           );
                         }

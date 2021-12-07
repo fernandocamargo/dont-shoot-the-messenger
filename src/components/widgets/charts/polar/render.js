@@ -42,6 +42,7 @@ const options = {
   legend: { align: 'right', verticalAlign: 'middle', layout: 'vertical' },
   chart: { polar: true, type: 'line' },
   title: false,
+  credits: false,
 };
 
 export default ({ className }) => (

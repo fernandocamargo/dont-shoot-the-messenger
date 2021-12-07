@@ -1,41 +1,33 @@
-import isNil from 'lodash/isNil';
 import { useMemo } from 'react';
+import { NavLink } from 'react-router-dom';
 
 import { Tag } from 'components/widgets';
 
-export const renderTag = (tag, index) => (
-  <li key={tag.id}>
+export const renderTag = (tag) => (
+  <li key={tag.details.id}>
     <Tag {...tag} />
   </li>
 );
 
-export default ({ className, hint, difficulty, question, tags, ...props }) => {
+export default ({ className, difficulty, hint, id, tags, text, ...props }) => {
   const score = useMemo(
-    () => (isNil(props.score) ? '--' : Number(props.score).toFixed(1)),
+    () => (!props.score ? '--' : Number(props.score).toFixed(1)),
     [props.score]
   );
 
   return (
     <blockquote className={className}>
-      <dl aria-roledescription="difficulty">
-        <dt>Difficulty</dt>
-        <dd>
-          <a href="/" title={difficulty.label}>
-            {difficulty.label}
-          </a>
-        </dd>
-      </dl>
       <dl aria-roledescription="score">
         <dt>Score</dt>
         <dd>{score}</dd>
       </dl>
       <dl aria-roledescription="question">
         <dt>Question</dt>
-        <dd>{question}</dd>
+        <dd>{text}</dd>
       </dl>
       <dl aria-roledescription="hint">
         <dt>Hint</dt>
-        <dd>{hint}...</dd>
+        <dd>{hint}</dd>
       </dl>
       <dl aria-roledescription="tags">
         <dt>Tags</dt>
@@ -43,6 +35,16 @@ export default ({ className, hint, difficulty, question, tags, ...props }) => {
           <ul>{tags.map(renderTag)}</ul>
         </dd>
       </dl>
+      <nav>
+        <h3>Actions:</h3>
+        <ul>
+          <li aria-roledescription="view">
+            <NavLink title="See question" to={`question/${id}`}>
+              See question
+            </NavLink>
+          </li>
+        </ul>
+      </nav>
     </blockquote>
   );
 };
