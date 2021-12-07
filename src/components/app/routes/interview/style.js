@@ -644,7 +644,6 @@ export default (component) => styled(component)`
           h2 {
             font-size: 1.25rem;
             font-weight: 900;
-            text-align: center;
           }
         }
 

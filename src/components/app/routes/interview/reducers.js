@@ -1,7 +1,7 @@
 import update from 'immutability-helper';
 
 export const getInitialState = () => ({
-  details: {},
+  details: null,
   filters: [],
   questions: [],
 });

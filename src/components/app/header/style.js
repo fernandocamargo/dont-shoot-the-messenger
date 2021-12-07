@@ -10,6 +10,7 @@ export default (component) => styled(component)`
   border-bottom: solid 1px #ebebf1;
   display: flex;
   position: relative;
+  z-index: 1;
 
   h2 {
     margin: 1rem 2rem;

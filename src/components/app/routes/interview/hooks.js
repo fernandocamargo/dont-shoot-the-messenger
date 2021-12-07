@@ -8,7 +8,7 @@ import * as reducers from './reducers';
 
 export default () => {
   const [state, setState] = useState(reducers.getInitialState());
-  const { id } = useParams();
+  const { interview: id } = useParams();
   const getInterview = useGetInterview();
   const getQuestions = useGetQuestions();
   const fetch = useCallback(() => {
