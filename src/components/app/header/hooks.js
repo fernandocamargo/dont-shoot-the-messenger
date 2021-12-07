@@ -1,17 +1,11 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useState } from 'react';
 
+import { reverse } from 'helpers/boolean';
 import { useAuthentication } from 'hooks';
 
 export default () => {
-  const {
-    profile: { firstName, lastName },
-    logged,
-    ...authentication
-  } = useAuthentication();
-  const name = useMemo(
-    () => [firstName, lastName].join(' '),
-    [firstName, lastName]
-  );
+  const [active, setActive] = useState(false);
+  const authentication = useAuthentication();
   const logout = useCallback(
     (event) => {
       event.preventDefault();
@@ -20,6 +14,11 @@ export default () => {
     },
     [authentication]
   );
+  const toggle = useCallback((event) => {
+    event.preventDefault();
 
-  return { logged, logout, name };
+    return setActive(reverse);
+  }, []);
+
+  return { ...authentication, active, logout, toggle };
 };

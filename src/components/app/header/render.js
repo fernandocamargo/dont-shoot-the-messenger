@@ -1,9 +1,21 @@
+import { useMemo } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 import use from './hooks';
+import Profile from './profile';
 
 export default ({ className, ...props }) => {
-  const { logged, logout, name } = use(props);
+  const {
+    profile: { firstName, lastName },
+    active,
+    logged,
+    logout,
+    toggle,
+  } = use(props);
+  const name = useMemo(
+    () => [firstName, lastName].join(' '),
+    [firstName, lastName]
+  );
 
   return (
     <header className={className}>
@@ -26,7 +38,7 @@ export default ({ className, ...props }) => {
                 Schedule
               </NavLink>
             </li>
-            <li aria-roledescription="call" aria-current="page">
+            <li aria-roledescription="call">
               <NavLink
                 to="/interview/df9a5408-6cd7-4c2e-9d37-141c916a3911"
                 title="Call"
@@ -34,36 +46,15 @@ export default ({ className, ...props }) => {
                 Call
               </NavLink>
             </li>
-            <li aria-roledescription="profile">
-              <dl>
-                <dt>
-                  <Link to="/" title="Profile">
-                    Profile
-                  </Link>
-                </dt>
-                <dd>
-                  <dl>
-                    <dt>Full name</dt>
-                    <dd>
-                      <Link to="/" title={name}>
-                        {name}
-                      </Link>
-                    </dd>
-                    <dd>
-                      <nav>
-                        <h3>Actions:</h3>
-                        <ul>
-                          <li>
-                            <a href="/logout" title="Logout" onClick={logout}>
-                              Logout
-                            </a>
-                          </li>
-                        </ul>
-                      </nav>
-                    </dd>
-                  </dl>
-                </dd>
-              </dl>
+            <li
+              aria-roledescription="profile"
+              aria-selected={active}
+              role="tab"
+            >
+              <a href="/" onClick={toggle} title={name}>
+                <dfn title="Current user">{name}</dfn>
+              </a>
+              {!!active && <Profile logout={logout} toggle={toggle} />}
             </li>
           </ul>
         </nav>
