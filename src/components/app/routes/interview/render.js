@@ -1,6 +1,6 @@
 import use from './hooks';
 
-import { Question, Tag } from 'components/widgets';
+import { Question, Tag, Video } from 'components/widgets';
 // import { Polar } from 'components/widgets/charts';
 
 export const renderFilter = (filter) => (
@@ -37,12 +37,10 @@ export default ({ className, ...props }) => {
       <section aria-roledescription="primary">
         <article aria-roledescription="questions" aria-busy={false}>
           <h2>Questions</h2>
-          {!!filters.length && (
-            <nav aria-roledescription="filters">
-              <h3>Filter criteria:</h3>
-              <ul>{filters.map(renderFilter)}</ul>
-            </nav>
-          )}
+          <nav aria-roledescription="filters">
+            <h3>Filter criteria:</h3>
+            <ul>{filters.map(renderFilter)}</ul>
+          </nav>
           <blockquote>
             <ol>{questions.map(renderQuestion)}</ol>
           </blockquote>
@@ -252,6 +250,7 @@ export default ({ className, ...props }) => {
       <section aria-roledescription="secondary">
         <article aria-roledescription="stats">
           <h2>Stats</h2>
+          <Video />
         </article>
         <article aria-roledescription="feedback">
           <form>
