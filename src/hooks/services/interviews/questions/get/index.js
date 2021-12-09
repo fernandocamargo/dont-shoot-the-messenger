@@ -9,7 +9,7 @@ import { convert } from './helpers';
 export default () => {
   const { get } = useExpertlead();
   const parse = useCallback(
-    ({ difficulty, skills, subDimension, ...question }) =>
+    ({ isRequired: required, difficulty, skills, subDimension, ...question }) =>
       update(question, {
         tags: {
           $set: convert({
@@ -25,6 +25,7 @@ export default () => {
             'sub-dimension': subDimension,
           }),
         },
+        required: { $set: required },
       }),
     []
   );

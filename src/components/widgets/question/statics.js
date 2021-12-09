@@ -1,4 +1,7 @@
-export const defaultProps = {};
+export const defaultProps = {
+  compact: false,
+  limit: 200,
+};
 
 export const displayName = 'Widgets/Question';
 

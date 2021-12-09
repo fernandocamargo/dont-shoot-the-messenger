@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const getBackgroundColor = ({ details: { id } }) =>
   ({
     DifficultyEasy: '#41965f',
-    DifficultyMedium: '#cc9300',
+    DifficultyMedium: '#c8a81b',
     DifficultyHard: '#c10f0f',
   }[id] || '#2a2171');
 

@@ -1,9 +1,10 @@
-import React, { forwardRef, useMemo } from 'react';
+import React, { useMemo } from 'react';
 
 import use from './hooks';
 
-export default forwardRef(({ className, ...props }, ref) => {
-  const { dangerouslySetInnerHTML, expandable, expanded, toogle } = use(props);
+export default ({ className, ...props }) => {
+  const { dangerouslySetInnerHTML, expandable, expanded, ref, toogle } =
+    use(props);
   const action = useMemo(
     () => `Show ${expanded ? 'less' : 'more'}`,
     [expanded]
@@ -17,9 +18,16 @@ export default forwardRef(({ className, ...props }, ref) => {
       />
       {expandable && (
         <nav>
-          <button onClick={toogle}>{action}</button>
+          <h3>Actions:</h3>
+          <ul>
+            <li>
+              <a href="/" onClick={toogle} title={{ action }}>
+                {action}
+              </a>
+            </li>
+          </ul>
         </nav>
       )}
     </div>
   );
-});
+};

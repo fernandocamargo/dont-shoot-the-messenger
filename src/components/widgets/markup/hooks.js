@@ -1,11 +1,12 @@
 import isEqual from 'lodash/isEqual';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 
 import { reverse } from 'helpers/boolean';
 
 import { parser } from './helpers';
 
 export default ({ source: full, limit }) => {
+  const ref = useRef();
   const [expanded, setExpanded] = useState(false);
   const scan = useCallback(
     (node, input = { parent: node, reviewed: false, text: '' }) => {
@@ -65,5 +66,5 @@ export default ({ source: full, limit }) => {
     return event.preventDefault();
   }, []);
 
-  return { dangerouslySetInnerHTML, expandable, expanded, toogle };
+  return { dangerouslySetInnerHTML, expandable, expanded, ref, toogle };
 };

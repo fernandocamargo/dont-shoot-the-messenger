@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export default (component) => styled(component)`
   & > {
-    div[aria-roledescription='markup'] {
+    div {
       & > {
         * {
           &:not(:first-child) {
@@ -70,7 +70,37 @@ export default (component) => styled(component)`
     }
 
     nav {
-      button {
+      li {
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      a {
+        color: inherit;
+        display: inline-block;
+        font-size: 0.9em;
+        padding: 0 1rem;
+        position: relative;
+
+        &:before,
+        &:after {
+          border-top: solid 1px #eeecfc;
+          content: '';
+          display: block;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 1rem;
+        }
+
+        &:before {
+          left: 100%;
+        }
+
+        &:after {
+          right: 100%;
+        }
       }
     }
   }

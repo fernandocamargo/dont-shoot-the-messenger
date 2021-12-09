@@ -3,16 +3,19 @@ import { NavLink } from 'react-router-dom';
 
 import { Markup, Tag } from 'components/widgets';
 
+import use from './hooks';
+
 export const renderTag = (tag) => (
   <li key={tag.details.id}>
     <Tag {...tag} />
   </li>
 );
 
-export default ({ className, difficulty, hint, id, tags, text, ...props }) => {
+export default ({ className, ...props }) => {
+  const { hint, id, limit, required, tags, text, ...question } = use(props);
   const score = useMemo(
-    () => (!props.score ? '--' : Number(props.score).toFixed(1)),
-    [props.score]
+    () => (!question.score ? '--' : Number(question.score).toFixed(1)),
+    [question.score]
   );
 
   return (
@@ -24,13 +27,13 @@ export default ({ className, difficulty, hint, id, tags, text, ...props }) => {
       <dl aria-roledescription="text">
         <dt>Question</dt>
         <dd>
-          <Markup source={text} />
+          <Markup limit={limit} source={text} />
         </dd>
       </dl>
       <dl aria-roledescription="hint">
         <dt>Hint</dt>
         <dd>
-          <Markup source={hint} />
+          <Markup limit={limit} source={hint} />
         </dd>
       </dl>
       <dl aria-roledescription="tags">
@@ -38,6 +41,10 @@ export default ({ className, difficulty, hint, id, tags, text, ...props }) => {
         <dd>
           <ul>{tags.map(renderTag)}</ul>
         </dd>
+      </dl>
+      <dl aria-roledescription="requirement">
+        <dt>Is required?</dt>
+        <dd>{required ? <dfn title="Required">Yes</dfn> : <span>No</span>}</dd>
       </dl>
       <nav>
         <h3>Actions:</h3>

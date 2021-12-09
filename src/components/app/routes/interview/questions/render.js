@@ -8,7 +8,7 @@ export const renderFilter = (filter) => (
 
 export const renderQuestion = (question) => (
   <li key={question.id}>
-    <Question {...question} />
+    <Question {...question} compact />
   </li>
 );
 

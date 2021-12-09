@@ -4,15 +4,6 @@ import styled from 'styled-components';
 import Question from 'components/widgets/question';
 import Tag from 'components/widgets/tag';
 
-/*
-        border-bottom: solid 1px #ddd9f9;
-        box-shadow: 0 8px 8px -4px #eeecfc;
-
-
-      border-bottom: solid 1px #eeecfc;
-      box-shadow: 0 8px 8px -4px #eeecfc;
-*/
-
 export default (component) => styled(component)`
   border-right: solid 1px #eeecfc;
   display: flex;
