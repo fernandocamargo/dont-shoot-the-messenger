@@ -15,7 +15,7 @@ export const getBackgroundColor = ({ score }) =>
   }[score] || '#eee');
 
 export default (component) => styled(component)`
-  padding: 1rem 5rem 1rem 1rem;
+  padding: 5rem 1rem 2.5rem 1rem;
   position: relative;
 
   & > {
@@ -52,7 +52,7 @@ export default (component) => styled(component)`
         }
       }
 
-      &[aria-roledescription='question'] {
+      &[aria-roledescription='text'] {
         dd {
           color: #221a5a;
           font-size: 1rem;
@@ -61,17 +61,17 @@ export default (component) => styled(component)`
       }
 
       &[aria-roledescription='hint'] {
-        margin-top: 0.5rem;
+        margin-top: 1rem;
 
         dd {
           color: #221a5a;
-          font-size: 0.9rem;
+          font-size: 0.85rem;
           font-weight: 500;
         }
       }
 
       &[aria-roledescription='tags'] {
-        position: relative;
+        margin-top: 1rem;
 
         dd {
           li {
@@ -89,8 +89,9 @@ export default (component) => styled(component)`
     }
 
     nav {
+      display: none;
+
       h3 {
-        display: none;
       }
 
       li {

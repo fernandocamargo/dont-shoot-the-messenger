@@ -14,40 +14,20 @@ export const renderQuestion = (question) => (
 
 export const renderResult = (question) => (
   <div key={question.id}>
-    <input
-      id={`result-${question.id}`}
-      name="result"
-      type="radio"
-      value={question.id}
-    />
-    <label htmlFor={`result-${question.id}`}>
-      <Question {...question} />
-    </label>
+    <Question {...question} />
   </div>
 );
 
 export default ({ className, filters, questions }) => (
   <article aria-busy={false} className={className}>
     <nav aria-roledescription="filters">
-      <h3>Filter criteria:</h3>
+      <h3>Filtering by:</h3>
       <ul>{filters.map(renderFilter)}</ul>
     </nav>
     <h2>Questions</h2>
-    <nav aria-roledescription="filters">
-      <h3>Filter criteria:</h3>
-      <ul>{filters.map(renderFilter)}</ul>
-    </nav>
-    <blockquote>
-      <ol>{questions.map(renderQuestion)}</ol>
-    </blockquote>
     <nav aria-roledescription="actions">
       <h3>Actions:</h3>
       <ul>
-        <li aria-roledescription="add">
-          <a href="/" title="Add question">
-            Add
-          </a>
-        </li>
         <li aria-roledescription="filter">
           <a href="/" title="Filter questions">
             Filter
@@ -58,8 +38,20 @@ export default ({ className, filters, questions }) => (
             Sort
           </a>
         </li>
+        <li aria-roledescription="add">
+          <a href="/" title="Add question">
+            Add
+          </a>
+        </li>
       </ul>
     </nav>
+    <nav aria-roledescription="sorting">
+      <h3>Sorting by:</h3>
+      <ul>{filters.map(renderFilter)}</ul>
+    </nav>
+    <blockquote>
+      <ol>{questions.map(renderQuestion)}</ol>
+    </blockquote>
     <form autoComplete="off">
       <fieldset aria-roledescription="keywords">
         <legend>Search by keywords:</legend>

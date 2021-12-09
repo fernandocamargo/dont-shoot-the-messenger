@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { Tag } from 'components/widgets';
+import { Markup, Tag } from 'components/widgets';
 
 export const renderTag = (tag) => (
   <li key={tag.details.id}>
@@ -21,13 +21,17 @@ export default ({ className, difficulty, hint, id, tags, text, ...props }) => {
         <dt>Score</dt>
         <dd>{score}</dd>
       </dl>
-      <dl aria-roledescription="question">
+      <dl aria-roledescription="text">
         <dt>Question</dt>
-        <dd>{text}</dd>
+        <dd>
+          <Markup source={text} />
+        </dd>
       </dl>
       <dl aria-roledescription="hint">
         <dt>Hint</dt>
-        <dd>{hint}</dd>
+        <dd>
+          <Markup source={hint} />
+        </dd>
       </dl>
       <dl aria-roledescription="tags">
         <dt>Tags</dt>
