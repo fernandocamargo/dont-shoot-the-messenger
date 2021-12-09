@@ -1,7 +1,7 @@
 import property from 'lodash/property';
 import styled from 'styled-components';
 
-import { avatar } from './mock';
+import { fernando } from 'mocks/images';
 
 export default (component) => styled(component)`
   align-items: center;
@@ -148,7 +148,7 @@ export default (component) => styled(component)`
                   }
 
                   &:before {
-                    background-image: url('data:image/jpeg;base64,${avatar}');
+                    background-image: url('data:image/jpeg;base64,${fernando}');
                     background-size: cover;
                     border-radius: 50%;
                     height: 2rem;
