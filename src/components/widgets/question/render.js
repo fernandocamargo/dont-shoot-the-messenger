@@ -12,7 +12,7 @@ export const renderTag = (tag) => (
 );
 
 export default ({ className, ...props }) => {
-  const { answer, hint, id, limit, required, score, tags, text } = use(props);
+  const { answer, hint, limit, required, score, tags, text, url } = use(props);
   const Score = useCallback(() => score || <dfn title="Off">--</dfn>, [score]);
   const Requirement = useCallback(
     () => (required ? <dfn title="Required">Yes</dfn> : <span>No</span>),
@@ -24,9 +24,9 @@ export default ({ className, ...props }) => {
       <dl aria-roledescription="score">
         <dt>Score</dt>
         <dd>
-          <a href="/" title="Change score">
+          <NavLink title="Change score" to={url}>
             <Score />
-          </a>
+          </NavLink>
         </dd>
       </dl>
       {!!text && (
@@ -69,7 +69,7 @@ export default ({ className, ...props }) => {
         <h3>Actions:</h3>
         <ul>
           <li aria-roledescription="view">
-            <NavLink title="See question" to={`question/${id}`}>
+            <NavLink title="See question" to={url}>
               See question
             </NavLink>
           </li>
