@@ -24,7 +24,9 @@ export default ({ className, ...props }) => {
       <dl aria-roledescription="score">
         <dt>Score</dt>
         <dd>
-          <Score />
+          <a href="/" title="Change score">
+            <Score />
+          </a>
         </dd>
       </dl>
       {!!text && (

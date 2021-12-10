@@ -21,6 +21,9 @@ export default (component) => styled(component)`
 
   & > {
     dl {
+      position: relative;
+      z-index: 1;
+
       & > {
         dt {
           display: none;
@@ -35,21 +38,35 @@ export default (component) => styled(component)`
         top: 1rem;
 
         dd {
-          align-items: center;
           background: ${getBackgroundColor};
           border: solid 1px #eeecfc;
-          border-radius: 50%;
           box-shadow: 0 8px 8px -4px rgba(0, 0, 0, 0.1);
-          color: ${({ score }) => (!!score ? '#fff' : '#aaa0f1')};
-          display: flex;
-          font-size: 1.25rem;
-          font-weight: 900;
           height: 3rem;
-          justify-content: center;
-          letter-spacing: -0.1rem;
-          text-shadow: ${({ score }) =>
-            !!score ? '0 1px 0 rgba(0, 0, 0, 0.25)' : 'none'};
+          position: relative;
           width: 3rem;
+
+          &,
+          a {
+            align-items: center;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+          }
+
+          a {
+            color: ${({ score }) => (!!score ? '#fff' : '#aaa0f1')};
+            font-size: 1.25rem;
+            font-weight: 900;
+            height: 100%;
+            left: 0;
+            letter-spacing: -0.1rem;
+            position: absolute;
+            text-shadow: ${({ score }) =>
+              !!score ? '0 1px 0 rgba(0, 0, 0, 0.25)' : 'none'};
+            text-decoration: none;
+            top: 0;
+            width: 100%;
+          }
 
           dfn {
             font-size: 0;
@@ -84,6 +101,7 @@ export default (component) => styled(component)`
       }
 
       &[aria-roledescription='tags'] {
+        display: inline-flex;
         margin-top: 1rem;
 
         dd {
@@ -109,6 +127,7 @@ export default (component) => styled(component)`
       position: absolute;
       top: 0;
       width: 75px;
+      z-index: 0;
 
       dd {
         background: linear-gradient(#5542e3, #887aeb);
@@ -136,9 +155,10 @@ export default (component) => styled(component)`
     }
 
     nav {
-      display: none;
+      z-index: 1;
 
       h3 {
+        display: none;
       }
 
       li {
