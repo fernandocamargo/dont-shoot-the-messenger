@@ -21,7 +21,7 @@ export default ({ className, ...props }) => {
           <h3>Actions:</h3>
           <ul>
             <li>
-              <a href="/" onClick={toogle} title={{ action }}>
+              <a href="/" onClick={toogle} title={action}>
                 {action}
               </a>
             </li>

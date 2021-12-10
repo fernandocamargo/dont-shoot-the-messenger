@@ -60,11 +60,21 @@ export default ({ source: full, limit }) => {
     () => ({ __html: !expandable || expanded ? full : short }),
     [expandable, expanded, full, short]
   );
-  const toogle = useCallback((event) => {
-    setExpanded(reverse);
+  const scroll = useCallback(() => {
+    const { current: element } = ref;
+    const parent = element.closest('li');
+    const {
+      offsetLeft: left,
+      offsetTop: top,
+      parentNode: grandparent,
+    } = parent;
 
-    return event.preventDefault();
+    return grandparent.scroll({ behavior: 'smooth', left, top });
   }, []);
+  const toogle = useCallback(
+    (event) => [event.preventDefault(), setExpanded(reverse), scroll()],
+    [scroll]
+  );
 
   return { dangerouslySetInnerHTML, expandable, expanded, ref, toogle };
 };

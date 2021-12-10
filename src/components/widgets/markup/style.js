@@ -70,6 +70,14 @@ export default (component) => styled(component)`
     }
 
     nav {
+      h3 {
+        display: none;
+      }
+
+      ul {
+        margin-top: 1rem;
+      }
+
       li {
         display: flex;
         justify-content: center;
@@ -91,7 +99,7 @@ export default (component) => styled(component)`
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
-          width: 1rem;
+          width: 2rem;
         }
 
         &:before {

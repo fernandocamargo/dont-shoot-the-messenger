@@ -1,16 +1,17 @@
+import property from 'lodash/property';
 import styled from 'styled-components';
 
 export const getBackgroundColor = ({ score }) =>
   ({
-    1: `linear-gradient(to right, #eeeeee, #f0a9a0)`,
-    2: '#f0a9a0',
-    3: `linear-gradient(to right, #f0a9a0, #f9ba7f)`,
-    4: '#f9ba7f',
-    5: `linear-gradient(to right, #f9ba7f, #ffd569)`,
-    6: '#ffd569',
-    7: `linear-gradient(to right, #ffd569, #a3d3b3)`,
-    8: '#a3d3b3',
-    9: `linear-gradient(to right, #a3d3b3, #a3d0d3)`,
+    1: `#f0a9a0`,
+    2: 'linear-gradient(to right, #f0a9a0, #f9ba7f)',
+    3: `#f9ba7f`,
+    4: 'linear-gradient(to right, #f9ba7f, #ffd569)',
+    5: `#ffd569`,
+    6: 'linear-gradient(to right, #ffd569, #a3d3b3)',
+    7: `#a3d3b3`,
+    8: 'linear-gradient(to right, #a3d3b3, #a3d0d3)',
+    9: `#a3d0d3`,
     10: '#a3d0d3',
   }[score] || '#eee');
 
@@ -49,6 +50,17 @@ export default (component) => styled(component)`
           text-shadow: ${({ score }) =>
             !!score ? '0 1px 0 rgba(0, 0, 0, 0.25)' : 'none'};
           width: 3rem;
+
+          dfn {
+            font-size: 0;
+
+            &:after {
+              content: 'question_mark';
+              font-family: ${property('theme.typography.icons')};
+              font-size: 1.75rem;
+              font-weight: 900;
+            }
+          }
         }
       }
 
@@ -60,7 +72,8 @@ export default (component) => styled(component)`
         }
       }
 
-      &[aria-roledescription='hint'] {
+      &[aria-roledescription='hint'],
+      &[aria-roledescription='answer'] {
         margin-top: 1rem;
 
         dd {

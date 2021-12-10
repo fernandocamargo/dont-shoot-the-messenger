@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useCallback } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { Markup, Tag } from 'components/widgets';
@@ -12,30 +12,45 @@ export const renderTag = (tag) => (
 );
 
 export default ({ className, ...props }) => {
-  const { hint, id, limit, required, tags, text, ...question } = use(props);
-  const score = useMemo(
-    () => (!question.score ? '--' : Number(question.score).toFixed(1)),
-    [question.score]
+  const { answer, hint, id, limit, required, score, tags, text } = use(props);
+  const Score = useCallback(() => score || <dfn title="Off">--</dfn>, [score]);
+  const Requirement = useCallback(
+    () => (required ? <dfn title="Required">Yes</dfn> : <span>No</span>),
+    [required]
   );
 
   return (
     <blockquote className={className}>
       <dl aria-roledescription="score">
         <dt>Score</dt>
-        <dd>{score}</dd>
-      </dl>
-      <dl aria-roledescription="text">
-        <dt>Question</dt>
         <dd>
-          <Markup limit={limit} source={text} />
+          <Score />
         </dd>
       </dl>
-      <dl aria-roledescription="hint">
-        <dt>Hint</dt>
-        <dd>
-          <Markup limit={limit} source={hint} />
-        </dd>
-      </dl>
+      {!!text && (
+        <dl aria-roledescription="text">
+          <dt>Question</dt>
+          <dd>
+            <Markup limit={limit} source={text} />
+          </dd>
+        </dl>
+      )}
+      {!!hint && (
+        <dl aria-roledescription="hint">
+          <dt>Hint</dt>
+          <dd>
+            <Markup limit={limit} source={hint} />
+          </dd>
+        </dl>
+      )}
+      {!!answer && (
+        <dl aria-roledescription="answer">
+          <dt>Answer</dt>
+          <dd>
+            <Markup limit={limit} source={answer} />
+          </dd>
+        </dl>
+      )}
       <dl aria-roledescription="tags">
         <dt>Tags</dt>
         <dd>
@@ -44,7 +59,9 @@ export default ({ className, ...props }) => {
       </dl>
       <dl aria-roledescription="requirement">
         <dt>Is required?</dt>
-        <dd>{required ? <dfn title="Required">Yes</dfn> : <span>No</span>}</dd>
+        <dd>
+          <Requirement />
+        </dd>
       </dl>
       <nav>
         <h3>Actions:</h3>
