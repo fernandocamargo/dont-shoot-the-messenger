@@ -1,5 +1,4 @@
 import use from './hooks';
-
 import Candidate from './candidate';
 import Feedback from './feedback';
 import Question from './question';
@@ -13,7 +12,7 @@ export default ({ className, ...props }) => {
     <div className={className}>
       <section aria-roledescription="primary">
         <Questions {...interview} />
-        <Question />
+        <Question {...interview} />
       </section>
       <section aria-roledescription="secondary">
         <Stats />

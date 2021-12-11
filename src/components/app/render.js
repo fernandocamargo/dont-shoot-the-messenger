@@ -13,20 +13,20 @@ export default ({ className }) => (
     <main>
       <OnDemand fallback={<Loader />}>
         <Routes>
-          <Route path="/login" element={<Login />} exact />
-          <Route path="/" element={<Passport route={Dashboard} />} exact />
+          <Route element={<Login />} path="/login" exact />
+          <Route element={<Passport route={Dashboard} />} path="/" exact />
           <Route path="/interview/:interview">
             <Route
-              path="question/:question"
               element={<Passport route={Interview} />}
+              path="question/:question/*"
             />
-            <Route path="" element={<Passport route={Interview} />} />
+            <Route element={<Passport route={Interview} />} index />
           </Route>
           <Route
-            path="/interviews/*"
             element={<Passport route={Interviews} />}
+            path="/interviews/*"
           />
-          <Route path="*" element={<NotFound />} />
+          <Route element={<NotFound />} path="*" />
         </Routes>
       </OnDemand>
     </main>

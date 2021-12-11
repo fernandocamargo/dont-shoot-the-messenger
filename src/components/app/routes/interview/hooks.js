@@ -8,16 +8,19 @@ import * as reducers from './reducers';
 
 export default () => {
   const [state, setState] = useState(reducers.getInitialState());
-  const { interview: id } = useParams();
+  const params = useParams();
   const getInterview = useGetInterview();
   const getQuestions = useGetQuestions();
   const fetch = useCallback(() => {
-    const requests = [getInterview({ id }), getQuestions({ id })];
-    const persist = ([details, questions]) =>
-      setState(reducers.set({ details, questions }));
+    const requests = [
+      getInterview({ id: params.interview }),
+      getQuestions({ id: params.interview }),
+    ];
+    const persist = ([interview, questions]) =>
+      setState(reducers.set({ interview, questions }));
 
     return Promise.all(requests).then(persist);
-  }, [getInterview, getQuestions, id]);
+  }, [params.interview, getInterview, getQuestions]);
 
   useEffect(() => {
     fetch();

@@ -1,6 +1,8 @@
 import property from 'lodash/property';
 import styled from 'styled-components';
 
+import { Question } from 'components/widgets';
+
 export default (component) => styled(component)`
   background-color: #fdfdff;
   border-left: solid 1px #eeecfc;
@@ -21,6 +23,8 @@ export default (component) => styled(component)`
       font-size: 1.25rem;
       font-weight: 700;
       grid-area: title;
+      max-height: 20vh;
+      overflow: auto;
       padding: 1rem;
     }
 
@@ -28,36 +32,33 @@ export default (component) => styled(component)`
       grid-area: details;
       position: relative;
 
-      blockquote {
-        bottom: 0;
-        left: 0;
-        overflow-y: scroll;
-        padding: 2rem 1rem;
-        position: absolute;
-        right: 0;
-        top: 0;
+      & > {
+        blockquote {
+          bottom: 0;
+          left: 0;
+          overflow-y: scroll;
+          position: absolute;
+          right: 0;
+          top: 0;
 
-        & > {
-          dl {
-            &[aria-roledescription='hint'] {
-              & > {
-                dt {
+          & > {
+            ${Question} {
+              padding: 1rem;
+
+              dl {
+                &[aria-roledescription='requirement'],
+                &[aria-roledescription='score'],
+                &[aria-roledescription='text'] {
                   display: none;
                 }
 
-                dd {
-                  & > {
-                    *:not(:first-child) {
-                      margin-top: 2rem;
-                    }
-
-                    p {
-                      color: #080616;
-                      font-size: 0.95rem;
-                      font-weight: 500;
-                    }
-                  }
+                &[aria-roledescription='hint'] {
+                  margin: 0;
                 }
+              }
+
+              nav {
+                display: none;
               }
             }
           }
@@ -128,7 +129,7 @@ export default (component) => styled(component)`
                 }
 
                 &:nth-child(1) {
-                  background: linear-gradient(to right, #eeeeee 75%, #f0a9a0);
+                  background-color: #eee;
                 }
 
                 &:nth-child(2) {

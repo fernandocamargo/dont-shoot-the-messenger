@@ -1,15 +1,15 @@
 import update from 'immutability-helper';
 
 export const getInitialState = () => ({
-  details: null,
   filters: [],
+  interview: null,
   questions: [],
 });
 
 export const set =
-  ({ details, questions }) =>
+  ({ interview, questions }) =>
   (state) =>
     update(state, {
-      details: { $set: details },
+      interview: { $set: interview },
       questions: { $set: questions },
     });

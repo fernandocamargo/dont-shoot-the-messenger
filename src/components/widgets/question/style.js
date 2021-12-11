@@ -18,6 +18,7 @@ export const getBackgroundColor = ({ score }) =>
 export default (component) => styled(component)`
   padding: 5rem 1rem 2.5rem 1rem;
   position: relative;
+  transition: background-color 0.1s linear;
 
   & > {
     dl {
@@ -127,7 +128,6 @@ export default (component) => styled(component)`
       position: absolute;
       top: 0;
       width: 75px;
-      z-index: 0;
 
       dd {
         background: linear-gradient(#5542e3, #887aeb);
@@ -171,6 +171,7 @@ export default (component) => styled(component)`
             position: absolute;
             text-indent: -100vw;
             top: 0;
+            transition: background-color 0.1s linear;
             width: 100%;
           }
         }

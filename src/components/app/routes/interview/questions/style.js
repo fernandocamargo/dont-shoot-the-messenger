@@ -210,6 +210,26 @@ export default (component) => styled(component)`
               &:not(:first-child) {
                 border-top: solid 1px #eeecfc;
               }
+
+              ${Question} {
+                &:hover {
+                  background-color: #fefae8;
+                }
+
+                & > {
+                  nav {
+                    li {
+                      &[aria-roledescription='view'] {
+                        a {
+                          &.active {
+                            background-color: #fef6d2;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         }
