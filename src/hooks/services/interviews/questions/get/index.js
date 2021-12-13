@@ -9,7 +9,7 @@ import { convert } from './helpers';
 export default () => {
   const client = useExpertlead();
   const API = useCallback(
-    ({ id }) => {
+    ({ interview }) => {
       const parse = ({
         isRequired: required,
         difficulty,
@@ -32,12 +32,12 @@ export default () => {
               'sub-dimension': subDimension,
             }),
           },
-          url: { $set: `/interview/${id}/question/${question.id}` },
+          url: { $set: `/interview/${interview}/question/${question.id}` },
           required: { $set: required },
         });
-      const format = ({ questions }) => questions.map(parse);
+      const format = ({ questions = [] }) => questions.map(parse);
 
-      return client.get(`/interviews/${id}/questions`).then(format);
+      return client.get(`/interviews/${interview}/questions`).then(format);
     },
     [client]
   );

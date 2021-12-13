@@ -13,8 +13,8 @@ export default () => {
   const getQuestions = useGetQuestions();
   const fetch = useCallback(() => {
     const requests = [
-      getInterview({ id: params.interview }),
-      getQuestions({ id: params.interview }),
+      getInterview({ interview: params.interview }),
+      getQuestions({ interview: params.interview }),
     ];
     const persist = ([interview, questions]) =>
       setState(reducers.set({ interview, questions }));
@@ -26,5 +26,5 @@ export default () => {
     fetch();
   }, [fetch]);
 
-  return { ...state };
+  return state;
 };
