@@ -17,6 +17,7 @@ export default (component) => styled(component)`
       article {
         flex: 1;
         position: relative;
+        width: 50%;
       }
     }
 

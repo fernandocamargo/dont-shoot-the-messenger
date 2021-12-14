@@ -143,7 +143,7 @@ export default (component) => styled(component)`
 
           &[aria-roledescription='add'] {
             a:before {
-              content: 'add';
+              content: 'search';
             }
           }
 

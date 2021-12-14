@@ -69,7 +69,7 @@ export default ({ source: full, limit }) => {
       parentNode: grandparent,
     } = parent;
 
-    return grandparent.scroll({ behavior: 'smooth', left, top });
+    return grandparent.scrollTo({ behavior: 'smooth', left, top });
   }, []);
   const toogle = useCallback(
     (event) => [event.preventDefault(), setExpanded(reverse), scroll()],
