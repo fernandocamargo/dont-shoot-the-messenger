@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { forwardRef, useCallback } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { Markup, Tag } from 'components/widgets';
@@ -11,7 +11,7 @@ export const renderTag = (tag) => (
   </li>
 );
 
-export default ({ className, ...props }) => {
+export default forwardRef(({ className, ...props }, ref) => {
   const { answer, hint, limit, required, score, tags, text, url } = use(props);
   const Score = useCallback(() => score || <dfn title="Off">--</dfn>, [score]);
   const Requirement = useCallback(
@@ -20,7 +20,7 @@ export default ({ className, ...props }) => {
   );
 
   return (
-    <blockquote className={className}>
+    <blockquote className={className} ref={ref}>
       <dl aria-roledescription="score">
         <dt>Score</dt>
         <dd>
@@ -77,4 +77,4 @@ export default ({ className, ...props }) => {
       </nav>
     </blockquote>
   );
-};
+});

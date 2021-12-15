@@ -2,6 +2,7 @@ import isEqual from 'lodash/isEqual';
 import { useCallback, useMemo, useRef, useState } from 'react';
 
 import { reverse } from 'helpers/boolean';
+import * as DOM from 'helpers/dom';
 
 import { parser } from './helpers';
 
@@ -60,17 +61,10 @@ export default ({ source: full, limit }) => {
     () => ({ __html: !expandable || expanded ? full : short }),
     [expandable, expanded, full, short]
   );
-  const scroll = useCallback(() => {
-    const { current: element } = ref;
-    const parent = element.closest('li');
-    const {
-      offsetLeft: left,
-      offsetTop: top,
-      parentNode: grandparent,
-    } = parent;
-
-    return grandparent.scrollTo({ behavior: 'smooth', left, top });
-  }, []);
+  const scroll = useCallback(
+    () => DOM.scroll({ element: ref.current, selector: 'li' }),
+    []
+  );
   const toogle = useCallback(
     (event) => [event.preventDefault(), setExpanded(reverse), scroll()],
     [scroll]

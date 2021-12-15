@@ -18,7 +18,7 @@ export const renderResult = (question) => (
   </div>
 );
 
-export default ({ className, filters, questions }) => (
+export default ({ questions: { items: questions }, className, filters }) => (
   <article aria-busy={false} className={className}>
     <nav aria-roledescription="filters">
       <h3>Filtering by:</h3>
@@ -69,7 +69,7 @@ export default ({ className, filters, questions }) => (
         <legend>
           Results related to "<strong>your keywords</strong>":
         </legend>
-        <div aria-roledescription="field">{questions.map(renderResult)}</div>
+        <div aria-roledescription="field">{[].map(renderResult)}</div>
       </fieldset>
       <div aria-roledescription="submit">
         <button type="submit">Submit</button>

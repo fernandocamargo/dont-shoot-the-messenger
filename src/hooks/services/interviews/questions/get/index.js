@@ -32,7 +32,6 @@ export default () => {
               'sub-dimension': subDimension,
             }),
           },
-          url: { $set: `/interview/${interview}/question/${question.id}` },
           required: { $set: required },
         });
       const format = ({ questions = [] }) => questions.map(parse);

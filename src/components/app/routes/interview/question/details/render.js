@@ -1,9 +1,11 @@
+import { forwardRef } from 'react';
+
 import { Markup, Question, Score } from 'components/widgets';
 
 import use from './hooks';
 
-export default ({ className, ...props }) => {
-  const question = use(props);
+export default forwardRef(({ className, ...props }, ref) => {
+  const question = use(props, ref);
 
   return (
     <article className={className}>
@@ -38,4 +40,4 @@ export default ({ className, ...props }) => {
       </nav>
     </article>
   );
-};
+});
