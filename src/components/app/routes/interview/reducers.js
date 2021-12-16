@@ -1,4 +1,15 @@
+import findIndex from 'lodash/findIndex';
 import update from 'immutability-helper';
+
+export const feedback =
+  ({ question, score }) =>
+  (state) => {
+    const index = findIndex(state.questions, { id: question });
+
+    return update(state, {
+      questions: { [index]: { score: { $set: score } } },
+    });
+  };
 
 export const getInitialState = () => ({
   filters: [],

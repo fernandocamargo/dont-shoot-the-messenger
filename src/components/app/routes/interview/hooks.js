@@ -4,7 +4,10 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useParams } from 'react-router';
 
 import { useGet as useGetInterview } from 'hooks/services/interviews';
-import { useGet as useGetQuestions } from 'hooks/services/interviews/questions';
+import {
+  useGet as useGetQuestions,
+  useSet as useSetQuestion,
+} from 'hooks/services/interviews/questions';
 
 import * as reducers from './reducers';
 
@@ -14,6 +17,7 @@ export default () => {
   const params = useParams();
   const getInterview = useGetInterview();
   const getQuestions = useGetQuestions();
+  const setQuestion = useSetQuestion();
   const fetch = useCallback(() => {
     const requests = [
       getInterview({ interview: params.interview }),
@@ -27,8 +31,12 @@ export default () => {
   const reconcile = useCallback(
     (stack, current) => {
       const active = isEqual(current.id, params.question);
+      const feedback = ({ score }) =>
+        setQuestion({ score, ...params }).then(() =>
+          setState(reducers.feedback({ score, ...params }))
+        );
       const next = update(current, {
-        ...(active && { ref: { $set: ref } }),
+        ...(active && { feedback: { $set: feedback }, ref: { $set: ref } }),
         url: {
           $set: `/interview/${params.interview}/question/${current.id}`,
         },
@@ -42,7 +50,7 @@ export default () => {
         },
       });
     },
-    [params]
+    [params, setQuestion]
   );
   const { questions } = useMemo(
     () =>

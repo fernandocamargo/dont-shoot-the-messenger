@@ -12,6 +12,7 @@ export default () => {
     ({ interview }) => {
       const parse = ({
         isRequired: required,
+        score = null,
         difficulty,
         skills,
         subDimension,
@@ -33,6 +34,7 @@ export default () => {
             }),
           },
           required: { $set: required },
+          score: { $set: score },
         });
       const format = ({ questions = [] }) => questions.map(parse);
 
