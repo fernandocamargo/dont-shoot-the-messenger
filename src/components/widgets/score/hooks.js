@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { getInitialState as getInitialStateFrom, set } from './reducers';
 
 export default ({ onChange: feedback, ...props }) => {
+  const timeout = useRef(null);
   const [state, setState] = useState(getInitialStateFrom(props));
   const onChange = useCallback((event) => {
     const { target } = event;
@@ -23,7 +24,17 @@ export default ({ onChange: feedback, ...props }) => {
   );
 
   useEffect(() => {
-    !state.original && feedback({ score: state.value });
+    const clear = () => window.clearTimeout(timeout.current);
+    const score = () => !state.original && feedback({ score: state.value });
+    const schedule = () => {
+      clear();
+
+      return (timeout.current = window.setTimeout(score, 1000));
+    };
+
+    schedule();
+
+    return clear;
   }, [feedback, state]);
 
   return { form, onChange, onSubmit };
