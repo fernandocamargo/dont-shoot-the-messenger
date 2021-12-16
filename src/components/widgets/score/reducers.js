@@ -1,6 +1,9 @@
 import update from 'immutability-helper';
 
-export const getInitialState = ({ value }) => ({ original: true, value });
+export const getInitialState = ({ score: value }) => ({
+  original: true,
+  value,
+});
 
 export const set =
   ({ value }) =>

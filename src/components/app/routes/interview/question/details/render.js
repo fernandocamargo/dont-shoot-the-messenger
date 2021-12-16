@@ -17,7 +17,7 @@ export default forwardRef(({ className, ...props }, ref) => {
           <Question {...question} />
         </blockquote>
       </div>
-      <Score name="score" onChange={question.feedback} value={question.score} />
+      <Score name="score" {...question} />
       <nav>
         <h3>Actions:</h3>
         <ul>

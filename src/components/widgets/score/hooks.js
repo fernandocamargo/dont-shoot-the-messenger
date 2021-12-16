@@ -1,23 +1,30 @@
+import { find } from 'lodash';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { getInitialState as getInitialStateFrom, set } from './reducers';
 
-export default ({ onChange: feedback, ...props }) => {
+export default ({ feedback, navigation, ...props }) => {
+  const ref = useRef();
   const timeout = useRef(null);
   const [state, setState] = useState(getInitialStateFrom(props));
   const onChange = useCallback((event) => {
     const { target } = event;
     const value = target.value ? Number(target.value) : null;
 
-    return setState(set({ value }));
-  }, []);
-  const onSubmit = useCallback((event) => {
-    event.preventDefault();
-
-    console.log('submit();');
+    setState(set({ value }));
 
     return event;
   }, []);
+  const onSubmit = useCallback(
+    (event) => {
+      event.preventDefault();
+
+      navigation.next();
+
+      return event;
+    },
+    [navigation]
+  );
   const form = useMemo(
     () => ({ name: props.name, value: state.value }),
     [props.name, state.value]
@@ -29,7 +36,7 @@ export default ({ onChange: feedback, ...props }) => {
     const schedule = () => {
       clear();
 
-      return (timeout.current = window.setTimeout(score, 1000));
+      return (timeout.current = window.setTimeout(score, 250));
     };
 
     schedule();
@@ -37,5 +44,14 @@ export default ({ onChange: feedback, ...props }) => {
     return clear;
   }, [feedback, state]);
 
-  return { form, onChange, onSubmit };
+  useEffect(() => {
+    const {
+      current: { elements },
+    } = ref;
+    const checked = find(elements, { checked: true });
+
+    checked.focus();
+  }, []);
+
+  return { form, onChange, onSubmit, ref };
 };

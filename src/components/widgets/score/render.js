@@ -4,7 +4,7 @@ import use from './hooks';
 import Option from './option';
 
 export default ({ className, ...props }) => {
-  const { form, onChange, onSubmit } = use(props);
+  const { form, onChange, onSubmit, ref } = use(props);
   const options = [
     { label: 'Off', value: null },
     { label: 'No idea', value: 1 },
@@ -26,7 +26,7 @@ export default ({ className, ...props }) => {
   );
 
   return (
-    <form className={className} onSubmit={onSubmit}>
+    <form className={className} onSubmit={onSubmit} ref={ref}>
       <fieldset>
         <legend>Overall score</legend>
         <div aria-roledescription="field">{options.map(renderOption)}</div>
