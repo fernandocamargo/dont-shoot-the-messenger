@@ -52,6 +52,7 @@ export default (component) => styled(component)`
         & > {
           li {
             &:not([aria-roledescription='profile']) {
+              display: none;
               position: relative;
 
               &:not(:first-of-type) {

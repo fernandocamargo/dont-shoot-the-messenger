@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { getInitialState as getInitialStateFrom, set } from './reducers';
 
 export default ({ feedback, navigation, ...props }) => {
+  const shiftKey = useRef(false);
   const ref = useRef();
   const timeout = useRef(null);
   const [state, setState] = useState(getInitialStateFrom(props));
@@ -17,9 +18,11 @@ export default ({ feedback, navigation, ...props }) => {
   }, []);
   const onSubmit = useCallback(
     (event) => {
-      event.preventDefault();
+      const direction = shiftKey.current ? 'previous' : 'next';
+      const { [direction]: navigate } = navigation;
 
-      navigation.next();
+      event.preventDefault();
+      navigate();
 
       return event;
     },
@@ -49,8 +52,21 @@ export default ({ feedback, navigation, ...props }) => {
       current: { elements },
     } = ref;
     const checked = find(elements, { checked: true });
+    const press = (event) => {
+      shiftKey.current = event.shiftKey;
 
+      return event;
+    };
+    const release = () => (shiftKey.current = false);
+
+    document.addEventListener('keydown', press, false);
+    document.addEventListener('keyup', release, false);
     checked.focus();
+
+    return () => {
+      document.removeEventListener('keydown', press, false);
+      document.removeEventListener('keyup', release, false);
+    };
   }, []);
 
   return { form, onChange, onSubmit, ref };

@@ -26,11 +26,13 @@ export default forwardRef(({ className, ...props }, ref) => {
               Favorite
             </a>
           </li>
-          <li aria-roledescription="remove">
-            <a href="/" title="Remove question">
-              Remove
-            </a>
-          </li>
+          {!question.required && (
+            <li aria-roledescription="remove">
+              <a href="/" title="Remove question">
+                Remove
+              </a>
+            </li>
+          )}
           <li aria-roledescription="report">
             <a href="/" title="Report question">
               Report

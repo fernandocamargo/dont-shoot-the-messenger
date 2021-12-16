@@ -51,7 +51,7 @@ export default () => {
         return navigate(url, { replace: true });
       };
       const navigation = {
-        before: () => go({ rewind: true }),
+        previous: () => go({ rewind: true }),
         next: () => go(),
       };
       const next = update(current, {
