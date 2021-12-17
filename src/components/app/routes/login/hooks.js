@@ -2,6 +2,7 @@ import get from 'lodash/get';
 import { useCallback, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { focus } from 'helpers/form';
 import { useAuthentication } from 'hooks';
 import { useLogin } from 'hooks/services/authentication';
 
@@ -52,29 +53,18 @@ export default () => {
         ];
       };
 
-      return [
-        event.preventDefault(),
-        authenticate(credentials)
-          .then(authentication.login)
-          .then(redirect)
-          .catch(warn),
-        event,
-      ];
+      event.preventDefault();
+      authenticate(credentials)
+        .then(authentication.login)
+        .then(redirect)
+        .catch(warn);
+
+      return event;
     },
     [authentication.login, authenticate, location, navigate]
   );
 
-  useEffect(() => {
-    const { current: form } = ref;
-    const data = new FormData(form);
-    const values = Object.fromEntries(data);
-    const [first] = Object.keys(values);
-    const {
-      elements: { [first]: field },
-    } = form;
-
-    return [field.select(), field.focus()];
-  }, []);
+  useEffect(() => focus(ref.current), []);
 
   return { onSubmit, ref };
 };

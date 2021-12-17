@@ -8,7 +8,6 @@ export default () => {
     ({ interview, question, score }) =>
       put(`/interviews/${interview}/questions/${question}`, {
         questionAnswer: { answer: { score } },
-        interviewId: interview,
       }),
     [put]
   );

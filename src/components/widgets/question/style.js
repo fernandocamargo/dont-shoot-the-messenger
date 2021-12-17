@@ -16,9 +16,9 @@ export const getBackgroundColor = ({ score }) =>
   }[score] || '#eee');
 
 export default (component) => styled(component)`
-  padding: 5rem 1rem 2.5rem 1rem;
+  padding: 5rem 1rem 1.5rem 1rem;
   position: relative;
-  transition: background-color 0.1s linear;
+  transition: background-color 0.1s ease;
 
   & > {
     dl {
@@ -44,6 +44,7 @@ export default (component) => styled(component)`
           box-shadow: 0 8px 8px -4px rgba(0, 0, 0, 0.1);
           height: 3rem;
           position: relative;
+          transition: background-color 0.25s ease;
           width: 3rem;
 
           &,

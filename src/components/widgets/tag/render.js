@@ -1,18 +1,32 @@
 import { useMemo } from 'react';
 
-export default ({ details: { label }, className, ...props }) => {
+import use from './hooks';
+
+export default ({ className, ...props }) => {
+  const {
+    details: { label },
+    active,
+    onClick,
+    ...tag
+  } = use(props);
   const entity = useMemo(
     () =>
       ({
         'sub-dimension': 'Sub-dimension',
         difficulty: 'Difficulty',
         skill: 'Skill',
-      }[props.entity]),
-    [props.entity]
+      }[tag.entity]),
+    [tag.entity]
   );
 
   return (
-    <a className={className} href="/" title={label}>
+    <a
+      aria-current={active}
+      className={className}
+      href="/"
+      onClick={onClick}
+      title={label}
+    >
       <dfn title={entity}>{label}</dfn>
     </a>
   );

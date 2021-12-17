@@ -1,7 +1,7 @@
 import { isEqual } from 'lodash';
 import { useEffect } from 'react';
 
-import { ESC } from './constants';
+import { ESC } from 'constants/keyboard';
 
 export default ({ logout, toggle }) => {
   useEffect(() => {

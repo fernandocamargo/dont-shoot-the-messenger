@@ -13,7 +13,7 @@ export default (component) => styled(component)`
 
   &[aria-busy='true'] {
     &:before {
-      background-color: rgba(42, 33, 113, 0.75);
+      background-color: rgba(42, 33, 113, 0.5);
       content: '';
       display: block;
       height: 100vh;
@@ -21,20 +21,6 @@ export default (component) => styled(component)`
       position: fixed;
       top: 0;
       width: 100vw;
-    }
-
-    & > {
-      &:first-child {
-        border-radius: 1rem 1rem 0 0;
-      }
-
-      form {
-        display: block;
-      }
-
-      blockquote {
-        border-radius: 0 0 1rem 1rem;
-      }
     }
   }
 
@@ -59,13 +45,13 @@ export default (component) => styled(component)`
     nav {
       &[aria-roledescription='filters'],
       &[aria-roledescription='sorting'] {
-        padding: 0.5rem 1rem;
+        padding: 0.5rem 1rem 0.5rem 1rem;
         position: relative;
-        z-index: 1;
+        z-index: 3;
 
         h3 {
           color: #3b2e9e;
-          font-size: 0.85rem;
+          font-size: 0.75rem;
           font-weight: 700;
         }
       }
@@ -75,8 +61,7 @@ export default (component) => styled(component)`
 
         li {
           display: inline-block;
-
-          margin-top: 0.5rem;
+          margin-top: 0.25rem;
 
           &:not(:last-of-type) {
             margin-right: 0.5rem;
@@ -141,49 +126,9 @@ export default (component) => styled(component)`
             }
           }
 
-          &[aria-roledescription='add'] {
+          &[aria-roledescription='search'] {
             a:before {
               content: 'search';
-            }
-          }
-
-          &[aria-roledescription='filter'] {
-            position: relative;
-
-            &:before {
-              background-color: #ccc6f6;
-              border-radius: 50%;
-              bottom: calc(100% + 0.25rem);
-              content: '';
-              display: block;
-              height: 2rem;
-              left: 50%;
-              position: absolute;
-              transform: translateX(-50%);
-              width: 2rem;
-            }
-
-            a:before {
-              content: 'filter_alt';
-            }
-          }
-
-          &[aria-roledescription='sort'] {
-            &:before {
-              background-color: #eeecfc;
-              border-radius: 50%;
-              content: '';
-              display: block;
-              height: 2rem;
-              left: 50%;
-              position: absolute;
-              top: calc(100% + 0.5rem);
-              transform: translateX(-50%);
-              width: 2rem;
-            }
-
-            a:before {
-              content: 'sort';
             }
           }
         }
@@ -234,111 +179,27 @@ export default (component) => styled(component)`
           }
         }
       }
-    }
 
-    form {
-      border-radius: 1rem;
-      display: none;
-      left: calc(100% + 0.85rem);
-      overflow: hidden;
-      top: 0;
-      width: 35vw;
-      z-index: 1;
-
-      &,
-      button {
-        position: absolute;
-      }
-
-      fieldset {
-        &[aria-roledescription='keywords'] {
-          label {
-            display: none;
-          }
-        }
-
-        &[aria-roledescription='results'] {
-          background-color: #fff;
-          max-height: 50vh;
-          overflow-y: scroll;
-
-          div {
-            &[aria-roledescription='field'] {
-              & > {
-                div {
-                  &:nth-child(even) {
-                    background-color: #fff;
-                  }
-
-                  &:nth-child(odd) {
-                    background-color: #f9f9fe;
-                  }
-                }
-              }
-            }
-          }
-
-          input {
-            position: absolute;
-            left: -100vw;
-            top: -100vh;
-            z-index: -1;
-
-            &:checked + label,
-            &:focus + label {
-              ${Question} {
-                background-color: #bbb3f3;
-              }
-            }
-          }
-
-          ${Question} {
-            dl {
-              &[aria-roledescription='score'] {
-                display: none;
-              }
-            }
-          }
-        }
-      }
-
-      legend {
-        display: none;
-      }
-
-      input {
-        &[type='text'] {
-          background-color: #eeecfc;
-          border: 0;
-          box-shadow: 0 8px 8px -4px rgba(0, 0, 0, 0.25);
-          color: #5542e3;
-          font-size: 1.5rem;
-          font-weight: 900;
-          outline: 0;
-          padding: 1rem 4rem 1rem 1rem;
+      ${Tag} {
+        &[aria-current='true'] {
+          margin-left: 1.5rem;
           position: relative;
-          width: calc(100% - 5rem);
-          z-index: 1;
-        }
-      }
 
-      button {
-        background: none;
-        border: 0;
-        cursor: pointer;
-        font-size: 0;
-        padding: 0;
-        position: absolute;
-        top: 0.5rem;
-        transform: scaleX(-1);
-        right: 0.5rem;
-        z-index: 2;
-
-        &:before {
-          color: #7667e8;
-          content: 'search';
-          font-family: ${property('theme.typography.icons')};
-          font-size: 3rem;
+          &:before {
+            background-color: #4b3f0a;
+            border-radius: 50%;
+            color: #e1bd1e;
+            content: 'search';
+            display: inline-flex;
+            font-family: ${property('theme.typography.icons')};
+            font-size: 0.75rem;
+            margin-right: 0.25rem;
+            padding: 0.25rem;
+            position: absolute;
+            right: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+          }
         }
       }
     }

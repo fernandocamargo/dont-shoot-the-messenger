@@ -15,7 +15,6 @@ export default (component) => styled(component)`
   color: ${getColor};
   display: inline-flex;
   font-size: 0.65rem;
-  overflow: hidden;
   text-decoration: none;
 
   dfn {

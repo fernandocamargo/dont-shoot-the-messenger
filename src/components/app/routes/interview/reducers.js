@@ -11,16 +11,26 @@ export const feedback =
     });
   };
 
+export const filter =
+  ({ tag }) =>
+  (state) => {
+    const index = findIndex(state.filters, tag);
+    const exists = !!~index;
+
+    return update(state, {
+      filters: {
+        ...(!!exists && { $splice: [[index, 1]] }),
+        ...(!exists && { $push: [tag] }),
+      },
+    });
+  };
+
 export const getInitialState = () => ({
+  'sub-dimensions': [],
   filters: [],
   interview: null,
   questions: [],
+  sorting: [],
 });
 
-export const set =
-  ({ interview, questions }) =>
-  (state) =>
-    update(state, {
-      interview: { $set: interview },
-      questions: { $set: questions },
-    });
+export const set = (data) => (state) => update(state, { $merge: data });
