@@ -45,7 +45,7 @@ export default (component) => styled(component)`
 
     h2 {
       align-items: center;
-      background-color: #ddd9f9;
+      background-color: #ccc6f6;
       color: #221a5a;
       display: flex;
       font-size: 1.25rem;
@@ -59,7 +59,7 @@ export default (component) => styled(component)`
     nav {
       &[aria-roledescription='filters'],
       &[aria-roledescription='sorting'] {
-        padding: 0.5rem 1rem 0.5rem 1rem;
+        padding: 0.5rem 1rem 0.75rem 1rem;
         position: relative;
         z-index: 3;
 
@@ -71,7 +71,7 @@ export default (component) => styled(component)`
       }
 
       &[aria-roledescription='filters'] {
-        background-color: #ccc6f6;
+        background-color: #ddd9f9;
 
         li {
           display: inline-block;

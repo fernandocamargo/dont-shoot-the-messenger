@@ -20,12 +20,6 @@ export default ({ className, ...props }) => {
 
   return (
     <article aria-busy={active} className={className}>
-      {!!filters.length && (
-        <nav aria-roledescription="filters">
-          <h3>Filtering by:</h3>
-          <ul>{filters.map(renderFilter)}</ul>
-        </nav>
-      )}
       <h2>Questions</h2>
       <nav aria-roledescription="actions">
         <h3>Actions:</h3>
@@ -37,6 +31,12 @@ export default ({ className, ...props }) => {
           </li>
         </ul>
       </nav>
+      {!!filters.length && (
+        <nav aria-roledescription="filters">
+          <h3>Filtering by:</h3>
+          <ul>{filters.map(renderFilter)}</ul>
+        </nav>
+      )}
       {!!sorting.length && (
         <nav aria-roledescription="sorting">
           <h3>Sorting by:</h3>

@@ -26,10 +26,12 @@ export const filter =
   };
 
 export const getInitialState = () => ({
+  difficulties: [],
   'sub-dimensions': [],
   filters: [],
   interview: null,
   questions: [],
+  skills: [],
   sorting: [],
 });
 

@@ -25,8 +25,8 @@ export default () => {
                 id: difficulty,
                 name: {
                   DifficultyEasy: 'Easy',
-                  DifficultyHard: 'Hard',
                   DifficultyMedium: 'Medium',
+                  DifficultyHard: 'Hard',
                 }[difficulty],
               },
               skill: get(skills, 'skill'),

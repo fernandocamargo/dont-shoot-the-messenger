@@ -10,6 +10,7 @@ import {
   useGet as useGetQuestions,
   useSet as useSetQuestion,
 } from 'hooks/services/interviews/questions';
+import { useGet as useGetDifficulties } from 'hooks/services/interviews/questions/difficulties';
 import { useGet as useGetSubDimensions } from 'hooks/services/sub-dimensions';
 
 import * as reducers from './reducers';
@@ -19,19 +20,22 @@ export default () => {
   const [state, setState] = useState(reducers.getInitialState());
   const params = useParams();
   const navigate = useNavigate();
+  const getDifficulties = useGetDifficulties();
   const getInterview = useGetInterview();
   const getQuestions = useGetQuestions();
   const setQuestion = useSetQuestion();
   const getSubDimensions = useGetSubDimensions();
   const inject = useCallback(
-    ([interview, questions]) => {
+    ([{ skills, ...interview }, questions, difficulties]) => {
       const {
         vertical: { id: vertical },
       } = interview;
       const format = (subDimensions) => ({
         'sub-dimensions': subDimensions,
+        difficulties,
         interview,
         questions,
+        skills,
       });
 
       return getSubDimensions({ vertical }).then(format);
@@ -40,14 +44,18 @@ export default () => {
   );
   const fetch = useCallback(() => {
     const load = () => {
-      const requests = [getInterview(params), getQuestions(params)];
+      const requests = [
+        getInterview(params),
+        getQuestions(params),
+        getDifficulties(),
+      ];
 
       return Promise.all(requests).then(inject);
     };
     const persist = (data) => setState(reducers.set(data));
 
     return load().then(persist);
-  }, [getInterview, getQuestions, inject, params]);
+  }, [getDifficulties, getInterview, getQuestions, inject, params]);
   const connect = useCallback(
     (tag) => {
       const active = !!find(state.filters, tag);
@@ -108,7 +116,20 @@ export default () => {
       state.questions.reduce(reconcile, {
         ...state,
         questions: { active: null, items: [] },
-        entities: state['sub-dimensions'],
+        entities: [
+          {
+            items: state.skills.map(connect),
+            entity: 'skill',
+          },
+          {
+            items: state['sub-dimensions'].map(connect),
+            entity: 'sub-dimension',
+          },
+          {
+            items: state.difficulties.map(connect),
+            entity: 'difficulty',
+          },
+        ],
         filters: state.filters.map(connect),
       }),
     [connect, reconcile, state]

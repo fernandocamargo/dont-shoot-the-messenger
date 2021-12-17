@@ -1,11 +1,10 @@
-import { Question, Tag } from 'components/widgets';
+import { Question } from 'components/widgets';
 
 import use from './hooks';
+import Entity from './entity';
 
-export const renderFilter = (filter) => (
-  <li key={filter.details.id}>
-    <Tag {...filter} />
-  </li>
+export const renderEntity = (entity, index) => (
+  <Entity key={index} {...entity} />
 );
 
 export const renderResult = (question) => (
@@ -35,17 +34,11 @@ export default ({ className, ...props }) => {
         </div>
       </fieldset>
       <fieldset aria-roledescription="filters">
-        <dl>
-          <dt>Sub-dimensions:</dt>
-          <dd>
-            <ul>{entities.map(renderFilter)}</ul>
-          </dd>
-        </dl>
+        <legend>Filters</legend>
+        {entities.map(renderEntity)}
       </fieldset>
       <fieldset aria-roledescription="results">
-        <legend>
-          Results related to "<strong>your keywords</strong>":
-        </legend>
+        <legend>Results</legend>
         <div aria-roledescription="field">{[].map(renderResult)}</div>
       </fieldset>
     </form>
