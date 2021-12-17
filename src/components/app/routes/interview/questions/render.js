@@ -46,7 +46,7 @@ export default ({ className, ...props }) => {
       <blockquote>
         <ol>{questions.map(renderQuestion)}</ol>
       </blockquote>
-      {!!active && <Search entities={entities} toggle={toggle} />}
+      {!!active && <Search entities={entities} close={toggle} />}
     </article>
   );
 };

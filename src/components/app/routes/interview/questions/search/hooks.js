@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef } from 'react';
 import { ESC } from 'constants/keyboard';
 import { focus } from 'helpers/form';
 
-export default ({ toggle, ...props }) => {
+export default ({ close, ...props }) => {
   const ref = useRef();
   const onSubmit = useCallback((event) => {
     event.preventDefault();
@@ -15,9 +15,14 @@ export default ({ toggle, ...props }) => {
   }, []);
 
   useEffect(() => {
-    const press = (event) => isEqual(event.keyCode, ESC) && toggle(event);
-    const check = (event) =>
-      !ref?.current?.contains(event.target) && toggle(event);
+    const press = (event) => isEqual(event.keyCode, ESC) && close(event);
+    const check = (event) => {
+      const { target } = event;
+      const root = target.closest('[aria-busy]');
+      const closeable = isEqual(target, root) || !root?.contains(target);
+
+      return closeable && close(event);
+    };
 
     document.addEventListener('click', check, false);
     document.addEventListener('keydown', press, false);
@@ -26,9 +31,9 @@ export default ({ toggle, ...props }) => {
       document.removeEventListener('click', check, false),
       document.removeEventListener('keydown', press, false),
     ];
-  }, [toggle]);
+  }, [close]);
 
   useEffect(() => focus(ref.current), []);
 
-  return { onSubmit, ref, toggle, ...props };
+  return { close, onSubmit, ref, ...props };
 };

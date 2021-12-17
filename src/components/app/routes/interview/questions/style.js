@@ -22,6 +22,20 @@ export default (component) => styled(component)`
       top: 0;
       width: 100vw;
     }
+
+    & > {
+      nav {
+        &[aria-roledescription='actions'] {
+          li {
+            &[aria-roledescription='search'] {
+              a:before {
+                content: 'clear';
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   & > {
