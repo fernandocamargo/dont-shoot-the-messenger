@@ -1,11 +1,18 @@
-import { isEqual } from 'lodash';
-import { useCallback, useEffect, useRef } from 'react';
+import isEqual from 'lodash/isEqual';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { ESC } from 'constants/keyboard';
 import { focus } from 'helpers/form';
 
-export default ({ close, ...props }) => {
+import * as reducers from './reducers';
+
+export default ({ close, search, ...props }) => {
   const ref = useRef();
+  const [state, setState] = useState(reducers.getInitialState());
+  const fetch = useCallback(
+    () => search().then((results) => setState(reducers.set({ results }))),
+    [search]
+  );
   const onSubmit = useCallback((event) => {
     event.preventDefault();
 
@@ -15,11 +22,17 @@ export default ({ close, ...props }) => {
   }, []);
 
   useEffect(() => {
+    fetch();
+  }, [fetch]);
+
+  useEffect(() => {
     const press = (event) => isEqual(event.keyCode, ESC) && close(event);
     const check = (event) => {
       const { target } = event;
       const root = target.closest('[aria-busy]');
-      const closeable = isEqual(target, root) || !root?.contains(target);
+      const closeable =
+        isEqual(target, root) ||
+        (document.contains(target) && !root?.contains(target));
 
       return closeable && close(event);
     };
@@ -35,5 +48,5 @@ export default ({ close, ...props }) => {
 
   useEffect(() => focus(ref.current), []);
 
-  return { close, onSubmit, ref, ...props };
+  return { close, onSubmit, ref, ...props, ...state };
 };

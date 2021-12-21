@@ -8,13 +8,11 @@ export const renderEntity = (entity, index) => (
 );
 
 export const renderResult = (question) => (
-  <div key={question.id}>
-    <Question {...question} />
-  </div>
+  <Question key={question.id} {...question} compact />
 );
 
 export default ({ className, ...props }) => {
-  const { entities, onSubmit, ref } = use(props);
+  const { entities, onSubmit, ref, results } = use(props);
 
   return (
     <form className={className} onSubmit={onSubmit} ref={ref}>
@@ -39,7 +37,7 @@ export default ({ className, ...props }) => {
       </fieldset>
       <fieldset aria-roledescription="results">
         <legend>Results</legend>
-        <div aria-roledescription="field">{[].map(renderResult)}</div>
+        <div>{results.map(renderResult)}</div>
       </fieldset>
     </form>
   );

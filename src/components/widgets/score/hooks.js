@@ -1,4 +1,4 @@
-import { find } from 'lodash';
+import find from 'lodash/find';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { getInitialState as getInitialStateFrom, set } from './reducers';

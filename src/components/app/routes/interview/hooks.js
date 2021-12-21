@@ -1,5 +1,6 @@
 import find from 'lodash/find';
 import get from 'lodash/get';
+import intersectionWith from 'lodash/intersectionWith';
 import isEqual from 'lodash/isEqual';
 import update from 'immutability-helper';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -9,11 +10,13 @@ import { useGet as useGetInterview } from 'hooks/services/interviews';
 import {
   useGet as useGetQuestions,
   useSet as useSetQuestion,
+  useSearch as useSearchQuestions,
 } from 'hooks/services/interviews/questions';
 import { useGet as useGetDifficulties } from 'hooks/services/interviews/questions/difficulties';
 import { useGet as useGetSubDimensions } from 'hooks/services/sub-dimensions';
 
 import * as reducers from './reducers';
+import { map, translate } from './helpers';
 
 export default () => {
   const ref = useRef();
@@ -25,12 +28,13 @@ export default () => {
   const getQuestions = useGetQuestions();
   const setQuestion = useSetQuestion();
   const getSubDimensions = useGetSubDimensions();
+  const searchQuestions = useSearchQuestions();
   const inject = useCallback(
     ([{ skills, ...interview }, questions, difficulties]) => {
       const {
         vertical: { id: vertical },
       } = interview;
-      const format = (subDimensions) => ({
+      const shape = (subDimensions) => ({
         'sub-dimensions': subDimensions,
         difficulties,
         interview,
@@ -38,7 +42,7 @@ export default () => {
         skills,
       });
 
-      return getSubDimensions({ vertical }).then(format);
+      return getSubDimensions({ vertical }).then(shape);
     },
     [getSubDimensions]
   );
@@ -59,17 +63,21 @@ export default () => {
   const connect = useCallback(
     (tag) => {
       const active = !!find(state.filters, tag);
-      const toggle = () => setState(reducers.filter({ tag }));
+      const toggle = () => {
+        navigate(`/interview/${params.interview}`);
+
+        return setState(reducers.filter({ tag }));
+      };
 
       return update(tag, {
         active: { $set: active },
         toggle: { $set: toggle },
       });
     },
-    [state.filters]
+    [params.interview, state.filters, navigate]
   );
-  const reconcile = useCallback(
-    (stack, current, index, siblings) => {
+  const format = useCallback(
+    (current, index, siblings) => {
       const link = ({ id: question }) =>
         `/interview/${params.interview}/question/${question}`;
       const active = isEqual(current.id, params.question);
@@ -86,14 +94,15 @@ export default () => {
         const { [target]: sibling = siblings[boundary] } = siblings;
         const url = link(sibling);
 
-        return navigate(url, { replace: true });
+        return navigate(url);
       };
       const navigation = {
         previous: () => move({ rewind: true }),
         next: () => move(),
       };
       const tags = current.tags.map(connect);
-      const next = update(current, {
+
+      return update(current, {
         active: { $set: active },
         feedback: { $set: feedback },
         navigation: { $set: navigation },
@@ -101,15 +110,29 @@ export default () => {
         url: { $set: link(current) },
         ...(active && { ref: { $set: ref } }),
       });
+    },
+    [connect, navigate, params, setQuestion]
+  );
+  const search = useCallback(() => {
+    const criteria = state.filters.map(translate);
+
+    return searchQuestions({ criteria }).then(map(format));
+  }, [state.filters, format, searchQuestions]);
+  const reconcile = useCallback(
+    (stack, current, ...meta) => {
+      const next = format(current, ...meta);
+      const matched =
+        !state.filters.length ||
+        !!intersectionWith(current.tags, state.filters, isEqual).length;
 
       return update(stack, {
         questions: {
-          ...(!!active && { active: { $set: next } }),
-          items: { $push: [next] },
+          ...(!!next.active && { active: { $set: next } }),
+          ...(!!matched && { items: { $push: [next] } }),
         },
       });
     },
-    [connect, navigate, params, setQuestion]
+    [state.filters, format]
   );
   const data = useMemo(
     () =>
@@ -131,6 +154,7 @@ export default () => {
           },
         ],
         filters: state.filters.map(connect),
+        total: state.questions.length,
       }),
     [connect, reconcile, state]
   );
@@ -139,5 +163,5 @@ export default () => {
     fetch();
   }, [fetch]);
 
-  return data;
+  return { ...data, search };
 };

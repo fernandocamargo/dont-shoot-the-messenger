@@ -1,3 +1,6 @@
+import isEqual from 'lodash/isEqual';
+import { useMemo } from 'react';
+
 import { Question, Tag } from 'components/widgets';
 
 import use from './hooks';
@@ -16,11 +19,30 @@ export const renderQuestion = (question) => (
 );
 
 export default ({ className, ...props }) => {
-  const { active, entities, filters, questions, sorting, toggle } = use(props);
+  const {
+    active,
+    entities,
+    filters,
+    questions,
+    search,
+    sorting,
+    toggle,
+    total,
+  } = use(props);
+  const title = useMemo(() => {
+    switch (true) {
+      case !isEqual(questions.length, total):
+        return `Showing ${questions.length} of ${total} items`;
+      default:
+        return `${total} items`;
+    }
+  }, [questions.length, total]);
 
   return (
     <article aria-busy={active} className={className}>
-      <h2>Questions</h2>
+      <h2>
+        <dfn title={title}>Questions</dfn>
+      </h2>
       <nav aria-roledescription="actions">
         <h3>Actions:</h3>
         <ul>
@@ -46,7 +68,9 @@ export default ({ className, ...props }) => {
       <blockquote>
         <ol>{questions.map(renderQuestion)}</ol>
       </blockquote>
-      {!!active && <Search entities={entities} close={toggle} />}
+      {!!active && (
+        <Search close={toggle} entities={entities} search={search} />
+      )}
     </article>
   );
 };

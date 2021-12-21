@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Tag } from 'components/widgets';
+import { Question, Tag } from 'components/widgets';
 
 export default (component) => styled(component)`
   background-color: #fdfdff;
@@ -108,7 +108,25 @@ export default (component) => styled(component)`
     }
 
     &[aria-roledescription='results'] {
+      background-color: #fbfbfe;
       grid-area: results;
+      position: relative;
+
+      & > {
+        div {
+          height: 100%;
+          left: 0;
+          position: absolute;
+          top: 0;
+          width: 100%;
+
+          ${Question} {
+            &:not(:first-of-type) {
+              border-top: solid 1px #ccc6f6;
+            }
+          }
+        }
+      }
     }
   }
 

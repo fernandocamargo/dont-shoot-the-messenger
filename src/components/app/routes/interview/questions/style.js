@@ -46,14 +46,29 @@ export default (component) => styled(component)`
     h2 {
       align-items: center;
       background-color: #ccc6f6;
-      color: #221a5a;
-      display: flex;
-      font-size: 1.25rem;
-      font-weight: 900;
       height: 4rem;
       padding: 0 1rem;
       position: relative;
       z-index: 2;
+
+      &,
+      dfn {
+        display: flex;
+      }
+
+      dfn {
+        align-items: center;
+        color: #221a5a;
+        font-size: 1.25rem;
+        font-weight: 900;
+
+        &:after {
+          content: '(' attr(title) ')';
+          font-size: 0.85rem;
+          font-weight: 300;
+          margin-left: 0.5rem;
+        }
+      }
     }
 
     nav {
