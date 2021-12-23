@@ -21,11 +21,9 @@ export default () => {
           .then(resolve)
           .catch(reject)
           .finally(unsubscribe);
-        const event = send({ type: RESOLVE, promise });
+        const dependencies = [subscribe(), send({ type: RESOLVE, promise })];
 
-        subscribe();
-
-        return Promise.resolve(event).then(wrap(promise));
+        return Promise.resolve(dependencies).then(wrap(promise));
       };
 
       return new Promise(proxy);

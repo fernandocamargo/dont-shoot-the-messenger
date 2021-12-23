@@ -1,4 +1,17 @@
-export const getInitialState = () => ({ interview: null });
+import update from 'immutability-helper';
+
+export const getInitialState = () => ({
+  questions: { difficulties: [], selection: [] },
+  details: null,
+});
+
+export const fetch =
+  ({ details, difficulties }) =>
+  (state) =>
+    update(state, {
+      questions: { difficulties: { $set: difficulties } },
+      details: { $set: details },
+    });
 
 /*
 import findIndex from 'lodash/findIndex';

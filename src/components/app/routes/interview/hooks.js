@@ -14,12 +14,14 @@ export default () => {
   const getInterview = useGetInterview();
   const { pending: fetching, watch } = useLatency();
   const fetch = useCallback(() => {
+    const persist = ([details, difficulties]) =>
+      setState(reducers.fetch({ details, difficulties }));
     const promise = Promise.all([
       getInterview({ interview: params.interview }),
       getDifficulties(),
     ]);
 
-    return watch(promise).then(setState);
+    return watch(promise).then(persist);
   }, [params.interview, getDifficulties, getInterview, watch]);
 
   useEffect(() => fetch(), [fetch]);

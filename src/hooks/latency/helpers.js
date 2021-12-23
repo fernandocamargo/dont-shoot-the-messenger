@@ -3,8 +3,8 @@ import { assign, createMachine } from 'xstate';
 
 import { FULFILLED, IDLE, PENDING, REJECTED, RESOLVE } from './constants';
 
-export class Void {
-  static endless = new Promise(noop);
+export class Eternally {
+  static pending = new Promise(noop);
 }
 
 export class Validity {
@@ -17,10 +17,10 @@ export class Validity {
   };
 
   succeed = (...params) =>
-    !this.stale ? Promise.resolve(...params) : Void.endless;
+    !this.stale ? Promise.resolve(...params) : Eternally.pending;
 
   fail = (...params) =>
-    !this.stale ? Promise.reject(...params) : Void.endless;
+    !this.stale ? Promise.reject(...params) : Eternally.pending;
 
   check = (promise) => {
     const { succeed, fail } = this;
@@ -29,9 +29,7 @@ export class Validity {
   };
 }
 
-export const fail = assign({
-  error: (_, { data: { message: error } }) => error,
-});
+export const fail = assign({ error: (_, { data }) => data });
 
 export const machine = () =>
   createMachine({
@@ -41,7 +39,7 @@ export const machine = () =>
         invoke: {
           onDone: { target: FULFILLED, actions: [succeed] },
           onError: { target: REJECTED, actions: [fail] },
-          src,
+          src: (_, { promise }) => promise,
         },
       },
       [IDLE]: { on: { [RESOLVE]: PENDING } },
@@ -49,7 +47,5 @@ export const machine = () =>
       [REJECTED]: { on: { [RESOLVE]: PENDING }, type: 'final' },
     },
   });
-
-export const src = (_, { promise }) => promise;
 
 export const succeed = assign({ data: (_, { data }) => data });
