@@ -1,3 +1,4 @@
+/*
 import use from './hooks';
 import Candidate from './candidate';
 import Feedback from './feedback';
@@ -19,6 +20,47 @@ export default ({ className, ...props }) => {
         <Feedback />
         <Candidate />
       </section>
+    </div>
+  );
+};
+*/
+
+import { Link } from 'react-router-dom';
+
+import use from './hooks';
+
+export default ({ className, ...props }) => {
+  const { fetching, state } = use(props);
+
+  return (
+    <div>
+      <h1>Interview {fetching && '(loading...)'}</h1>
+      <ul>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/interview/46a68d2d-09a4-484e-a51c-0d3ae207ba20">
+            Interview
+          </Link>
+        </li>
+        <li>
+          <Link to="/interview/46a68d2d-09a4-484e-a51c-0d3ae207ba20/question/a9a69242-e217-4f5e-b2c4-3014bd7d78c9">
+            Question
+          </Link>
+        </li>
+        <li>
+          <Link to="/interview/46a68d2d-09a4-484e-a51c-0d3ae207ba20/review">
+            Review
+          </Link>
+        </li>
+        <li>
+          <Link to="/interview/46a68d2d-09a4-484e-a51c-0d3ae207ba20/report">
+            Report
+          </Link>
+        </li>
+      </ul>
+      {!!state && <pre>{JSON.stringify(state, null, 2)}</pre>}
     </div>
   );
 };

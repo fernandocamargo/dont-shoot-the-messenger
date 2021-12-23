@@ -3,10 +3,10 @@ import { useLocation } from 'react-router-dom';
 
 import { useAuthentication } from 'hooks';
 
-export default (route) => {
+export default () => {
   const from = useLocation();
-  const { logged: allowed } = useAuthentication();
+  const { logged } = useAuthentication();
   const state = useMemo(() => ({ from }), [from]);
 
-  return { allowed, route, state };
+  return { logged, state };
 };

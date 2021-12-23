@@ -1,3 +1,6 @@
+export const getInitialState = () => ({ interview: null });
+
+/*
 import findIndex from 'lodash/findIndex';
 import update from 'immutability-helper';
 
@@ -36,3 +39,4 @@ export const getInitialState = () => ({
 });
 
 export const set = (data) => (state) => update(state, { $merge: data });
+*/

@@ -1,3 +1,33 @@
+import { useCallback, useEffect, useState } from 'react';
+import { useParams } from 'react-router';
+
+import { useLatency } from 'hooks';
+import { useGet as useGetInterview } from 'hooks/services/interviews';
+import { useGet as useGetDifficulties } from 'hooks/services/interviews/questions/difficulties';
+
+import * as reducers from './reducers';
+
+export default () => {
+  const [state, setState] = useState(reducers.getInitialState());
+  const params = useParams();
+  const getDifficulties = useGetDifficulties();
+  const getInterview = useGetInterview();
+  const { pending: fetching, watch } = useLatency();
+  const fetch = useCallback(() => {
+    const promise = Promise.all([
+      getInterview({ interview: params.interview }),
+      getDifficulties(),
+    ]);
+
+    return watch(promise).then(setState);
+  }, [params.interview, getDifficulties, getInterview, watch]);
+
+  useEffect(() => fetch(), [fetch]);
+
+  return { fetching, state };
+};
+
+/*
 import find from 'lodash/find';
 import get from 'lodash/get';
 import intersectionWith from 'lodash/intersectionWith';
@@ -165,3 +195,4 @@ export default () => {
 
   return { ...data, search };
 };
+*/

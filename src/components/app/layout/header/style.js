@@ -130,6 +130,10 @@ export default (component) => styled(component)`
               z-index: 1;
 
               & > {
+                ul {
+                  border: solid 1px #eeecfc;
+                }
+
                 a {
                   align-items: center;
                   border-radius: 1rem 0 0 0;

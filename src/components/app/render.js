@@ -1,12 +1,12 @@
 import { Suspense as OnDemand } from 'react';
 
-import { Passport, Route, Routes } from 'components';
+import { Restricted, Route, Routes } from 'components';
 import { Loader } from 'components/widgets';
 
-import { Dashboard, Interview, Interviews, Login, NotFound } from './routes';
-import Footer from './footer';
-import Header from './header';
+import { Dashboard, Interview, Login, NotFound } from './routes';
+import Layout from './layout';
 
+/*
 export default ({ className }) => (
   <div className={className}>
     <Header />
@@ -32,4 +32,26 @@ export default ({ className }) => (
     </main>
     <Footer />
   </div>
+);
+*/
+
+export default () => (
+  <OnDemand fallback={<Loader />}>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route element={<Login />} path="/login" />
+        <Route element={<Restricted />} path="/">
+          <Route element={<Dashboard />} index />
+          <Route element={<Interview />} path="interview/:interview" />
+          <Route
+            element={<Interview />}
+            path="interview/:interview/question/:question"
+          />
+          <Route element={<Interview />} path="interview/:interview/review" />
+          <Route element={<Interview />} path="interview/:interview/report" />
+        </Route>
+        <Route element={<NotFound />} path="*" />
+      </Route>
+    </Routes>
+  </OnDemand>
 );
