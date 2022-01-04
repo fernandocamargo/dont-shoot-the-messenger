@@ -1,4 +1,4 @@
-import { Question } from 'components/widgets';
+import Question from 'components/widgets/question';
 
 import use from './hooks';
 import Entity from './entity';

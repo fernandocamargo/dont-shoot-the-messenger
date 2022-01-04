@@ -1,6 +1,10 @@
+export { default as Candidate } from './candidate';
+export { default as Feedback } from './feedback';
 export { default as Loader } from './loader';
 export { default as Markup } from './markup';
 export { default as Question } from './question';
+export { default as Questions } from './questions';
 export { default as Score } from './score';
+export { default as Stats } from './stats';
 export { default as Tag } from './tag';
 export { default as Video } from './video';

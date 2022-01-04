@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { Tag } from 'components/widgets';
+import Tag from 'components/widgets/tag';
 
 export const renderItem = (filter) => (
   <li key={filter.details.id}>

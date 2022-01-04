@@ -1,6 +1,8 @@
 import { forwardRef } from 'react';
 
-import { Markup, Question, Score } from 'components/widgets';
+import Markup from 'components/widgets/markup';
+import Question from 'components/widgets/question';
+import Score from 'components/widgets/score';
 
 import use from './hooks';
 

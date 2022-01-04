@@ -1,7 +1,7 @@
 import property from 'lodash/property';
 import styled from 'styled-components';
 
-import { Question } from 'components/widgets';
+import Question from 'components/widgets/question';
 
 export default (component) => styled(component)`
   display: grid;

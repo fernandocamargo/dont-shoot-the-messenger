@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
-import { Question, Tag } from 'components/widgets';
+import Question from 'components/widgets/question';
+import Tag from 'components/widgets/tag';
 
 export default (component) => styled(component)`
   background-color: #fdfdff;

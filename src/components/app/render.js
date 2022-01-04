@@ -9,13 +9,11 @@ export default () => (
       <Route element={<Login />} path="/login" />
       <Route element={<Restricted />} path="/">
         <Route element={<Dashboard />} index />
-        <Route element={<Interview />} path="interview/:interview" />
+        <Route element={<Interview />} path="interview/:interview/*" />
         <Route
           element={<Interview />}
-          path="interview/:interview/question/:question"
+          path="interview/:interview/question/:question/*"
         />
-        <Route element={<Interview />} path="interview/:interview/review" />
-        <Route element={<Interview />} path="interview/:interview/report" />
       </Route>
       <Route element={<NotFound />} path="*" />
     </Route>
