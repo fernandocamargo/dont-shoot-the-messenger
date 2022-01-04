@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import Actions from './actions';
+
 export default (component) => styled(component)`
   display: flex;
   flex: 1;
@@ -9,13 +11,17 @@ export default (component) => styled(component)`
       border-radius: 1rem;
       flex: 1;
 
-      &:first-child {
+      &:first-of-type {
         margin: 2rem 1rem 2rem 2rem;
       }
 
-      &:last-child {
-        margin: 2rem 2rem 2rem 1rem;
+      &:last-of-type {
+        margin: 2rem 1rem 2rem 1rem;
       }
+    }
+
+    ${Actions} {
+      margin: 2rem 2rem 2rem 1rem;
     }
   }
 `;

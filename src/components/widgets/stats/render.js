@@ -4,9 +4,8 @@
     <Polar />
 */
 
-export default ({ className, ...props }) =>
-  console.log({ props }) || (
-    <article className={className}>
-      <h2>Stats</h2>
-    </article>
-  );
+export default ({ className }) => (
+  <article className={className}>
+    <h2>Stats</h2>
+  </article>
+);
