@@ -55,8 +55,8 @@ export default ({ className, ...props }) => {
   );
 
   return (
-    <section aria-roledescription="primary">
-      <article aria-busy={active} className={className}>
+    <section className={className}>
+      <article aria-busy={active}>
         <h2>
           <dfn title={title}>Questions</dfn>
         </h2>

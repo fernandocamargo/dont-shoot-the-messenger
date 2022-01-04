@@ -1,1 +1,5 @@
-export default () => <p>This is the call</p>;
+export default ({ className }) => (
+  <section className={className}>
+    <p>This is the call</p>
+  </section>
+);

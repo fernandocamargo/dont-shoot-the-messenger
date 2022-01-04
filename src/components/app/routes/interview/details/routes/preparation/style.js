@@ -8,7 +8,6 @@ export default (component) => styled(component)`
   grid-template-areas:
     'stats stats'
     'feedback candidate';
-  margin: 2rem 2rem 2rem 1rem;
 
   article {
     background-color: #fff;

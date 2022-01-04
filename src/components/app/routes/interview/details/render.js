@@ -1,30 +1,14 @@
 import { Route, Routes } from 'components';
-import { Candidate, Feedback, Questions, Stats } from 'components/widgets';
+import { Questions } from 'components/widgets';
 
-import { Call } from './routes';
+import { Call, Preparation } from './routes';
 
 export default ({ className, interview }) => (
   <div className={className}>
     <Questions {...interview} />
     <Routes>
-      <Route
-        element={
-          <section aria-roledescription="secondary">
-            <Stats {...interview} />
-            <Feedback {...interview} />
-            <Candidate {...interview} />
-          </section>
-        }
-        index
-      />
-      <Route
-        element={
-          <section aria-roledescription="secondary">
-            <Call />
-          </section>
-        }
-        path="call"
-      />
+      <Route element={<Preparation {...interview} />} index />
+      <Route element={<Call {...interview} />} path="call" />
     </Routes>
   </div>
 );
