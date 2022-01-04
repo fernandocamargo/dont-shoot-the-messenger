@@ -23,6 +23,8 @@ export default ({ className, ...props }) => {
     active,
     entities,
     filters,
+    prepare,
+    preparing,
     questions,
     search,
     sorting,
@@ -37,6 +39,18 @@ export default ({ className, ...props }) => {
         return `${total} items`;
     }
   }, [questions.length, total]);
+  const labels = useMemo(
+    () => ({
+      prepare: [
+        preparing.pending ? 'loading' : 'load',
+        ' its required questions',
+        preparing.pending && '...',
+      ]
+        .filter(Boolean)
+        .join(''),
+    }),
+    [preparing]
+  );
 
   return (
     <article aria-busy={active} className={className}>
@@ -65,9 +79,26 @@ export default ({ className, ...props }) => {
           <ul>{sorting.map(renderFilter)}</ul>
         </nav>
       )}
-      <blockquote>
-        <ol>{questions.map(renderQuestion)}</ol>
-      </blockquote>
+      {!questions.length && (
+        <div aria-busy={preparing.pending}>
+          <p>
+            <span>The first step to prepare your interview is to </span>
+            <a
+              href="/"
+              onClick={prepare}
+              title="Click here to load the required questions"
+            >
+              {labels.prepare}
+            </a>
+            <span>.</span>
+          </p>
+        </div>
+      )}
+      {!!questions.length && (
+        <blockquote>
+          <ol>{questions.map(renderQuestion)}</ol>
+        </blockquote>
+      )}
       {!!active && (
         <Search close={toggle} entities={entities} search={search} />
       )}

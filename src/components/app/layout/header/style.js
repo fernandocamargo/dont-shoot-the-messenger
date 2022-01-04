@@ -51,77 +51,6 @@ export default (component) => styled(component)`
 
         & > {
           li {
-            &:not([aria-roledescription='profile']) {
-              display: none;
-              position: relative;
-
-              &:not(:first-of-type) {
-                margin-left: 4rem;
-              }
-
-              a {
-                align-items: center;
-                color: #94949a;
-                display: flex;
-                height: 100%;
-                outline: 0;
-                text-decoration: none;
-                transition: color 0.1s linear;
-
-                &[aria-current='page'],
-                &:focus,
-                &:hover {
-                  color: #5542e3;
-
-                  &:after {
-                    height: 3px;
-                  }
-                }
-
-                &[aria-current='page'] {
-                  pointer-events: none;
-                }
-
-                &:before {
-                  display: inline-flex;
-                  font-family: ${property('theme.typography.icons')};
-                  font-size: 1.5rem;
-                  margin-right: 0.5rem;
-                }
-
-                &:after {
-                  background-color: #5542e3;
-                  border-radius: 1rem 1rem 0 0;
-                  bottom: 0;
-                  content: '';
-                  display: block;
-                  height: 0;
-                  left: 0;
-                  position: absolute;
-                  transition: height 0.1s linear;
-                  width: 100%;
-                }
-              }
-            }
-
-            &[aria-roledescription='dashboard'] {
-              a:before {
-                content: 'dashboard_customize';
-              }
-            }
-
-            &[aria-roledescription='call'] {
-              a:before {
-                content: 'ring_volume';
-              }
-            }
-
-            &[aria-roledescription='schedule'] {
-              a:before {
-                content: 'event_available';
-              }
-            }
-
             &[aria-roledescription='profile'] {
               height: 100%;
               position: absolute;
@@ -192,7 +121,6 @@ export default (component) => styled(component)`
                   a {
                     background-color: #6654e5;
                     box-shadow: 0 8px 8px -4px #eeecfc;
-                    pointer-events: none;
 
                     &:after,
                     dfn {

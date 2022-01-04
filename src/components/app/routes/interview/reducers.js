@@ -1,19 +1,3 @@
-import update from 'immutability-helper';
-
-export const getInitialState = () => ({
-  questions: { difficulties: [], selection: [] },
-  details: null,
-});
-
-export const fetch =
-  ({ details, difficulties }) =>
-  (state) =>
-    update(state, {
-      questions: { difficulties: { $set: difficulties } },
-      details: { $set: details },
-    });
-
-/*
 import findIndex from 'lodash/findIndex';
 import update from 'immutability-helper';
 
@@ -26,6 +10,17 @@ export const feedback =
       questions: { [index]: { score: { $set: score } } },
     });
   };
+
+export const fetch =
+  ({ details, difficulties, questions }) =>
+  (state) =>
+    update(state, {
+      questions: {
+        difficulties: { $set: difficulties },
+        items: { $set: questions },
+      },
+      details: { $set: details },
+    });
 
 export const filter =
   ({ tag }) =>
@@ -41,6 +36,21 @@ export const filter =
     });
   };
 
+export const getInitialState = () => ({
+  questions: { difficulties: [], items: [] },
+  details: null,
+  entities: [],
+  filters: [],
+  sorting: [],
+  total: 0,
+});
+
+export const prepare =
+  ({ questions }) =>
+  (state) =>
+    update(state, { questions: { items: { $set: questions } } });
+
+/*
 export const getInitialState = () => ({
   difficulties: [],
   'sub-dimensions': [],

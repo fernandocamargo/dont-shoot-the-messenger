@@ -15,8 +15,8 @@
     "history": "^5.2.0",
     "immutability-helper": "^3.1.1",
     "lodash": "^4.17.21",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^0.0.0-experimental-3dc41d8a2-20211223",
+    "react-dom": "^0.0.0-experimental-3dc41d8a2-20211223",
     "react-helmet": "^6.1.0",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.1",
@@ -28,7 +28,7 @@
     "stream": "npm:stream-browserify",
     "styled-components": "^5.3.3",
     "web-vitals": "^2.1.2",
-    "xstate": "^4.26.1"
+    "xstate": "^4.27.0"
   },
   "scripts": {
     "start": "react-scripts start",

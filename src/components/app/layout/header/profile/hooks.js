@@ -1,20 +1,25 @@
 import isEqual from 'lodash/isEqual';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { ESC } from 'constants/keyboard';
 
 export default ({ logout, toggle }) => {
-  useEffect(() => {
-    const press = (event) => isEqual(event.keyCode, ESC) && toggle(event);
+  const ref = useRef();
 
-    document.addEventListener('click', toggle, false);
+  useEffect(() => {
+    const click = (event) =>
+      !ref.current.parentNode.contains(event.target) ? toggle(event) : event;
+    const press = (event) =>
+      isEqual(event.keyCode, ESC) ? toggle(event) : event;
+
+    document.addEventListener('click', click, false);
     document.addEventListener('keydown', press, false);
 
     return () => [
-      document.removeEventListener('click', toggle, false),
+      document.removeEventListener('click', click, false),
       document.removeEventListener('keydown', press, false),
     ];
   }, [toggle]);
 
-  return { logout, toggle };
+  return { logout, ref };
 };

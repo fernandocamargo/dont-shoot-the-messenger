@@ -17,11 +17,11 @@ export default (component) => styled(component)`
       justify-content: center;
       padding: 1rem;
       text-align: center;
-      width: calc(15vmax - 2rem);
+      width: 75%;
 
       &:first-of-type {
         &:before {
-          content: 'checklist_rtl';
+          content: 'grading';
           font-family: ${property('theme.typography.icons')};
           font-size: 5rem;
           display: block;

@@ -1,4 +1,5 @@
 export { default as App } from './app';
+export { default as Fallback } from './fallback';
 export { default as Passport } from './passport';
 export { default as Redirect } from './redirect';
 export { default as Restricted } from './restricted';

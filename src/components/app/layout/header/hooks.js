@@ -15,10 +15,18 @@ export default () => {
     [authentication]
   );
   const toggle = useCallback((event) => {
-    event.preventDefault();
+    setActive(reverse);
 
-    return setActive(reverse);
+    return event;
   }, []);
+  const onClick = useCallback(
+    (event) => {
+      event.preventDefault();
 
-  return { ...authentication, active, logout, toggle };
+      return toggle(event);
+    },
+    [toggle]
+  );
+
+  return { ...authentication, active, logout, onClick, toggle };
 };

@@ -1,21 +1,16 @@
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import use from './hooks';
 
 export default ({ className, ...props }) => {
-  const { logout } = use(props);
+  const { logout, ref } = use(props);
 
   return (
-    <ul className={className}>
-      <li aria-roledescription="profile">
-        <NavLink to="/profile" title="Edit profile">
-          Edit profile
-        </NavLink>
-      </li>
+    <ul className={className} ref={ref}>
       <li aria-roledescription="logout">
-        <NavLink to="/logout" title="Logout" onClick={logout}>
+        <Link onClick={logout} title="Logout" to="/logout">
           Logout
-        </NavLink>
+        </Link>
       </li>
     </ul>
   );

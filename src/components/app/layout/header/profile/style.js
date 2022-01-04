@@ -9,12 +9,6 @@ export default (component) => styled(component)`
   padding: 1rem 0;
 
   li {
-    &[aria-roledescription='profile'] {
-      a:before {
-        content: 'settings';
-      }
-    }
-
     &[aria-roledescription='logout'] {
       a:before {
         content: 'logout';

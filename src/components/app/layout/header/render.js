@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import use from './hooks';
 import Profile from './profile';
@@ -10,6 +10,7 @@ export default ({ className, ...props }) => {
     active,
     logged,
     logout,
+    onClick,
     toggle,
   } = use(props);
   const name = useMemo(
@@ -20,7 +21,7 @@ export default ({ className, ...props }) => {
   return (
     <header className={className}>
       <h2>
-        <Link to="/" title="expertlead">
+        <Link title="expertlead" to="/">
           expertlead
         </Link>
       </h2>
@@ -28,32 +29,14 @@ export default ({ className, ...props }) => {
         <nav>
           <h3>Navigate through:</h3>
           <ul>
-            <li aria-roledescription="dashboard">
-              <NavLink to="/" title="Dashboard">
-                Dashboard
-              </NavLink>
-            </li>
-            <li aria-roledescription="schedule">
-              <NavLink to="/interviews" title="Schedule">
-                Schedule
-              </NavLink>
-            </li>
-            <li aria-roledescription="call">
-              <NavLink
-                to="/interview/e529d351-a1fa-4286-89fa-127eece5505c"
-                title="Call"
-              >
-                Call
-              </NavLink>
-            </li>
             <li
               aria-roledescription="profile"
               aria-selected={active}
               role="tab"
             >
-              <a href="/" onClick={toggle} title={name}>
+              <Link onClick={onClick} title={name} to="/">
                 <dfn title="Current user">{name}</dfn>
-              </a>
+              </Link>
               {!!active && <Profile logout={logout} toggle={toggle} />}
             </li>
           </ul>

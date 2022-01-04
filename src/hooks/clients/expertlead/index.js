@@ -1,15 +1,25 @@
-import property from 'lodash/property';
 import { create } from 'axios';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { useAuthentication } from 'hooks';
+import { isEqual } from 'lodash';
 
-export const intercept = property('data');
+import { succeed } from './helpers';
 
 export default () => {
   const {
     profile: { accessToken },
+    logout,
   } = useAuthentication();
+  const fail = useCallback(
+    ({ response: { data, status } }) => {
+      const expired = isEqual(status, 401);
+      const error = expired ? logout() : data;
+
+      return Promise.reject(error);
+    },
+    [logout]
+  );
   const client = useMemo(() => {
     const instance = create({
       headers: {
@@ -19,10 +29,10 @@ export default () => {
       baseURL: 'http://localhost:8080',
     });
 
-    instance.interceptors.response.use(intercept);
+    instance.interceptors.response.use(succeed, fail);
 
     return instance;
-  }, [accessToken]);
+  }, [accessToken, fail]);
 
   return client;
 };

@@ -1,7 +1,14 @@
 import noop from 'lodash/noop';
 import { assign, createMachine } from 'xstate';
 
-import { FULFILLED, IDLE, PENDING, REJECTED, RESOLVE } from './constants';
+import {
+  FULFILLED,
+  IDLE,
+  PENDING,
+  REJECTED,
+  RESET,
+  RESOLVE,
+} from './constants';
 
 export class Eternally {
   static pending = new Promise(noop);
@@ -23,7 +30,7 @@ export class Validity {
     !this.stale ? Promise.reject(...params) : Eternally.pending;
 
   check = (promise) => {
-    const { succeed, fail } = this;
+    const { fail, succeed } = this;
 
     return promise.then(succeed).catch(fail);
   };
@@ -41,10 +48,11 @@ export const machine = () =>
           onError: { target: REJECTED, actions: [fail] },
           src: (_, { promise }) => promise,
         },
+        on: { [RESET]: IDLE },
       },
+      [FULFILLED]: { on: { [RESOLVE]: PENDING } },
       [IDLE]: { on: { [RESOLVE]: PENDING } },
-      [FULFILLED]: { on: { [RESOLVE]: PENDING }, type: 'final' },
-      [REJECTED]: { on: { [RESOLVE]: PENDING }, type: 'final' },
+      [REJECTED]: { on: { [RESOLVE]: PENDING } },
     },
   });
 
