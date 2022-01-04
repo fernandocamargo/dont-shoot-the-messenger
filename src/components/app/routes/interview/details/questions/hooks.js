@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react';
 import { reverse } from 'helpers/boolean';
 import { useLatency } from 'hooks';
 
-export default ({ questions: { items: questions }, ...props }) => {
+export default ({ questions, ...props }) => {
   const [active, setActive] = useState(false);
   const toggle = useCallback((event) => {
     event.preventDefault();

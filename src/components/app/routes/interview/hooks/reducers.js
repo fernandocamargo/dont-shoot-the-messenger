@@ -11,16 +11,7 @@ export const feedback =
     });
   };
 
-export const fetch =
-  ({ details, difficulties, questions }) =>
-  (state) =>
-    update(state, {
-      questions: {
-        difficulties: { $set: difficulties },
-        items: { $set: questions },
-      },
-      details: { $set: details },
-    });
+export const fetch = (data) => (state) => update(state, { $merge: data });
 
 export const filter =
   ({ tag }) =>
@@ -36,30 +27,17 @@ export const filter =
     });
   };
 
-export const getInitialState = () => ({
-  questions: { difficulties: [], items: [] },
-  details: null,
-  entities: [],
-  filters: [],
-  sorting: [],
-  total: 0,
-});
-
-export const prepare =
-  ({ questions }) =>
-  (state) =>
-    update(state, { questions: { items: { $set: questions } } });
-
-/*
-export const getInitialState = () => ({
+export const initialize = () => ({
   difficulties: [],
-  'sub-dimensions': [],
+  details: null,
+  dimensions: [],
   filters: [],
-  interview: null,
   questions: [],
   skills: [],
   sorting: [],
 });
 
-export const set = (data) => (state) => update(state, { $merge: data });
-*/
+export const prepare =
+  ({ questions }) =>
+  (state) =>
+    update(state, { questions: { $set: questions } });
