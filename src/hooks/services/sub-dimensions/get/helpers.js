@@ -1,6 +1,3 @@
-export const format = ({ subDimensions }) => subDimensions.map(normalize);
+import property from 'lodash/property';
 
-export const normalize = ({ title: label, id }) => ({
-  details: { id, label },
-  entity: 'sub-dimension',
-});
+export const format = property('subDimensions');

@@ -11,6 +11,11 @@ export default createGlobalStyle`
   body {
     font-family: ${property('theme.typography.main')};
     padding: 1rem;
+
+    & > {
+      div#zmmtg-root {
+      }
+    }
   }
 
   figure {

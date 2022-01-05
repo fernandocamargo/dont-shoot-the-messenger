@@ -13,28 +13,12 @@ export const feedback =
 
 export const fetch = (data) => (state) => update(state, { $merge: data });
 
-export const filter =
-  ({ tag }) =>
-  (state) => {
-    const index = findIndex(state.filters, tag);
-    const exists = !!~index;
-
-    return update(state, {
-      filters: {
-        ...(!!exists && { $splice: [[index, 1]] }),
-        ...(!exists && { $push: [tag] }),
-      },
-    });
-  };
-
 export const initialize = () => ({
   difficulties: [],
   details: null,
   dimensions: [],
-  filters: [],
   questions: [],
   skills: [],
-  sorting: [],
 });
 
 export const prepare =

@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export default (component) => styled(component)`
-  grid-area: stats;
   padding: 1rem;
 
   h2 {

@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { milad } from 'mocks/images';
 
 export default (component) => styled(component)`
-  grid-area: candidate;
   padding: 1rem;
 
   h2 {

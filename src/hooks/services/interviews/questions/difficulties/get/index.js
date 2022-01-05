@@ -4,18 +4,9 @@ export default () => {
   const API = useCallback(
     () =>
       Promise.resolve([
-        {
-          entity: 'difficulty',
-          details: { id: 'DifficultyEasy', label: 'Easy' },
-        },
-        {
-          entity: 'difficulty',
-          details: { id: 'DifficultyMedium', label: 'Medium' },
-        },
-        {
-          entity: 'difficulty',
-          details: { id: 'DifficultyHard', label: 'Hard' },
-        },
+        { id: 'DifficultyEasy', label: 'Easy' },
+        { id: 'DifficultyMedium', label: 'Medium' },
+        { id: 'DifficultyHard', label: 'Hard' },
       ]),
     []
   );

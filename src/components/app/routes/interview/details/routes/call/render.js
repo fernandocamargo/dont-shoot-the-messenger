@@ -1,5 +1,7 @@
+import { Video } from 'components/widgets';
+
 export default ({ className }) => (
   <section className={className}>
-    <p>This is the call</p>
+    <Video />
   </section>
 );

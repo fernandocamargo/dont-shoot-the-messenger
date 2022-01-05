@@ -3,5 +3,9 @@ import use from './hooks';
 export default ({ className, ...props }) => {
   const { ref } = use(props);
 
-  return <div className={className} ref={ref} />;
+  return (
+    <article className={className}>
+      <div ref={ref} />
+    </article>
+  );
 };

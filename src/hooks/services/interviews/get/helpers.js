@@ -5,10 +5,5 @@ export const format = (interview) => {
     candidate: { skills },
   } = interview;
 
-  return update(interview, { skills: { $set: skills.map(normalize) } });
+  return update(interview, { skills: { $set: skills } });
 };
-
-export const normalize = ({ id, name }) => ({
-  details: { label: name, id },
-  entity: 'skill',
-});

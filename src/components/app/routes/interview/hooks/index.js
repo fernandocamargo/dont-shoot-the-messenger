@@ -1,3 +1,89 @@
+import update from 'immutability-helper';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useNavigate, useParams } from 'react-router';
+
+import { useLatency } from 'hooks';
+import { useGet as useGetInterview } from 'hooks/services/interviews';
+import { useGet as useGetQuestions } from 'hooks/services/interviews/questions';
+import { useGet as useGetDifficulties } from 'hooks/services/interviews/questions/difficulties';
+import { useSetRequired as useSetRequiredQuestions } from 'hooks/services/interviews/questions/set';
+import { useGet as useGetSubDimensions } from 'hooks/services/sub-dimensions';
+
+import * as reducers from './reducers';
+
+export default () => {
+  const [state, setState] = useState(reducers.initialize());
+  const params = useParams();
+  const navigate = useNavigate();
+  const getDifficulties = useGetDifficulties();
+  const getInterview = useGetInterview();
+  const getQuestions = useGetQuestions();
+  const getSubDimensions = useGetSubDimensions();
+  const setRequiredQuestions = useSetRequiredQuestions();
+  const { pending: fetching, error, watch } = useLatency();
+  const fetch = useCallback(() => {
+    const retrieve = ([{ skills, ...details }, questions, difficulties]) => {
+      const shape = (dimensions) => ({
+        details,
+        difficulties,
+        dimensions,
+        questions,
+        skills,
+      });
+
+      return getSubDimensions({ vertical: details.vertical.id }).then(shape);
+    };
+    const persist = (response) => setState(reducers.fetch(response));
+    const promise = watch(
+      Promise.all([
+        getInterview({ interview: params.interview }),
+        getQuestions({ interview: params.interview }),
+        getDifficulties(),
+      ]).then(retrieve)
+    ).then(persist);
+
+    return promise;
+  }, [
+    params.interview,
+    getDifficulties,
+    getInterview,
+    getQuestions,
+    getSubDimensions,
+    watch,
+  ]);
+  const go = useCallback(
+    () => navigate(`/interview/${params.interview}`),
+    [params.interview, navigate]
+  );
+  const link = useCallback(
+    (question) =>
+      `/interview/${params.interview}/question/${question.id}/${params['*']}`,
+    [params]
+  );
+  const prepare = useCallback(() => {
+    const retrieve = () => getQuestions({ interview: params.interview });
+    const persist = (questions) => setState(reducers.prepare({ questions }));
+
+    return setRequiredQuestions({ interview: params.interview })
+      .then(retrieve)
+      .then(persist);
+  }, [params.interview, getQuestions, setRequiredQuestions]);
+  const interview = useMemo(
+    () =>
+      update(state, {
+        go: { $set: go },
+        link: { $set: link },
+        prepare: { $set: prepare },
+      }),
+    [go, link, prepare, state]
+  );
+
+  useEffect(() => void fetch(), [fetch]);
+
+  return { error, fetching, interview };
+};
+
+/*
 import find from 'lodash/find';
 import get from 'lodash/get';
 import intersectionWith from 'lodash/intersectionWith';
@@ -145,3 +231,4 @@ export default () => {
 
   return { error, fetching, interview };
 };
+*/

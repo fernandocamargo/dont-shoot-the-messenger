@@ -4,7 +4,6 @@ import styled from 'styled-components';
 export default (component) => styled(component)`
   display: flex;
   flex-direction: column-reverse;
-  grid-area: feedback;
 
   & > {
     form {
