@@ -1,10 +1,10 @@
 import use from './hooks';
 
 export default ({ className, ...props }) => {
-  const { ref } = use(props);
+  const { fetching, ref } = use(props);
 
   return (
-    <article className={className}>
+    <article aria-busy={fetching} className={className}>
       <div ref={ref} />
     </article>
   );

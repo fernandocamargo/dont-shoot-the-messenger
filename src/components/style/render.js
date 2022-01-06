@@ -9,12 +9,16 @@ export default createGlobalStyle`
   }
 
   body {
-    font-family: ${property('theme.typography.main')};
-    padding: 1rem;
+    font-family: ${property('theme.typography.main')} !important;
+    padding: 1rem !important;
 
     & > {
-      div#zmmtg-root {
-      }
+      div {
+        &[role="dialog"],
+        &[role="tooltip"] {
+          z-index: 10;
+        }
+      }    
     }
   }
 
