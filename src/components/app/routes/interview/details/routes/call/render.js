@@ -1,7 +1,15 @@
-import { Video } from 'components/widgets';
+import { Candidate, Feedback, Video } from 'components/widgets';
 
-export default ({ className }) => (
-  <section className={className}>
-    <Video />
-  </section>
-);
+import use from './hooks';
+
+export default ({ className, ...props }) => {
+  const interview = use(props);
+
+  return (
+    <section className={className}>
+      <Video {...interview} />
+      <Feedback {...interview} />
+      <Candidate {...interview} />
+    </section>
+  );
+};

@@ -8,11 +8,12 @@ export default (props) => {
   const { error, fetching, interview } = use(props);
 
   switch (true) {
-    case !!fetching:
-      return <Loader />;
+    case !!interview.details:
+      return <Details interview={interview} />;
     case !!error:
       return <Fallback error={error} />;
+    case !!fetching:
     default:
-      return <Details interview={interview} />;
+      return <Loader />;
   }
 };

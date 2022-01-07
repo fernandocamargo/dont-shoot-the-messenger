@@ -16,7 +16,6 @@ export default (component) => styled(component)`
     border: solid 1px #eeecfc;
     border-radius: 1rem;
     box-shadow: 0 8px 8px -4px #eeecfc;
-    overflow: hidden;
   }
 
   ${Stats} {

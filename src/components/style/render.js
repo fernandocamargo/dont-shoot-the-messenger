@@ -16,7 +16,7 @@ export default createGlobalStyle`
       div {
         &[role="dialog"],
         &[role="tooltip"] {
-          z-index: 10;
+          z-index: 10 !important;
         }
       }    
     }

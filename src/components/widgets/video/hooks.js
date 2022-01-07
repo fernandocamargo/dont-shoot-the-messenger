@@ -1,23 +1,19 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { useLatency } from 'hooks';
 import { useZoom } from 'hooks/clients';
 
 import { sign } from './helpers';
 
-export default () => {
+export default ({ details, identify }) => {
   const ref = useRef();
   const client = useZoom();
   const { pending: fetching, watch } = useLatency();
+  const userName = useMemo(() => identify(details), [details, identify]);
   const fetch = useCallback(() => {
     watch(
       client
-        .init({
-          customize: { meetingInfo: ['host'] },
-          debug: false,
-          language: 'en-US',
-          zoomAppRoot: ref.current,
-        })
+        .init({ debug: false, language: 'en-US', zoomAppRoot: ref.current })
         .then(() =>
           client.join(
             sign({
@@ -26,7 +22,7 @@ export default () => {
               meetingNumber: 4373219238,
               password: 'VnZkNmlpcjN2dE1KOHBUYnowaisxZz09',
               role: 1,
-              userName: 'deus morto',
+              userName,
             })
           )
         )
@@ -34,15 +30,9 @@ export default () => {
     );
 
     return client.leaveMeeting;
-  }, [client, watch]);
+  }, [client, userName, watch]);
 
-  useEffect(() => {
-    const abort = fetch();
-
-    console.log('mount();');
-
-    return () => console.log('unmount();') || abort();
-  }, [fetch]);
+  useEffect(() => fetch(), [fetch]);
 
   return { fetching, ref };
 };
