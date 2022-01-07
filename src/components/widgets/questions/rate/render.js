@@ -1,19 +1,17 @@
 import { useCallback } from 'react';
 
-import use from './hooks';
 import Details from './details';
 import Placeholder from './placeholder';
 
-export default ({ className, ...props }) => {
-  const question = use(props);
+export default ({ className, details }) => {
   const Display = useCallback(
-    (display) =>
-      question ? (
-        <Details {...display} {...question} />
+    (props) =>
+      details ? (
+        <Details {...props} {...details} />
       ) : (
-        <Placeholder {...display} />
+        <Placeholder {...props} />
       ),
-    [question]
+    [details]
   );
 
   return <Display className={className} />;

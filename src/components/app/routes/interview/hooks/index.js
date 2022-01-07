@@ -6,10 +6,14 @@ import { useLatency } from 'hooks';
 import { useGet as useGetInterview } from 'hooks/services/interviews';
 import { useGet as useGetQuestions } from 'hooks/services/interviews/questions';
 import { useGet as useGetDifficulties } from 'hooks/services/interviews/questions/difficulties';
-import { useSetRequired as useSetRequiredQuestions } from 'hooks/services/interviews/questions/set';
+import {
+  useSetScore as useSetQuestionScore,
+  useSetRequired as useSetRequiredQuestions,
+} from 'hooks/services/interviews/questions/set';
 import { useGet as useGetSubDimensions } from 'hooks/services/sub-dimensions';
 
 import * as reducers from './reducers';
+import { isEqual } from 'lodash';
 
 export default () => {
   const [state, setState] = useState(reducers.initialize());
@@ -19,6 +23,7 @@ export default () => {
   const getInterview = useGetInterview();
   const getQuestions = useGetQuestions();
   const getSubDimensions = useGetSubDimensions();
+  const setQuestionScore = useSetQuestionScore();
   const setRequiredQuestions = useSetRequiredQuestions();
   const { pending: fetching, error, watch } = useLatency();
   const fetch = useCallback(() => {
@@ -51,13 +56,23 @@ export default () => {
     getSubDimensions,
     watch,
   ]);
+  const feedback = useCallback(
+    ({ question, score }) =>
+      setQuestionScore({ interview: params.interview, question, score }).then(
+        () => setState(reducers.feedback({ question, score }))
+      ),
+    [params, setQuestionScore]
+  );
+  const highlight = useCallback(
+    ({ id }) => isEqual(params.question, id),
+    [params.question]
+  );
   const go = useCallback(
     () => navigate(`/interview/${params.interview}`),
     [params.interview, navigate]
   );
   const link = useCallback(
-    (question) =>
-      `/interview/${params.interview}/question/${question.id}/${params['*']}`,
+    ({ id }) => `/interview/${params.interview}/question/${id}/${params['*']}`,
     [params]
   );
   const prepare = useCallback(() => {
@@ -71,11 +86,13 @@ export default () => {
   const interview = useMemo(
     () =>
       update(state, {
+        feedback: { $set: feedback },
         go: { $set: go },
+        highlight: { $set: highlight },
         link: { $set: link },
         prepare: { $set: prepare },
       }),
-    [go, link, prepare, state]
+    [feedback, go, highlight, link, prepare, state]
   );
 
   useEffect(() => void fetch(), [fetch]);

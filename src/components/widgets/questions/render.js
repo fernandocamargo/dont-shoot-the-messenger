@@ -30,6 +30,7 @@ export default ({ className, ...props }) => {
   const {
     active,
     filters,
+    highlighted,
     prepare,
     preparing,
     questions,
@@ -107,7 +108,7 @@ export default ({ className, ...props }) => {
           </blockquote>
         )}
       </article>
-      <Rate questions={questions} />
+      <Rate details={highlighted} />
     </section>
   );
 
