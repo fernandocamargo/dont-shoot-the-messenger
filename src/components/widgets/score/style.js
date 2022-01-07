@@ -1,22 +1,42 @@
 import styled from 'styled-components';
 
 export default (component) => styled(component)`
-  border-radius: 0 0 1rem 0;
   border-top: solid 1px #eeecfc;
   grid-area: score;
-  overflow: hidden;
+  position: relative;
   width: calc(100% + 1px);
+
+  &[aria-busy='true'] {
+    pointer-events: none;
+
+    legend {
+      display: block;
+    }
+  }
 
   legend,
   button {
     display: none;
   }
 
+  legend {
+    bottom: calc(100% + 0.5rem);
+    font-size: 0.65rem;
+    font-weight: 300;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+  }
+
   fieldset {
     & > {
       div {
         &[aria-roledescription='field'] {
+          border-radius: 0 0 1rem 0;
           display: flex;
+          overflow: hidden;
 
           &,
           div,

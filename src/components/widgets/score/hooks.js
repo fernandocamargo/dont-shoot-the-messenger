@@ -1,6 +1,8 @@
 import find from 'lodash/find';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
+import { useLatency } from 'hooks';
+
 import { getInitialState as getInitialStateFrom, set } from './reducers';
 
 export default ({ feedback, navigation, ...props }) => {
@@ -28,6 +30,11 @@ export default ({ feedback, navigation, ...props }) => {
     },
     [navigation]
   );
+  const { pending: saving, error, watch } = useLatency();
+  const save = useCallback(
+    ({ value: score }) => watch(feedback({ score })),
+    [feedback, watch]
+  );
   const form = useMemo(
     () => ({ name: props.name, value: state.value }),
     [props.name, state.value]
@@ -35,7 +42,7 @@ export default ({ feedback, navigation, ...props }) => {
 
   useEffect(() => {
     const clear = () => window.clearTimeout(timeout.current);
-    const score = () => !state.original && feedback({ score: state.value });
+    const score = () => !state.original && save(state);
     const schedule = () => {
       clear();
 
@@ -45,7 +52,7 @@ export default ({ feedback, navigation, ...props }) => {
     schedule();
 
     return clear;
-  }, [feedback, state]);
+  }, [save, state]);
 
   useEffect(() => {
     const {
@@ -69,5 +76,5 @@ export default ({ feedback, navigation, ...props }) => {
     };
   }, []);
 
-  return { form, onChange, onSubmit, ref };
+  return { error, form, onChange, onSubmit, ref, saving };
 };
