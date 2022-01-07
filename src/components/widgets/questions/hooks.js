@@ -1,15 +1,14 @@
 import intersectionWith from 'lodash/intersectionWith';
-import isEqual from 'lodash/isEqual';
 import find from 'lodash/find';
 import update from 'immutability-helper';
 import { useCallback, useMemo, useState } from 'react';
 
 import { useLatency } from 'hooks';
 
-import { normalize } from './helpers';
+import { compare, normalize } from './helpers';
 import * as reducers from './reducers';
 
-export default ({ difficulties, link, questions, ...props }) => {
+export default ({ difficulties, dimensions, link, questions, ...props }) => {
   const [state, setState] = useState(reducers.initialize());
   const toggle = useCallback((event) => {
     event.preventDefault();
@@ -29,24 +28,38 @@ export default ({ difficulties, link, questions, ...props }) => {
     },
     [preparing, props]
   );
+  const connect = useCallback(
+    (tag) =>
+      update(tag, {
+        active: { $set: !!find(state.filters, tag) },
+        toggle: { $set: () => setState(reducers.filter({ tag })) },
+      }),
+    [state.filters]
+  );
+  const match = useCallback(
+    ({ tags }) =>
+      !state.filters.length ||
+      !!intersectionWith(tags, state.filters, compare).length,
+    [state.filters]
+  );
   const select = useCallback(
     (stack, current, ...meta) => {
       const format = ({ difficulty, skills, subDimension, ...question }) => {
-        const connect = (tag) =>
-          update(tag, {
-            active: { $set: !!find(state.filters, tag) },
-            toggle: { $set: () => setState(reducers.filter({ tag })) },
-          });
+        const { dimension } = find(dimensions, { id: subDimension.id });
         const tags = [
           !!difficulty && {
             details: find(difficulties, { id: difficulty }),
             entity: 'difficulty',
           },
-          !!skills && { details: normalize(skills.skill), entity: 'skill' },
+          !!dimension && {
+            details: normalize(dimension),
+            entity: 'dimension',
+          },
           !!subDimension && {
             details: normalize(subDimension),
             entity: 'sub-dimension',
           },
+          !!skills && { details: normalize(skills.skill), entity: 'skill' },
         ]
           .filter(Boolean)
           .map(connect);
@@ -57,18 +70,27 @@ export default ({ difficulties, link, questions, ...props }) => {
         });
       };
       const next = format(current, ...meta);
-      const matched =
-        !state.filters.length ||
-        !!intersectionWith(current.tags, state.filters, isEqual).length;
 
-      return matched ? stack.concat(next) : stack;
+      return match(next) ? stack.concat(next) : stack;
     },
-    [state.filters, difficulties, link]
+    [connect, difficulties, dimensions, link, match]
+  );
+  const filters = useMemo(
+    () => state.filters.map(connect),
+    [state.filters, connect]
   );
   const selection = useMemo(
     () => questions.reduce(select, []),
     [questions, select]
   );
 
-  return { ...state, prepare, preparing, questions, selection, toggle };
+  return {
+    ...state,
+    filters,
+    prepare,
+    preparing,
+    questions,
+    selection,
+    toggle,
+  };
 };

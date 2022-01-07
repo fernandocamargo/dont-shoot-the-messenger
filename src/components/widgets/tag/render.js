@@ -14,6 +14,7 @@ export default ({ className, ...props }) => {
       ({
         'sub-dimension': 'Sub-dimension',
         difficulty: 'Difficulty',
+        dimension: 'Dimension',
         skill: 'Skill',
       }[tag.entity]),
     [tag.entity]
