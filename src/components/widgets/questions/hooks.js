@@ -11,6 +11,7 @@ import * as reducers from './reducers';
 export default ({
   difficulties,
   dimensions,
+  feedback,
   highlight,
   link,
   questions,
@@ -70,11 +71,9 @@ export default ({
         ]
           .filter(Boolean)
           .map(connect);
-        const feedback = ({ score }) =>
-          props.feedback({ question: question.id, score });
 
         return update(question, {
-          feedback: { $set: feedback },
+          feedback: { $set: feedback(question) },
           ref: { $set: createRef() },
           tags: { $set: tags },
           url: { $set: link(question) },
@@ -89,7 +88,7 @@ export default ({
         ...(matched && highlighted && { highlighted: { $set: next } }),
       });
     },
-    [props.feedback, connect, difficulties, dimensions, highlight, link, match]
+    [connect, difficulties, dimensions, feedback, highlight, link, match]
   );
   const filters = useMemo(
     () => state.filters.map(connect),

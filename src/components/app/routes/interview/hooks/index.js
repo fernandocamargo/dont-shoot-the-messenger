@@ -57,10 +57,13 @@ export default () => {
     watch,
   ]);
   const feedback = useCallback(
-    ({ question, score }) =>
-      setQuestionScore({ interview: params.interview, question, score }).then(
-        () => setState(reducers.feedback({ question, score }))
-      ),
+    ({ id }) =>
+      ({ score }) =>
+        setQuestionScore({
+          interview: params.interview,
+          question: id,
+          score,
+        }).then(() => setState(reducers.feedback({ question: id, score }))),
     [params, setQuestionScore]
   );
   const highlight = useCallback(
