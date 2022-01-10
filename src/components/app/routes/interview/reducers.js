@@ -14,6 +14,7 @@ export const feedback =
 export const fetch = (data) => (state) => update(state, { $merge: data });
 
 export const initialize = () => ({
+  'sub-dimensions': [],
   difficulties: [],
   details: null,
   dimensions: [],

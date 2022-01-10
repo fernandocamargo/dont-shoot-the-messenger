@@ -6,10 +6,11 @@ import { createRef, useCallback, useMemo, useState } from 'react';
 
 import { useLatency } from 'hooks';
 
-import { compare, normalize } from './helpers';
+import { compare, convert, normalize } from './helpers';
 import * as reducers from './reducers';
 
 export default ({
+  'sub-dimensions': subDimensions,
   difficulties,
   dimensions,
   feedback,
@@ -55,7 +56,7 @@ export default ({
   const format = useCallback(
     ({ difficulty, skills, subDimension, ...question }) => {
       const { dimension } =
-        find(dimensions, { id: get(subDimension, 'id') }) || {};
+        find(subDimensions, { id: get(subDimension, 'id') }) || {};
       const tags =
         question.tags ||
         [
@@ -83,7 +84,7 @@ export default ({
         url: { $set: link(question) },
       });
     },
-    [connect, difficulties, dimensions, feedback, link]
+    [connect, difficulties, feedback, link, subDimensions]
   );
   const select = useCallback(
     (stack, current, ...meta) => {
@@ -98,13 +99,12 @@ export default ({
     },
     [format, highlight, match]
   );
-  const onSearch = useCallback(
-    () =>
-      search({ criteria: state.filters }).then(
-        (results) => console.log({ results }) || results.map(format)
-      ),
-    [state.filters, format, search]
-  );
+  const onSearch = useCallback(() => {
+    const criteria = state.filters.map(convert);
+    const shape = (results) => results.map(format);
+
+    return search({ criteria }).then(shape);
+  }, [state.filters, format, search]);
   const filters = useMemo(
     () => state.filters.map(connect),
     [state.filters, connect]

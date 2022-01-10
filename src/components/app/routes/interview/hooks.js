@@ -15,6 +15,7 @@ import {
 } from 'hooks/services/interviews/questions/set';
 import { useGet as useGetSubDimensions } from 'hooks/services/sub-dimensions';
 
+import { extract } from './helpers';
 import * as reducers from './reducers';
 import { isEqual } from 'lodash';
 
@@ -32,13 +33,21 @@ export default () => {
   const { pending: fetching, error, watch } = useLatency();
   const fetch = useCallback(() => {
     const retrieve = ([{ skills, ...details }, questions, difficulties]) => {
-      const shape = (dimensions) => ({
-        details,
-        difficulties,
-        dimensions,
-        questions,
-        skills,
-      });
+      const shape = (subDimensions) => {
+        const { dimensions } = subDimensions.reduce(extract, {
+          dimensions: [],
+          indexes: {},
+        });
+
+        return {
+          'sub-dimensions': subDimensions,
+          details,
+          difficulties,
+          dimensions,
+          questions,
+          skills,
+        };
+      };
 
       return getSubDimensions({ vertical: details.vertical.id }).then(shape);
     };

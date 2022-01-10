@@ -30,10 +30,9 @@ export default () => {
             $apply: (tags) => tags.map(translate),
           },
         });
+      const shape = ({ questions = [] }) => questions.map(format);
 
-      return post('/v2/question', { search: { criteria } }).then(
-        ({ questions = [] }) => questions.map(format)
-      );
+      return post('/v2/question', { search: { criteria } }).then(shape);
     },
     [post, translations]
   );
