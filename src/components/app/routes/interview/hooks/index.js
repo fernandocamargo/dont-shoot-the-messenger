@@ -4,7 +4,10 @@ import { useNavigate, useParams } from 'react-router';
 
 import { useLatency } from 'hooks';
 import { useGet as useGetInterview } from 'hooks/services/interviews';
-import { useGet as useGetQuestions } from 'hooks/services/interviews/questions';
+import {
+  useGet as useGetQuestions,
+  useSearch as useSearchQuestions,
+} from 'hooks/services/interviews/questions';
 import { useGet as useGetDifficulties } from 'hooks/services/interviews/questions/difficulties';
 import {
   useSetScore as useSetQuestionScore,
@@ -22,6 +25,7 @@ export default () => {
   const getDifficulties = useGetDifficulties();
   const getInterview = useGetInterview();
   const getQuestions = useGetQuestions();
+  const searchQuestions = useSearchQuestions();
   const getSubDimensions = useGetSubDimensions();
   const setQuestionScore = useSetQuestionScore();
   const setRequiredQuestions = useSetRequiredQuestions();
@@ -90,6 +94,10 @@ export default () => {
       .then(retrieve)
       .then(persist);
   }, [params.interview, getQuestions, setRequiredQuestions]);
+  const search = useCallback(
+    ({ criteria }) => searchQuestions({ criteria }),
+    [searchQuestions]
+  );
   const interview = useMemo(
     () =>
       update(state, {
@@ -98,8 +106,9 @@ export default () => {
         highlight: { $set: highlight },
         link: { $set: link },
         prepare: { $set: prepare },
+        search: { $set: search },
       }),
-    [feedback, go, highlight, link, prepare, state]
+    [feedback, go, highlight, link, prepare, search, state]
   );
 
   useEffect(() => void fetch(), [fetch]);

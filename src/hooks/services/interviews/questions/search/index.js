@@ -24,17 +24,15 @@ export default () => {
           : update(tag, {
               details: { label: { $set: translations[tag.details.id] } },
             });
+      const format = (question) =>
+        update(question, {
+          tags: {
+            $apply: (tags) => tags.map(translate),
+          },
+        });
 
       return post('/v2/question', { search: { criteria } }).then(
-        ({ questions = [] }) => {
-          return questions.map((question) =>
-            update(question, {
-              tags: {
-                $apply: (tags) => tags.map(translate),
-              },
-            })
-          );
-        }
+        ({ questions = [] }) => questions.map(format)
       );
     },
     [post, translations]

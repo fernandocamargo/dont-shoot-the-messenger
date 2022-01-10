@@ -6,7 +6,7 @@ import { focus } from 'helpers/form';
 
 import * as reducers from './reducers';
 
-export default ({ close, search, ...props }) => {
+export default ({ onClose: close, onSearch: search, ...props }) => {
   const ref = useRef();
   const [state, setState] = useState(reducers.getInitialState());
   const fetch = useCallback(
@@ -16,14 +16,10 @@ export default ({ close, search, ...props }) => {
   const onSubmit = useCallback((event) => {
     event.preventDefault();
 
-    console.log('search();');
+    console.log('search.onSubmit();');
 
     return event;
   }, []);
-
-  useEffect(() => {
-    fetch();
-  }, [fetch]);
 
   useEffect(() => {
     const press = (event) => isEqual(event.keyCode, ESC) && close(event);
@@ -45,6 +41,8 @@ export default ({ close, search, ...props }) => {
       document.removeEventListener('keydown', press, false),
     ];
   }, [close]);
+
+  useEffect(() => void fetch(), [fetch]);
 
   useEffect(() => focus(ref.current), []);
 

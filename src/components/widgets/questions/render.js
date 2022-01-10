@@ -6,7 +6,7 @@ import Tag from 'components/widgets/tag';
 
 import use from './hooks';
 import Rate from './rate';
-// import Search from './search';
+import Search from './search';
 
 export const renderFilter = (filter) => (
   <li key={filter.details.id}>
@@ -29,8 +29,10 @@ export const renderSorter = (sorter) => (
 export default ({ className, ...props }) => {
   const {
     active,
+    entities,
     filters,
     highlighted,
+    onSearch,
     prepare,
     preparing,
     questions,
@@ -106,6 +108,9 @@ export default ({ className, ...props }) => {
           <blockquote>
             <ol>{selection.map(renderQuestion)}</ol>
           </blockquote>
+        )}
+        {!!active && (
+          <Search entities={entities} onClose={toggle} onSearch={onSearch} />
         )}
       </article>
       <Rate details={highlighted} />

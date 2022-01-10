@@ -1,5 +1,6 @@
-import intersectionWith from 'lodash/intersectionWith';
+import get from 'lodash/get';
 import find from 'lodash/find';
+import intersectionWith from 'lodash/intersectionWith';
 import update from 'immutability-helper';
 import { createRef, useCallback, useMemo, useState } from 'react';
 
@@ -15,6 +16,7 @@ export default ({
   highlight,
   link,
   questions,
+  search,
   ...props
 }) => {
   const [state, setState] = useState(reducers.initialize());
@@ -50,11 +52,13 @@ export default ({
       !!intersectionWith(tags, state.filters, compare).length,
     [state.filters]
   );
-  const select = useCallback(
-    (stack, current, ...meta) => {
-      const format = ({ difficulty, skills, subDimension, ...question }) => {
-        const { dimension } = find(dimensions, { id: subDimension.id });
-        const tags = [
+  const format = useCallback(
+    ({ difficulty, skills, subDimension, ...question }) => {
+      const { dimension } =
+        find(dimensions, { id: get(subDimension, 'id') }) || {};
+      const tags =
+        question.tags ||
+        [
           !!difficulty && {
             details: find(difficulties, { id: difficulty }),
             entity: 'difficulty',
@@ -72,13 +76,17 @@ export default ({
           .filter(Boolean)
           .map(connect);
 
-        return update(question, {
-          feedback: { $set: feedback(question) },
-          ref: { $set: createRef() },
-          tags: { $set: tags },
-          url: { $set: link(question) },
-        });
-      };
+      return update(question, {
+        feedback: { $set: feedback(question) },
+        ref: { $set: createRef() },
+        tags: { $set: tags },
+        url: { $set: link(question) },
+      });
+    },
+    [connect, difficulties, dimensions, feedback, link]
+  );
+  const select = useCallback(
+    (stack, current, ...meta) => {
       const next = format(current, ...meta);
       const matched = match(next);
       const highlighted = highlight(next);
@@ -88,7 +96,14 @@ export default ({
         ...(matched && highlighted && { highlighted: { $set: next } }),
       });
     },
-    [connect, difficulties, dimensions, feedback, highlight, link, match]
+    [format, highlight, match]
+  );
+  const onSearch = useCallback(
+    () =>
+      search({ criteria: state.filters }).then(
+        (results) => console.log({ results }) || results.map(format)
+      ),
+    [state.filters, format, search]
   );
   const filters = useMemo(
     () => state.filters.map(connect),
@@ -98,11 +113,14 @@ export default ({
     () => questions.reduce(select, { highlighted: null, selection: [] }),
     [questions, select]
   );
+  const entities = useMemo(() => [], []);
 
   return {
     ...state,
     ...data,
+    entities,
     filters,
+    onSearch,
     prepare,
     preparing,
     questions,

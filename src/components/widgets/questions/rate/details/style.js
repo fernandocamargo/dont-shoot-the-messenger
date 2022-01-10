@@ -112,6 +112,7 @@ export default (component) => styled(component)`
         display: inline-flex;
         font-size: 0;
         overflow: hidden;
+        pointer-events: none;
         padding: 0.5rem;
         text-decoration: none;
 
