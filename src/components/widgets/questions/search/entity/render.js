@@ -12,9 +12,10 @@ export default ({ className, entity, items }) => {
   const label = useMemo(
     () =>
       ({
-        difficulty: 'Difficulties',
-        skill: 'Skills',
         'sub-dimension': 'Sub-dimensions',
+        difficulty: 'Difficulties',
+        dimension: 'Dimensions',
+        skill: 'Skills',
       }[entity]),
     [entity]
   );

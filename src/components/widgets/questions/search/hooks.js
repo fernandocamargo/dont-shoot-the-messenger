@@ -6,20 +6,33 @@ import { focus } from 'helpers/form';
 
 import * as reducers from './reducers';
 
-export default ({ onClose: close, onSearch: search, ...props }) => {
+export default ({
+  onClose: close,
+  onFilter: filter,
+  onSearch: search,
+  ...props
+}) => {
   const ref = useRef();
   const [state, setState] = useState(reducers.getInitialState());
-  const fetch = useCallback(
-    () => search().then((results) => setState(reducers.set({ results }))),
-    [search]
+  const fetch = useCallback(() => {
+    const persist = (results = []) => setState(reducers.set({ results }));
+    const clear = () => persist();
+
+    return search().then(persist).catch(clear);
+  }, [search]);
+  const onSubmit = useCallback(
+    (event) => {
+      const { currentTarget: form } = event;
+      const { keywords } = Object.fromEntries(new FormData(form));
+
+      event.preventDefault();
+      filter(keywords);
+      form.reset();
+
+      return event;
+    },
+    [filter]
   );
-  const onSubmit = useCallback((event) => {
-    event.preventDefault();
-
-    console.log('search.onSubmit();');
-
-    return event;
-  }, []);
 
   useEffect(() => {
     const press = (event) => isEqual(event.keyCode, ESC) && close(event);

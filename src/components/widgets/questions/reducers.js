@@ -1,14 +1,3 @@
-/*
-import update from 'immutability-helper';
-
-import { reverse } from 'helpers/boolean';
-
-export const getInitialStateFrom = () => ({ searching: false });
-
-export const search = () => (state) =>
-  update(state, { searching: { $apply: reverse } });
-*/
-
 import findIndex from 'lodash/findIndex';
 import update from 'immutability-helper';
 
@@ -21,14 +10,16 @@ export const initialize = () => ({
 });
 
 export const filter =
-  ({ tag }) =>
+  ({ replace = false, tag }) =>
   (state) => {
-    const index = findIndex(state.filters, tag);
+    const identity = !replace ? tag : { entity: tag.entity };
+    const index = findIndex(state.filters, identity);
     const exists = !!~index;
+    const replacement = replace && tag.details ? tag : [];
 
     return update(state, {
       filters: {
-        ...(!!exists && { $splice: [[index, 1]] }),
+        ...(!!exists && { $splice: [[index, 1].concat(replacement)] }),
         ...(!exists && { $push: [tag] }),
       },
     });

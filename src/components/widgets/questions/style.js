@@ -184,6 +184,7 @@ export default (component) => styled(component)`
 
           div {
             align-items: center;
+            background-color: #fafafb;
             display: flex;
             justify-content: center;
             position: relative;
@@ -212,10 +213,21 @@ export default (component) => styled(component)`
               z-index: 1;
 
               &:before {
-                content: 'playlist_add';
                 font-family: ${property('theme.typography.icons')};
                 font-size: 5rem;
                 display: block;
+              }
+
+              &[aria-roledescription='empty'] {
+                &:before {
+                  content: 'playlist_add';
+                }
+              }
+
+              &[aria-roledescription='not-found'] {
+                &:before {
+                  content: 'playlist_remove';
+                }
               }
 
               a {

@@ -99,12 +99,29 @@ export default ({
     },
     [format, highlight, match]
   );
+  const onFilter = useCallback(
+    (keywords) =>
+      setState(
+        reducers.filter({
+          tag: {
+            details: !!keywords.trim() && { id: keywords, label: keywords },
+            entity: 'keyword',
+          },
+          replace: true,
+        })
+      ),
+    []
+  );
   const onSearch = useCallback(() => {
     const criteria = state.filters.map(convert);
     const shape = (results) => results.map(format);
 
     return search({ criteria }).then(shape);
   }, [state.filters, format, search]);
+  const shape = useCallback(
+    (entity) => (item) => connect({ details: normalize(item), entity }),
+    [connect]
+  );
   const filters = useMemo(
     () => state.filters.map(connect),
     [state.filters, connect]
@@ -113,13 +130,25 @@ export default ({
     () => questions.reduce(select, { highlighted: null, selection: [] }),
     [questions, select]
   );
-  const entities = useMemo(() => [], []);
+  const entities = useMemo(() => {
+    const reconcile = ([entity, items]) => ({
+      items: items.map(shape(entity)),
+      entity,
+    });
+
+    return Object.entries({
+      dimension: dimensions,
+      'sub-dimension': subDimensions,
+      difficulty: difficulties,
+    }).map(reconcile);
+  }, [difficulties, dimensions, shape, subDimensions]);
 
   return {
     ...state,
     ...data,
     entities,
     filters,
+    onFilter,
     onSearch,
     prepare,
     preparing,
