@@ -1,6 +1,7 @@
-import get from 'lodash/get';
 import find from 'lodash/find';
+import get from 'lodash/get';
 import intersectionWith from 'lodash/intersectionWith';
+import isEqual from 'lodash/isEqual';
 import update from 'immutability-helper';
 import { createRef, useCallback, useMemo, useState } from 'react';
 
@@ -48,9 +49,36 @@ export default ({
     [state.filters]
   );
   const match = useCallback(
-    ({ tags }) =>
-      !state.filters.length ||
-      !!intersectionWith(tags, state.filters, compare).length,
+    ({ answer = '', hint = '', text = '', ...question }) => {
+      const categorize = (stack, tag) => {
+        const {
+          details: { id },
+          entity,
+        } = tag;
+        const comparable = !isEqual(entity, 'keyword');
+
+        return update(stack, {
+          ...(comparable && { tags: { $push: [tag] } }),
+          ...(!comparable && { textual: { $set: id } }),
+        });
+      };
+      const check = (comparable) => {
+        const pattern = new RegExp(comparable, 'gi');
+
+        return (
+          !!comparable &&
+          (pattern.test(answer) || pattern.test(hint) || pattern.test(text))
+        );
+      };
+      const count = (comparable) =>
+        !!intersectionWith(question.tags, comparable, compare).length;
+      const { tags, textual } = state.filters.reduce(categorize, {
+        tags: [],
+        textual: null,
+      });
+
+      return !state.filters.length || check(textual) || count(tags);
+    },
     [state.filters]
   );
   const format = useCallback(
@@ -99,19 +127,22 @@ export default ({
     },
     [format, highlight, match]
   );
-  const onFilter = useCallback(
-    (keywords) =>
+  const onFilter = useCallback((keywords) => {
+    const filter = keywords.trim();
+
+    return (
+      !!filter &&
       setState(
         reducers.filter({
           tag: {
-            details: !!keywords.trim() && { id: keywords, label: keywords },
+            details: { id: filter, label: filter },
             entity: 'keyword',
           },
           replace: true,
         })
-      ),
-    []
-  );
+      )
+    );
+  }, []);
   const onSearch = useCallback(() => {
     const criteria = state.filters.map(convert);
     const shape = (results) => results.map(format);

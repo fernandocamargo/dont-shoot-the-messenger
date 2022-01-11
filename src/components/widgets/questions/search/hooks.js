@@ -27,7 +27,6 @@ export default ({
 
       event.preventDefault();
       filter(keywords);
-      form.reset();
 
       return event;
     },

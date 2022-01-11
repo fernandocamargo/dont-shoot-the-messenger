@@ -28,6 +28,7 @@ export default ({ className, ...props }) => {
           />
         </div>
         <div aria-roledescription="control">
+          <button type="reset">Reset</button>
           <button type="submit">Submit</button>
         </div>
       </fieldset>

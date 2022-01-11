@@ -20,7 +20,7 @@ export default (component) => styled(component)`
   z-index: 1;
 
   &,
-  button {
+  button[type='reset'] {
     position: absolute;
   }
 
@@ -48,8 +48,13 @@ export default (component) => styled(component)`
         }
       }
 
-      button {
+      button[type='submit'] {
         display: none;
+      }
+
+      button[type='reset'] {
+        right: 0;
+        top: 0;
       }
     }
 
