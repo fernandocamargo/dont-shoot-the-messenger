@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { ESC } from 'constants/keyboard';
 import { focus } from 'helpers/form';
+import { useLatency } from 'hooks';
 
 import * as reducers from './reducers';
 
@@ -12,14 +13,42 @@ export default ({
   onSearch: search,
   ...props
 }) => {
+  const timeout = useRef(null);
   const ref = useRef();
   const [state, setState] = useState(reducers.getInitialState());
+  const { pending: fetching, watch } = useLatency();
   const fetch = useCallback(() => {
-    const persist = (results = []) => setState(reducers.set({ results }));
+    const persist = (results = []) => [
+      setState(reducers.set({ results })),
+      focus(ref.current),
+    ];
     const clear = () => persist();
 
-    return search().then(persist).catch(clear);
-  }, [search]);
+    return watch(search()).then(persist).catch(clear);
+  }, [search, watch]);
+  const onChange = useCallback(
+    (event) => {
+      const {
+        target: { value: keywords },
+      } = event;
+      const save = () => filter(keywords);
+
+      window.clearTimeout(timeout.current);
+
+      timeout.current = window.setTimeout(save, 500);
+
+      return event;
+    },
+    [filter]
+  );
+  const onReset = useCallback(
+    (event) => {
+      filter();
+
+      return event;
+    },
+    [filter]
+  );
   const onSubmit = useCallback(
     (event) => {
       const { currentTarget: form } = event;
@@ -56,7 +85,16 @@ export default ({
 
   useEffect(() => void fetch(), [fetch]);
 
-  useEffect(() => focus(ref.current), []);
+  useEffect(() => () => window.clearTimeout(timeout.current));
 
-  return { close, onSubmit, ref, ...props, ...state };
+  return {
+    close,
+    fetching,
+    onChange,
+    onReset,
+    onSubmit,
+    ref,
+    ...props,
+    ...state,
+  };
 };

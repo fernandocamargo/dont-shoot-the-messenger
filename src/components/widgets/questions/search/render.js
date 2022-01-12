@@ -1,3 +1,5 @@
+import { useCallback } from 'react';
+
 import Question from 'components/widgets/question';
 
 import use from './hooks';
@@ -12,10 +14,27 @@ export const renderResult = (question) => (
 );
 
 export default ({ className, ...props }) => {
-  const { entities, onSubmit, ref, results } = use(props);
+  const { entities, fetching, onChange, onReset, onSubmit, ref, results } =
+    use(props);
+  const Results = useCallback(() => {
+    switch (true) {
+      case !!results.length:
+        return results.map(renderResult);
+      case !!fetching:
+        return <p>Loading...</p>;
+      default:
+        return <p>No questions found matching the filtering criteria.</p>;
+    }
+  }, [fetching, results]);
 
   return (
-    <form className={className} onSubmit={onSubmit} ref={ref}>
+    <form
+      aria-busy={fetching}
+      className={className}
+      onReset={onReset}
+      onSubmit={onSubmit}
+      ref={ref}
+    >
       <fieldset aria-roledescription="keywords">
         <legend>Search by keywords:</legend>
         <div aria-roledescription="field">
@@ -23,6 +42,7 @@ export default ({ className, ...props }) => {
           <input
             id="keywords"
             name="keywords"
+            onChange={onChange}
             placeholder="Type your keywords..."
             type="text"
           />
@@ -38,7 +58,9 @@ export default ({ className, ...props }) => {
       </fieldset>
       <fieldset aria-roledescription="results">
         <legend>Results</legend>
-        <div>{results.map(renderResult)}</div>
+        <div>
+          <Results />
+        </div>
       </fieldset>
     </form>
   );

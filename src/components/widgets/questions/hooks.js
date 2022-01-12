@@ -127,20 +127,17 @@ export default ({
     },
     [format, highlight, match]
   );
-  const onFilter = useCallback((keywords) => {
+  const onFilter = useCallback((keywords = '') => {
     const filter = keywords.trim();
 
-    return (
-      !!filter &&
-      setState(
-        reducers.filter({
-          tag: {
-            details: { id: filter, label: filter },
-            entity: 'keyword',
-          },
-          replace: true,
-        })
-      )
+    return setState(
+      reducers.filter({
+        tag: {
+          ...(!!filter && { details: { id: filter, label: filter } }),
+          entity: 'keyword',
+        },
+        replace: true,
+      })
     );
   }, []);
   const onSearch = useCallback(() => {

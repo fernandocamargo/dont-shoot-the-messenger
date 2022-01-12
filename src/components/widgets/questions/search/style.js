@@ -1,3 +1,4 @@
+import property from 'lodash/property';
 import styled from 'styled-components';
 
 import Question from 'components/widgets/question';
@@ -15,18 +16,15 @@ export default (component) => styled(component)`
   height: 100%;
   left: 100%;
   overflow: hidden;
+  position: absolute;
   top: 0;
   width: 50vw;
   z-index: 1;
 
-  &,
-  button[type='reset'] {
-    position: absolute;
-  }
-
   fieldset {
     &[aria-roledescription='keywords'] {
       grid-area: keywords;
+      position: relative;
 
       label {
         display: none;
@@ -53,8 +51,32 @@ export default (component) => styled(component)`
       }
 
       button[type='reset'] {
-        right: 0;
-        top: 0;
+        background-color: none;
+        border: solid 1px transparent;
+        border-radius: 0.5rem;
+        color: #ccc6f6;
+        cursor: pointer;
+        font-size: 0;
+        outline: 0;
+        padding: 0.5rem;
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: background-color 0.1s linear, color 0.1s linear;
+        z-index: 1;
+
+        &:hover,
+        &:focus {
+          border-color: #ccc6f6;
+        }
+
+        &:after {
+          content: 'backspace';
+          display: block;
+          font-family: ${property('theme.typography.icons')};
+          font-size: 1.25rem;
+        }
       }
     }
 
@@ -125,6 +147,25 @@ export default (component) => styled(component)`
           position: absolute;
           top: 0;
           width: 100%;
+
+          & > {
+            p {
+              color: #ccc6f6;
+              font-size: 1.25rem;
+              left: 50%;
+              position: absolute;
+              top: 50%;
+              text-align: center;
+              transform: translate(-50%, -50%);
+
+              &:before {
+                content: 'manage_search';
+                font-family: ${property('theme.typography.icons')};
+                font-size: 5rem;
+                display: block;
+              }
+            }
+          }
 
           ${Question} {
             &:not(:first-of-type) {

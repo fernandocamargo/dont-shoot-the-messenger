@@ -20,7 +20,7 @@ export const filter =
     return update(state, {
       filters: {
         ...(!!exists && { $splice: [[index, 1].concat(replacement)] }),
-        ...(!exists && { $push: [tag] }),
+        ...(!exists && tag.details && { $push: [tag] }),
       },
     });
   };

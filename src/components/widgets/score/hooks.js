@@ -46,7 +46,7 @@ export default ({ feedback, navigation, ...props }) => {
     const schedule = () => {
       clear();
 
-      return (timeout.current = window.setTimeout(score, 250));
+      return (timeout.current = window.setTimeout(score, 500));
     };
 
     schedule();

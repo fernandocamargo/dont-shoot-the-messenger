@@ -108,7 +108,7 @@ export default ({ className, ...props }) => {
         {!!questions.length && !selection.length && (
           <div>
             <p aria-roledescription="not-found">
-              None of your questions matches the criteria.
+              None of your questions matches the filtering criteria.
             </p>
           </div>
         )}
