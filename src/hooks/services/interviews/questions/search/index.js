@@ -24,11 +24,19 @@ export default () => {
           : update(tag, {
               details: { label: { $set: translations[tag.details.id] } },
             });
-      const format = (question) =>
+      const format = ({
+        isRequired: required = false,
+        hint = '',
+        score = null,
+        text = '',
+        ...question
+      }) =>
         update(question, {
-          tags: {
-            $apply: (tags) => tags.map(translate),
-          },
+          hint: { $set: hint },
+          required: { $set: required },
+          score: { $set: score },
+          tags: { $apply: (tags) => tags.map(translate) },
+          text: { $set: text },
         });
       const shape = ({ questions = [] }) => questions.map(format);
 

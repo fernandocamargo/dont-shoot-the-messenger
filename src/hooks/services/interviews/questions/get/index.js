@@ -7,10 +7,18 @@ export default () => {
   const client = useExpertlead();
   const API = useCallback(
     ({ interview }) => {
-      const parse = ({ isRequired: required, score = null, ...question }) =>
+      const parse = ({
+        isRequired: required = false,
+        hint = '',
+        score = null,
+        text = '',
+        ...question
+      }) =>
         update(question, {
+          hint: { $set: hint },
           required: { $set: required },
           score: { $set: score },
+          text: { $set: text },
         });
       const format = ({ questions = [] }) => questions.map(parse);
 

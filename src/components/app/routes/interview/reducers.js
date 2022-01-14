@@ -33,10 +33,9 @@ export const prepare =
   (state) =>
     update(state, { questions: { $set: questions } });
 
-export const remove = (data) => (state) => {
-  return update(state, {
+export const remove = (data) => (state) =>
+  update(state, {
     questions: {
       $apply: (questions) => differenceBy(questions, data.questions, 'id'),
     },
   });
-};

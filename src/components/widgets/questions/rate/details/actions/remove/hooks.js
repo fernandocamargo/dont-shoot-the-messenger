@@ -6,8 +6,9 @@ export default ({ remove, ...props }) => {
   const onClick = useCallback(
     (event) => {
       event.preventDefault();
+      watch(remove());
 
-      return watch(remove());
+      return event;
     },
     [remove, watch]
   );
