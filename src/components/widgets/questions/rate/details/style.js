@@ -1,6 +1,7 @@
 import property from 'lodash/property';
 import styled from 'styled-components';
 
+import { rotate } from 'style/animations';
 import Question from 'components/widgets/question';
 
 export default (component) => styled(component)`
@@ -44,7 +45,6 @@ export default (component) => styled(component)`
 
               dl {
                 &[aria-roledescription='requirement'],
-                &[aria-roledescription='score'],
                 &[aria-roledescription='text'] {
                   display: none;
                 }
@@ -52,10 +52,6 @@ export default (component) => styled(component)`
                 &[aria-roledescription='hint'] {
                   margin: 0;
                 }
-              }
-
-              nav {
-                display: none;
               }
             }
           }
@@ -85,21 +81,14 @@ export default (component) => styled(component)`
           margin-left: 0.5rem;
         }
 
-        &[aria-roledescription='favorite'] {
-          a:after {
-            content: 'star';
-          }
-        }
+        &[aria-busy='true'] {
+          a {
+            pointer-events: none;
 
-        &[aria-roledescription='remove'] {
-          a:after {
-            content: 'clear';
-          }
-        }
-
-        &[aria-roledescription='report'] {
-          a:after {
-            content: 'flag';
+            &:after {
+              animation: ${rotate} 2s infinite linear;
+              content: 'rotate_right';
+            }
           }
         }
       }
@@ -112,7 +101,6 @@ export default (component) => styled(component)`
         display: inline-flex;
         font-size: 0;
         overflow: hidden;
-        pointer-events: none;
         padding: 0.5rem;
         text-decoration: none;
 

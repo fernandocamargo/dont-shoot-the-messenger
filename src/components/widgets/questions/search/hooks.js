@@ -44,6 +44,7 @@ export default ({
   const onReset = useCallback(
     (event) => {
       filter();
+      focus(ref.current);
 
       return event;
     },

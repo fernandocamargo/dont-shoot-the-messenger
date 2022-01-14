@@ -5,6 +5,7 @@ import Question from 'components/widgets/question';
 import Score from 'components/widgets/score';
 
 import use from './hooks';
+import { Favorite, Remove, Report } from './actions';
 
 export default forwardRef(({ className, ...props }, ref) => {
   const question = use(props, ref);
@@ -23,23 +24,9 @@ export default forwardRef(({ className, ...props }, ref) => {
       <nav>
         <h3>Actions:</h3>
         <ul>
-          <li aria-roledescription="favorite">
-            <a href="/" title="Favorite question">
-              Favorite
-            </a>
-          </li>
-          {!question.required && (
-            <li aria-roledescription="remove">
-              <a href="/" title="Remove question">
-                Remove
-              </a>
-            </li>
-          )}
-          <li aria-roledescription="report">
-            <a href="/" title="Report question">
-              Report
-            </a>
-          </li>
+          <Favorite {...question} />
+          {!question.required && <Remove {...question} />}
+          <Report {...question} />
         </ul>
       </nav>
     </article>

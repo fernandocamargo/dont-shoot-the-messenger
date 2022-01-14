@@ -12,12 +12,14 @@ import * as reducers from './reducers';
 
 export default ({
   'sub-dimensions': subDimensions,
+  add,
   difficulties,
   dimensions,
   feedback,
   highlight,
   link,
   questions,
+  remove,
   search,
   ...props
 }) => {
@@ -85,9 +87,8 @@ export default ({
     ({ difficulty, skills, subDimension, ...question }) => {
       const { dimension } =
         find(subDimensions, { id: get(subDimension, 'id') }) || {};
-      const tags =
-        question.tags ||
-        [
+      const tags = (
+        question.tags || [
           !!difficulty && {
             details: find(difficulties, { id: difficulty }),
             entity: 'difficulty',
@@ -102,17 +103,20 @@ export default ({
           },
           !!skills && { details: normalize(skills.skill), entity: 'skill' },
         ]
-          .filter(Boolean)
-          .map(connect);
+      )
+        .filter(Boolean)
+        .map(connect);
 
       return update(question, {
+        add: { $set: add(question) },
         feedback: { $set: feedback(question) },
         ref: { $set: createRef() },
+        remove: { $set: remove(question) },
         tags: { $set: tags },
         url: { $set: link(question) },
       });
     },
-    [connect, difficulties, feedback, link, subDimensions]
+    [add, connect, difficulties, feedback, link, remove, subDimensions]
   );
   const select = useCallback(
     (stack, current, ...meta) => {
@@ -147,7 +151,7 @@ export default ({
     return search({ criteria }).then(shape);
   }, [state.filters, format, search]);
   const shape = useCallback(
-    (entity) => (item) => connect({ details: normalize(item), entity }),
+    (entity) => (details) => connect({ details: normalize(details), entity }),
     [connect]
   );
   const filters = useMemo(

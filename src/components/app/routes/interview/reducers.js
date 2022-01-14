@@ -1,5 +1,11 @@
+import differenceBy from 'lodash/differenceBy';
 import findIndex from 'lodash/findIndex';
 import update from 'immutability-helper';
+
+export const add =
+  ({ questions }) =>
+  (state) =>
+    update(state, { questions: { $push: questions } });
 
 export const feedback =
   ({ question, score }) =>
@@ -26,3 +32,11 @@ export const prepare =
   ({ questions }) =>
   (state) =>
     update(state, { questions: { $set: questions } });
+
+export const remove = (data) => (state) => {
+  return update(state, {
+    questions: {
+      $apply: (questions) => differenceBy(questions, data.questions, 'id'),
+    },
+  });
+};

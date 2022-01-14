@@ -5,7 +5,9 @@ import { useNavigate, useParams } from 'react-router';
 import { useLatency } from 'hooks';
 import { useGet as useGetInterview } from 'hooks/services/interviews';
 import {
+  useAdd as useAddQuestions,
   useGet as useGetQuestions,
+  useRemove as useRemoveQuestions,
   useSearch as useSearchQuestions,
 } from 'hooks/services/interviews/questions';
 import { useGet as useGetDifficulties } from 'hooks/services/interviews/questions/difficulties';
@@ -25,12 +27,23 @@ export default () => {
   const navigate = useNavigate();
   const getDifficulties = useGetDifficulties();
   const getInterview = useGetInterview();
+  const addQuestion = useAddQuestions();
+  const removeQuestion = useRemoveQuestions();
   const getQuestions = useGetQuestions();
   const searchQuestions = useSearchQuestions();
   const getSubDimensions = useGetSubDimensions();
   const setQuestionScore = useSetQuestionScore();
   const setRequiredQuestions = useSetRequiredQuestions();
   const { pending: fetching, error, watch } = useLatency();
+  const go = useCallback(
+    () => navigate(`/interview/${params.interview}`),
+    [params.interview, navigate]
+  );
+  const link = useCallback(
+    (question) =>
+      `/interview/${params.interview}/question/${question.id}/${params['*']}`,
+    [params]
+  );
   const fetch = useCallback(() => {
     const retrieve = ([{ skills, ...details }, questions, difficulties]) => {
       const shape = (subDimensions) => {
@@ -69,6 +82,17 @@ export default () => {
     getSubDimensions,
     watch,
   ]);
+  const add = useCallback(
+    (question) => () => {
+      const questions = [question];
+      const persist = () => setState(reducers.add({ questions }));
+
+      return addQuestion({ interview: params.interview, questions }).then(
+        persist
+      );
+    },
+    [params.interview, addQuestion]
+  );
   const feedback = useCallback(
     ({ id }) =>
       ({ score }) => {
@@ -81,19 +105,22 @@ export default () => {
           score,
         }).then(persist);
       },
-    [params, setQuestionScore]
+    [params.interview, setQuestionScore]
+  );
+  const remove = useCallback(
+    (question) => () => {
+      const questions = [question];
+      const persist = () => setState(reducers.remove({ questions }));
+
+      return removeQuestion({ interview: params.interview, questions }).then(
+        persist
+      );
+    },
+    [params.interview, removeQuestion]
   );
   const highlight = useCallback(
     ({ id }) => isEqual(params.question, id),
     [params.question]
-  );
-  const go = useCallback(
-    () => navigate(`/interview/${params.interview}`),
-    [params.interview, navigate]
-  );
-  const link = useCallback(
-    ({ id }) => `/interview/${params.interview}/question/${id}/${params['*']}`,
-    [params]
   );
   const prepare = useCallback(() => {
     const retrieve = () => getQuestions({ interview: params.interview });
@@ -110,14 +137,16 @@ export default () => {
   const interview = useMemo(
     () =>
       update(state, {
+        add: { $set: add },
         feedback: { $set: feedback },
         go: { $set: go },
         highlight: { $set: highlight },
         link: { $set: link },
         prepare: { $set: prepare },
+        remove: { $set: remove },
         search: { $set: search },
       }),
-    [feedback, go, highlight, link, prepare, search, state]
+    [add, feedback, go, highlight, link, prepare, remove, search, state]
   );
 
   useEffect(() => void fetch(), [fetch]);

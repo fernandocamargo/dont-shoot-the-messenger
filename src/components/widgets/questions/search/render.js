@@ -1,9 +1,8 @@
 import { useCallback } from 'react';
 
-import Question from 'components/widgets/question';
-
 import use from './hooks';
 import Entity from './entity';
+import Question from './question';
 
 export const renderEntity = (entity, index) => (
   <Entity key={index} {...entity} />

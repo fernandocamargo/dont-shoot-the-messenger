@@ -1,10 +1,10 @@
 import isEqual from 'lodash/isEqual';
 import { useMemo } from 'react';
 
-import Question from 'components/widgets/question';
 import Tag from 'components/widgets/tag';
 
 import use from './hooks';
+import Question from './question';
 import Rate from './rate';
 import Search from './search';
 
