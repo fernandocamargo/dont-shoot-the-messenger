@@ -13,7 +13,7 @@ export default forwardRef((props, ref) => {
       <dl aria-busy={adding} aria-roledescription="add">
         <dt>Score</dt>
         <dd>
-          <Link onClick={onClick} title="Add this question" to={url}>
+          <Link onClick={onClick} title="Add this question" to={url.itself}>
             Add this question
           </Link>
         </dd>
@@ -22,7 +22,7 @@ export default forwardRef((props, ref) => {
         <h3>Actions:</h3>
         <ul>
           <li aria-roledescription="add">
-            <Link onClick={onClick} title="Add this question" to={url}>
+            <Link onClick={onClick} title="Add this question" to={url.itself}>
               Add this question
             </Link>
           </li>

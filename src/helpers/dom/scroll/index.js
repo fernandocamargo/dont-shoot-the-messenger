@@ -1,9 +1,8 @@
-export default ({ element, selector }) => {
+export default ({ anchor, element }) => {
   const {
-    offsetLeft: left,
-    offsetTop: top,
-    parentNode: parent,
-  } = element.closest(selector);
+    item: { offsetLeft: left, offsetTop: top },
+    items,
+  } = anchor(element);
 
-  return parent.scrollTo({ behavior: 'smooth', left, top });
+  return items.scrollTo({ behavior: 'smooth', left, top });
 };

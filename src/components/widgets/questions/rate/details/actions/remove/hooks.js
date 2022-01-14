@@ -5,7 +5,6 @@ export default ({ remove, ...props }) => {
   const { pending: removing, watch } = useLatency();
   const onClick = useCallback(
     (event) => {
-      event.preventDefault();
       watch(remove());
 
       return event;

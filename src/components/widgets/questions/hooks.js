@@ -84,7 +84,7 @@ export default ({
     [state.filters]
   );
   const format = useCallback(
-    ({ difficulty, skills, subDimension, ...question }) => {
+    ({ difficulty, skills, subDimension, ...question }, ...meta) => {
       const { dimension } =
         find(subDimensions, { id: get(subDimension, 'id') }) || {};
       const tags = (
@@ -113,7 +113,7 @@ export default ({
         ref: { $set: createRef() },
         remove: { $set: remove(question) },
         tags: { $set: tags },
-        url: { $set: link(question) },
+        url: { $set: link(question, ...meta) },
       });
     },
     [add, connect, difficulties, feedback, link, remove, subDimensions]

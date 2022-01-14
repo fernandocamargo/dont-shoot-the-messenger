@@ -17,7 +17,7 @@ export default forwardRef((props, ref) => {
       <dl aria-roledescription="score">
         <dt>Score</dt>
         <dd>
-          <NavLink title="Change score" to={url}>
+          <NavLink title="Change score" to={url.itself}>
             <Score />
           </NavLink>
         </dd>
@@ -26,7 +26,7 @@ export default forwardRef((props, ref) => {
         <h3>Actions:</h3>
         <ul>
           <li aria-roledescription="view">
-            <NavLink title="See question" to={url}>
+            <NavLink title="See question" to={url.itself}>
               See question
             </NavLink>
           </li>

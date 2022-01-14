@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import use from './hooks';
 
 export default ({ className, ...props }) => {
-  const { dangerouslySetInnerHTML, expandable, expanded, ref, toogle } =
+  const { dangerouslySetInnerHTML, expandable, expanded, ref, toogle, url } =
     use(props);
   const action = useMemo(
     () => `Show ${expanded ? 'less' : 'more'}`,
@@ -21,7 +21,7 @@ export default ({ className, ...props }) => {
           <h3>Actions:</h3>
           <ul>
             <li>
-              <a href="/" onClick={toogle} title={action}>
+              <a href={url} onClick={toogle} title={action}>
                 {action}
               </a>
             </li>

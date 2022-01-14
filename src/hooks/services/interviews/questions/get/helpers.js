@@ -12,20 +12,3 @@ export const normalize = ({ id, name, title }) => ({
   label: title || name,
   id,
 });
-
-/*
-          tags: {
-            $set: convert({
-              difficulty: {
-                id: difficulty,
-                name: {
-                  DifficultyEasy: 'Easy',
-                  DifficultyMedium: 'Medium',
-                  DifficultyHard: 'Hard',
-                }[difficulty],
-              },
-              skill: get(skills, 'skill'),
-              'sub-dimension': subDimension,
-            }),
-          },
-*/
