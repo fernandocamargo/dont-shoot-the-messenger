@@ -18,6 +18,8 @@ export const getBackgroundColor = ({ score }) =>
 export default (component) => styled(component)`
   & > {
     dl {
+      z-index: 1;
+
       &[aria-roledescription='score'] {
         display: flex;
         justify-content: flex-end;

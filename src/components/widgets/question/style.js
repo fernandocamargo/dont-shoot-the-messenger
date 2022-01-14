@@ -8,7 +8,6 @@ export default (component) => styled(component)`
   & > {
     dl {
       position: relative;
-      z-index: 1;
 
       & > {
         dt {
