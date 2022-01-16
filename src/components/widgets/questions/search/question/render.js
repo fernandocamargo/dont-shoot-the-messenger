@@ -6,11 +6,11 @@ import Question from 'components/widgets/question';
 import use from './hooks';
 
 export default forwardRef((props, ref) => {
-  const { adding, onClick, url, ...question } = use(props, ref);
+  const { saving, onClick, url, ...question } = use(props, ref);
 
   return (
     <Question ref={ref} {...question}>
-      <dl aria-busy={adding} aria-roledescription="add">
+      <dl aria-busy={saving} aria-roledescription="save">
         <dt>Score</dt>
         <dd>
           <Link onClick={onClick} title="Add this question" to={url.itself}>
@@ -18,10 +18,10 @@ export default forwardRef((props, ref) => {
           </Link>
         </dd>
       </dl>
-      <nav aria-busy={adding}>
+      <nav aria-busy={saving}>
         <h3>Actions:</h3>
         <ul>
-          <li aria-roledescription="add">
+          <li aria-roledescription="save">
             <Link onClick={onClick} title="Add this question" to={url.itself}>
               Add this question
             </Link>

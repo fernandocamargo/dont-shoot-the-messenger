@@ -18,8 +18,8 @@ export default ({
   const [state, setState] = useState(reducers.getInitialState());
   const { pending: fetching, watch } = useLatency();
   const fetch = useCallback(() => {
-    const persist = (results = []) => [
-      setState(reducers.set({ results })),
+    const persist = (data) => [
+      setState(reducers.set(data)),
       focus(ref.current),
     ];
     const clear = () => persist();
@@ -89,13 +89,13 @@ export default ({
   useEffect(() => () => window.clearTimeout(timeout.current));
 
   return {
+    ...props,
+    ...state,
     close,
     fetching,
     onChange,
     onReset,
     onSubmit,
     ref,
-    ...props,
-    ...state,
   };
 };

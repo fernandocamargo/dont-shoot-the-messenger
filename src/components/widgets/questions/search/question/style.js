@@ -6,7 +6,7 @@ import { rotate } from 'style/animations';
 export default (component) => styled(component)`
   & > {
     dl {
-      &[aria-roledescription='add'] {
+      &[aria-roledescription='save'] {
         display: flex;
         justify-content: flex-end;
         position: absolute;
@@ -41,7 +41,7 @@ export default (component) => styled(component)`
             width: 100%;
 
             &:after {
-              content: 'add';
+              content: '${({ active }) => (active ? 'close' : 'add')}';
               font-family: ${property('theme.typography.icons')};
               font-size: 1.75rem;
               font-weight: 900;
@@ -69,7 +69,7 @@ export default (component) => styled(component)`
 
       &[aria-busy='true'] {
         li {
-          &[aria-roledescription='add'] {
+          &[aria-roledescription='save'] {
             a {
               pointer-events: none;
             }
@@ -82,7 +82,7 @@ export default (component) => styled(component)`
       }
 
       li {
-        &[aria-roledescription='add'] {
+        &[aria-roledescription='save'] {
           a {
             display: block;
             height: 100%;

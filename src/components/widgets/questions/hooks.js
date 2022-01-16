@@ -17,6 +17,7 @@ export default ({
   dimensions,
   feedback,
   highlight,
+  indexes,
   link,
   questions,
   remove,
@@ -85,6 +86,9 @@ export default ({
   );
   const format = useCallback(
     ({ difficulty, skills, subDimension, ...question }, ...meta) => {
+      const {
+        questions: { [question.id]: active = false },
+      } = indexes;
       const { dimension } =
         find(subDimensions, { id: get(subDimension, 'id') }) || {};
       const tags = (
@@ -108,6 +112,7 @@ export default ({
         .map(connect);
 
       return update(question, {
+        active: { $set: active },
         add: { $set: add(question) },
         feedback: { $set: feedback(question) },
         ref: { $set: createRef() },
@@ -116,7 +121,7 @@ export default ({
         url: { $set: link(question, ...meta) },
       });
     },
-    [add, connect, difficulties, feedback, link, remove, subDimensions]
+    [add, connect, difficulties, feedback, indexes, link, remove, subDimensions]
   );
   const select = useCallback(
     (stack, current, ...meta) => {

@@ -19,7 +19,7 @@ import {
 } from 'hooks/services/interviews/questions/set';
 import { useGet as useGetSubDimensions } from 'hooks/services/sub-dimensions';
 
-import { extract } from './helpers';
+import { categorize, extract } from './helpers';
 import * as reducers from './reducers';
 
 export default () => {
@@ -35,31 +35,6 @@ export default () => {
   const setQuestionScore = useSetQuestionScore();
   const setRequiredQuestions = useSetRequiredQuestions();
   const { pending: fetching, error, watch } = useLatency();
-  const link = useCallback(
-    (itself, index, siblings) => {
-      const { '*': fragments } = params;
-      const limits = { beginning: 0, end: siblings.length - 1 };
-      const targets = { previous: index - 1, next: index + 1 };
-      const previous = get(siblings, targets.previous, siblings[limits.end]);
-      const next = get(siblings, targets.next, siblings[limits.beginning]);
-      const reference = (question) =>
-        [
-          `/interview/${params.interview}`,
-          !!question && `/question/${question.id}`,
-          !!fragments && `/${fragments}`,
-        ]
-          .filter(Boolean)
-          .join('');
-
-      return {
-        interview: reference(),
-        itself: reference(itself),
-        next: reference(next),
-        previous: reference(previous),
-      };
-    },
-    [params]
-  );
   const fetch = useCallback(() => {
     const retrieve = ([{ skills, ...details }, questions, difficulties]) => {
       const shape = (subDimensions) => {
@@ -123,6 +98,31 @@ export default () => {
       },
     [params.interview, setQuestionScore]
   );
+  const link = useCallback(
+    (itself, index, siblings) => {
+      const { '*': fragments } = params;
+      const limits = { beginning: 0, end: siblings.length - 1 };
+      const targets = { previous: index - 1, next: index + 1 };
+      const previous = get(siblings, targets.previous, siblings[limits.end]);
+      const next = get(siblings, targets.next, siblings[limits.beginning]);
+      const reference = (question) =>
+        [
+          `/interview/${params.interview}`,
+          !!question && `/question/${question.id}`,
+          !!fragments && `/${fragments}`,
+        ]
+          .filter(Boolean)
+          .join('');
+
+      return {
+        interview: reference(),
+        itself: reference(itself),
+        next: reference(next),
+        previous: reference(previous),
+      };
+    },
+    [params]
+  );
   const remove = useCallback(
     (question) => () => {
       const questions = [question];
@@ -150,19 +150,20 @@ export default () => {
     ({ criteria }) => searchQuestions({ criteria }),
     [searchQuestions]
   );
-  const interview = useMemo(
-    () =>
-      update(state, {
-        add: { $set: add },
-        feedback: { $set: feedback },
-        highlight: { $set: highlight },
-        link: { $set: link },
-        prepare: { $set: prepare },
-        remove: { $set: remove },
-        search: { $set: search },
-      }),
-    [add, feedback, highlight, link, prepare, remove, search, state]
-  );
+  const interview = useMemo(() => {
+    const indexes = categorize(state);
+
+    return update(state, {
+      add: { $set: add },
+      feedback: { $set: feedback },
+      highlight: { $set: highlight },
+      indexes: { $set: indexes },
+      link: { $set: link },
+      prepare: { $set: prepare },
+      remove: { $set: remove },
+      search: { $set: search },
+    });
+  }, [add, feedback, highlight, link, prepare, remove, search, state]);
 
   useEffect(() => void fetch(), [fetch]);
 
